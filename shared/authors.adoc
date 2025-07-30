@@ -143,6 +143,10 @@
 :alonso-email: alonso@FreeBSD.org
 :alonso: {alonso-name} <{alonso-email}>
 
+:alven-name: Älven
+:alven-email: alven@FreeBSD.org
+:alven: {alven-name} <{alven-email}>
+
 :am-name: Atul Mukker
 :am-email: am@FreeBSD.org
 :am: {am-name} <{am-email}>
@@ -206,6 +210,10 @@
 :antoine-name: Antoine Brodin
 :antoine-email: antoine@FreeBSD.org
 :antoine: {antoine-name} <{antoine-email}>
+
+:aokblast-name: ShengYi Hung
+:aokblast-email: aokblast@FreeBSD.org
+:aokblast: {aokblast-name} <{aokblast-email}>
 
 :araujo-name: Marcelo Araujo
 :araujo-email: araujo@FreeBSD.org
@@ -2539,6 +2547,10 @@
 :nyan-email: nyan@FreeBSD.org
 :nyan: {nyan-name} <{nyan-email}>
 
+:obiwac-name: Aymeric Wibo
+:obiwac-email: obiwac@FreeBSD.org
+:obiwac: {obiwac-name} <{obiwac-email}>
+
 :obraun-name: Oliver Braun
 :obraun-email: obraun@FreeBSD.org
 :obraun: {obraun-name} <{obraun-email}>
@@ -3773,7 +3785,7 @@
 :core-secretary-email: core-secretary@FreeBSD.org
 
 // FreeBSD Doc Engineering Team
-:doceng-members: {blackend}, {fernape}, {hrs}, {ebrandi} (lurker)
+:doceng-members: {blackend}, {hrs}, {ebrandi}
 :doceng-secretary-email: <doceng-secretary@FreeBSD.org>
 
 // FreeBSD Donations Liaison
@@ -3790,8 +3802,8 @@
 
 // FreeBSD Release Engineering Teams
 :re: re@FreeBSD.org
-:re-members: {kib}, {dch}, {blackend}, {jhixson}, {delphij}, {emaste}, {mmokhi}, {cperciva}, {dfr}, {bofh}
-:re-members-email: {kib-email}, {dch-email}, {blackend-email}, {jhixson-email}, {delphij-email}, {emaste-email}, {mmokhi-email}, {cperciva-email}, {dfr-email}, {bofh-email}
+:re-members: {dch}, {blackend}, {jfree}, {delphij}, {emaste}, {mmokhi}, {cperciva}, {bofh}
+:re-members-email: {dch-email}, {blackend-email}, {jfree-email}, {delphij-email}, {emaste-email}, {mmokhi-email}, {cperciva-email}, {bofh-email}
 
 // FreeBSD Security Officer
 :so: {gordon}

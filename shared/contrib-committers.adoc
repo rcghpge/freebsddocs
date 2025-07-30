@@ -11,7 +11,6 @@
 * {jwb}
 * {badger}
 * {dbaio}
-* {timur}
 * {jhb}
 * {lbartoletti}
 * {jbeich}
@@ -114,7 +113,6 @@
 * {gibbs}
 * {girgen}
 * {grembo}
-* {trociny}
 * {danilo}
 * {sg}
 * {grehan}
@@ -143,6 +141,7 @@
 * {whu}
 * {zlei}
 * {jkh}
+* {aokblast}
 * {shurd}
 * {rhurlin}
 * {davide}
@@ -167,6 +166,7 @@
 * {jkim}
 * {akiyano}
 * {jceel}
+* {ronald}
 * {kai}
 * {corvink}
 * {wulf}
@@ -214,7 +214,7 @@
 * {dwmalone}
 * {nobutaka}
 * {amdmi3}
-* {kwm}
+* {christos}
 * {emaste}
 * {mm}
 * {slavash}
@@ -248,6 +248,7 @@
 * {gnn}
 * {khng}
 * {tychon}
+* {bnovkov}
 * {obrien}
 * {nick}
 * {olgeni}
@@ -302,6 +303,7 @@
 * {samm}
 * {hrs}
 * {salvadore}
+* {dsl}
 * {rscheff}
 * {wosch}
 * {cy}
@@ -377,6 +379,7 @@
 * {naddy}
 * {peter}
 * {nwhitehorn}
+* {obiwac}
 * {bwidawsk}
 * {rew}
 * {ivy}
@@ -395,9 +398,6 @@
 * {zec}
 * {bz}
 * {mizhka}
-* {tz}
-* {dsl}
-* {ronald}
-* {christos}
-* {bnovkov}
 * {ziaee}
+* {tz}
+* {alven}

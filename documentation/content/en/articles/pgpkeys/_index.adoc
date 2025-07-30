@@ -1431,6 +1431,9 @@ include::{include-path}peter.key[]
 === `{nwhitehorn}`
 include::{include-path}nwhitehorn.key[]
 
+=== `{obiwac}`
+include::{include-path}obiwac.key[]
+
 === `{miwi}`
 include::{include-path}miwi.key[]
 
@@ -1517,6 +1520,9 @@ include::{include-path}khorben.key[]
 
 === `{vexeduxr}`
 include::{include-path}vexeduxr.key[]
+
+=== `{alven}`
+include::{include-path}alven.key[]
 
 [[pgpkeys-other]]
 == Other Cluster Account Holders

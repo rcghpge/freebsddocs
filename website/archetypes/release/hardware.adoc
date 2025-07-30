@@ -332,6 +332,8 @@ EISA adapters are not supported.
 
 &hwlist.tws;
 
+&hwlist.ufshci;
+
 &hwlist.vpo;
 
 With all supported SCSI controllers, full support is provided for SCSI-I, SCSI-II, and SCSI-III peripherals, including hard disks, optical disks, tape drives (including DAT, 8mm Exabyte, Mammoth, and DLT), medium changers, processor target devices and CD-ROM drives.
@@ -578,6 +580,8 @@ The *ukswitch* driver is designed to support potentially unknown Ethernet Switch
 
 Marvell 88W8363 IEEE 802.11n wireless network adapters (man:mwl[4] driver)
 
+&hwlist.mtw;
+
 &hwlist.otus;
 
 &hwlist.ral;
@@ -634,9 +638,27 @@ Marvell 88W8363 IEEE 802.11n wireless network adapters (man:mwl[4] driver)
 
 &hwlist.uark;
 
+&hwlist.ubsa;
+
+&hwlist.ubser;
+
 &hwlist.uchcom;
 
 &hwlist.ucycom;
+
+&hwlist.uftdi;
+
+&hwlist.umcs;
+
+&hwlist.umct;
+
+&hwlist.umoscom;
+
+&hwlist.uplcom;
+
+&hwlist.uslcom;
+
+&hwlist.uvscom;
 
 [[sound]]
 === Sound Devices
@@ -693,6 +715,8 @@ Marvell 88W8363 IEEE 802.11n wireless network adapters (man:mwl[4] driver)
 
 &hwlist.snd_t4dwave;
 
+&hwlist.snd_uaudio;
+
 &hwlist.snd_via8233;
 
 &hwlist.snd_via82c686;
@@ -714,17 +738,13 @@ Owing to the generic nature of most USB devices, with some exceptions any device
 
 [NOTE]
 ====
-USB network interfaces can be found in <<ethernet,Ethernet Interfaces>> or <<wlan,Wireless Network Interfaces>>.
-====
-
-[NOTE]
-====
 USB Bluetooth adapters can be found in <<bluetooth,Bluetooth>>.
-====
 
-[NOTE]
-====
 USB human interface devices can be found in <<misc,Miscellaneous>>.
+
+USB network interfaces can be found in <<ethernet,Ethernet Interfaces>> or <<wlan,Wireless Network Interfaces>>.
+
+USB serial interfaces can be found in <<serial,Serial Interfaces>>.
 ====
 
 Altera University Program Secure Data Card IP Core (man:altera_sdcard[4] driver)
@@ -767,25 +787,9 @@ Altera University Program Secure Data Card IP Core (man:altera_sdcard[4] driver)
 
 &hwlist.ulpt;
 
-&hwlist.ubsa;
-
-&hwlist.ubser;
-
-&hwlist.uftdi;
-
-&hwlist.uplcom;
-
-&hwlist.umcs;
-
 &hwlist.umct;
 
-[amd64, i386] Audio Devices (man:uaudio[4] driver)
-
-&hwlist.uslcom;
-
 &hwlist.uvisor;
-
-&hwlist.uvscom;
 
 &hwlist.xhci;
 

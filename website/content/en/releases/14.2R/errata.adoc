@@ -48,6 +48,7 @@ For a list of all FreeBSD CERT security advisories, see https://www.FreeBSD.org/
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-25:03.etcupdate.asc[FreeBSD-SA-25:03.etcupdate] |29 January 2025 |Unprivileged access to system files
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-25:04.ktrace.asc[FreeBSD-SA-25:04.ktrace] |29 January 2025 |Uninitialized kernel memory disclosure via ktrace(2)
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-25:05.openssh.asc[FreeBSD-SA-25:05.openssh] |21 February 2025 |Multiple vulnerabilities in OpenSSH
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-25:06.xz.asc[FreeBSD-SA-25:06.xz] |2 July 2025 |Use-after-free in multi-threaded xz decoder
 |===
 
 [[errata]]
@@ -63,6 +64,9 @@ For a list of all FreeBSD CERT security advisories, see https://www.FreeBSD.org/
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-25:06.daemon.asc[FreeBSD-EN-25:06.daemon] |10 April 2025 |daemon(8) missing signals
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-25:07.openssl.asc[FreeBSD-EN-25:07.openssl] |10 April 2025 |Update OpenSSL to 3.0.16
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-25:08.caroot.asc[FreeBSD-EN-25:08.caroot] |10 April 2025 |Root certificate bundle update
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-25:09.libc.asc[FreeBSD-EN-25:09.libc] |2 July 2025 |Dynamically-loaded C++ libraries crashing at exit
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-25:10.zfs.asc[FreeBSD-EN-25:10.zfs] |2 July 2025 |Corruption in ZFS replication streams from encrypted datasets
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-25:11.ena.asc[FreeBSD-EN-25:11.ena] |2 July 2025 |ena resets and kernel panic on Nitro v4 or newer instances
 |===
 
 [[open-issues]]

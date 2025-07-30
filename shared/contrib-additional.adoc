@@ -1990,6 +1990,7 @@
 * Sergey V. Dyatko <mailto:sergey.dyatko@gmail.com[sergey.dyatko@gmail.com]>
 * Sergey Gershtein <mailto:sg@mplik.ru[sg@mplik.ru]>
 * Sergey Glushchenko <mailto:deen@smz.com.ua[deen@smz.com.ua]>
+* Sergey Kiselev <mailto:root@dc365.ru[root@dc365.ru]>
 * Sergey Kosyakov <mailto:ks@itp.ac.ru[ks@itp.ac.ru]>
 * Sergey Lyubka <mailto:valenok@gmail.com[valenok@gmail.com]>
 * Sergey Matveev <mailto:stargrave@stargrave.org[stargrave@stargrave.org]>
@@ -2292,6 +2293,7 @@
 * Vladimir A. Jakovenko <mailto:vovik@ntu-kpi.kiev.ua[vovik@ntu-kpi.kiev.ua]>
 * Vladimir Chukharev <mailto:vladimir.chukharev@gmail.com[vladimir.chukharev@gmail.com]>
 * Vladimir Gorelov <mailto:virtual.lark@gmail.com[virtual.lark@gmail.com]>
+* Vladimir Grebenshchikov <mailto:vova@zote.me[vova@zote.me]>
 * Vladimir Kurtikov <mailto:vk@vk.pp.ru[vk@vk.pp.ru]>
 * Vladimir Kushnir <mailto:kushn@mail.kar.net[kushn@mail.kar.net]>
 * Vladimir Osintsev <mailto:oc@nm.ru[oc@nm.ru]>
