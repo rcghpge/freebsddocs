@@ -37,6 +37,11 @@ jobs:
         git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git merge upstream/main || echo "No upstream changes to merge"
 
+    - name: Pull latest changes with rebase
+      run: |
+        git fetch origin
+        git rebase origin/main
+
     - name: Push updates to fork
       run: |
         git push origin main
