@@ -2,7 +2,7 @@
 
 [![Docs Uptime](https://github.com/rcghpge/freebsddocs/actions/workflows/sync-upstream.yml/badge.svg)](https://github.com/rcghpge/freebsddocs/actions/workflows/sync-upstream.yml)
 
-## FreeBSD Documentation Toolchain
+### FreeBSD Documentation Toolchain
 
 If you plan on building a local copy of the FreeBSD documentation or using  
 our toolchain in your own projects, please refer to the **FreeBSD Documentation Primer**:
