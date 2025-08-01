@@ -2,8 +2,8 @@ name: Docs Uptime
 
 on:
   schedule:
-  # Runs at midnight 00:00 UTC every Friday
-  - cron: '0 0 * * 5'
+    # Runs at midnight 00:00 UTC every Friday
+    - cron: '0 0 * * 5'
   workflow_dispatch: {}
 
 permissions:
@@ -31,16 +31,9 @@ jobs:
         git remote add upstream https://github.com/freebsd/freebsd-doc.git
         git fetch upstream
 
-    - name: Merge upstream changes
+    - name: Rebase fork onto upstream
       run: |
-        git config user.name "github-actions[bot]"
-        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        git merge upstream/main || echo "No upstream changes to merge"
-
-    - name: Pull latest changes with rebase
-      run: |
-        git fetch origin
-        git rebase origin/main
+        git rebase upstream/main
 
     - name: Push updates to fork
       run: |
