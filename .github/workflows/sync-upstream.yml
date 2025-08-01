@@ -1,8 +1,9 @@
-name: Modular Community Dev Uptime
+name: Docs Uptime
 
 on:
   schedule:
-    - cron: '0 0 * * 5'  # Runs every Friday at midnight UTC
+    # Runs at midnight 00:00 UTC every Friday
+    - cron: '0 0 * * 5'
   workflow_dispatch: {}
 
 permissions:
@@ -13,90 +14,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout fork
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+    - name: Checkout fork
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        persist-credentials: false  
 
-      - name: Set up GitHub credentials
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+    - name: Set up GitHub credentials
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
-      - name: Add upstream remote and fetch
-        run: |
-          git remote add upstream https://github.com/modular/modular-community.git
-          git fetch upstream
-          git checkout main
+    - name: Add upstream remote and fetch updates
+      run: |
+        git remote add upstream https://github.com/freebsd/freebsd-doc.git
+        git fetch upstream
+        git checkout main
 
-      - name: Merge upstream main
-        id: merge_step
-        continue-on-error: true
-        run: |
-          git merge upstream/main
+    - name: Merge from upstream
+      id: full_merge
+      continue-on-error: true
+      run: |
+        git merge upstream/main
 
-      - name: Fallback to fast-forward if merge fails
-        if: steps.merge_step.outcome != 'success'
-        run: |
-          echo "⚠️ Full merge failed. Trying fast-forward..."
-          git merge --ff-only upstream/main
+    - name: Fallback to fast-forward only if merge fails
+      if: steps.full_merge.outcome != 'success'
+      run: |
+        echo "⚠️ Full merge failed. Attempting fast-forward merge..."
+        git merge --ff-only upstream/main
 
-      - name: Push updates to fork
-        run: git push origin main
-
-      - name: Debug state
-        run: |
-          echo "✅ Branch: $(git branch --show-current)"
-          ls -alh
-          env | sort
-
-  validate:
-    needs: sync
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout synced repo
-        uses: actions/checkout@v4
-
-      - name: Install Pixi (from prefix.dev)
-        run: |
-          curl -fsSL https://prefix.dev/install.sh | bash
-          echo "$HOME/.pixi/bin" >> $GITHUB_PATH
-          export PATH="$HOME/.pixi/bin:$PATH"
-          pixi --version
-
-      - name: Set up Pixi environment
-        run: |
-          pixi install
-          pixi run which python
-          pixi run python --version
-
-      - name: Run pre-commit via Pixi
-        run: |
-          pip install pre-commit
-          pre-commit install
-          pixi run pre-commit run --all-files || true
-
-      - name: Build documentation (Sphinx or MkDocs)
-        run: |
-          if [ -f mkdocs.yml ]; then
-            pip install mkdocs
-            mkdocs build || true
-          elif [ -f docs/conf.py ]; then
-            pip install sphinx
-            sphinx-build -b html docs docs/_build || true
-          else
-            echo "⚠️ No docs found to build"
-          fi
-
-      - name: Attempt package build
-        run: |
-          if [ -f pyproject.toml ]; then
-            pip install build
-            python -m build || true
-          elif [ -f setup.py ]; then
-            python setup.py sdist bdist_wheel || true
-          else
-            echo "⚠️ No packaging config found. Skipping."
-          fi
+    - name: Push updates to fork
+      run: |
+        git push origin main
