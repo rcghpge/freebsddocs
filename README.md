@@ -4,8 +4,8 @@
 
 ### FreeBSD Documentation Toolchain
 
-This repository is a **mirror of the official [freebsd/freebsd-doc](https://github.com/freebsd/freebsd-doc)** repository, kept in sync regularly to support community dev.
-If you plan to build a local copy of the FreeBSD documentation or utilize the toolchain in your projects, please refer to the community's **FreeBSD Documentation Primer**:
+This repository is a mirror of the official [freebsd/freebsd-doc](https://github.com/freebsd/freebsd-doc) repository, kept in sync regularly to support community dev.
+If you plan to build a local copy of the FreeBSD documentation or utilize the toolchain in your projects, please refer to the community's FreeBSD Documentation Primer:
 
 📘 **Documentation Primer:**  
 https://docs.freebsd.org/en/books/fdp-primer/
