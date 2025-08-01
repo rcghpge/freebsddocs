@@ -26,19 +26,19 @@ jobs:
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
-    - name: Add upstream remote and fetch
+    - name: Add upstream remote and fetch updates
       run: |
         git remote add upstream https://github.com/freebsd/freebsd-doc.git
         git fetch upstream
         git checkout main
 
-    - name: Attempt full merge from upstream
+    - name: Merge from upstream docs
       id: full_merge
       continue-on-error: true
       run: |
         git merge upstream/main
 
-    - name: Fallback to fast-forward only if full merge fails
+    - name: Fallback to fast-forward only if merge fails
       if: steps.full_merge.outcome != 'success'
       run: |
         echo "⚠️ Full merge failed. Attempting fast-forward merge..."
