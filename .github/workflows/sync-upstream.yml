@@ -3,6 +3,7 @@ name: Docs Uptime
 on:
   schedule:
     # Runs at midnight 00:00 UTC every Friday
+    # Thursday 6:00 PM CST/7:00 PM CDT
     - cron: '0 0 * * 5'
   workflow_dispatch: {}
 
