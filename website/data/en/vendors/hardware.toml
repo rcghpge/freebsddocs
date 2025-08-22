@@ -1,5 +1,4 @@
 # Sort the entries by name
-# $FreeBSD$
 
 [[hardware]]
 id = "ABMX"
@@ -34,7 +33,7 @@ description = "Aspen Systems is based out of Wheat Ridge, CO and has been in bus
 [[hardware]]
 id = "atto"
 name = "ATTO Technology"
-url = "http://www.attotech.com"
+url = "https://www.atto.com/"
 description = "For over 25 years, ATTO Technology, Inc. has been a global leader in storage and network connectivity and infrastructure solutions for data-intensive computing environments. ATTO manufactures Host Bus Adapters, RAID adapters, network adapters, RAID storage controllers, Thunderbolt-enabled Desklink devices, bridges, switches and software. ATTO's Celerity 16Gb Fibre Channel adapters, ExpressSAS 12Gb SAS/SATA HBAs and SAN Storage Controllers all support 9.3 and 10.x operating systems."
 
 [[hardware]]
@@ -48,12 +47,6 @@ id = "CoreSystems"
 name = "Core Systems"
 url = "https://core-systems.com"
 description = "Core Systems is a global leader in Rugged Computers and Rugged Displays for military and industrial needs based out of California. We build rugged products that are deployed in ground vehicles, aircraft, and maritime installations worldwide."
-
-[[hardware]]
-id = "CoyotePointSystems"
-name = "Coyote Point Systems"
-url = "http://www.coyotepoint.com/"
-description = "Coyote Point Systems offers the Equalizer Load Balancing Appliance. Equalizer distributes client UDP/TCP requests to multiple server machines and includes load balancing, server failure detection/correction, and an easy-to-use administrative interface. Capable of handling over 20,000 HTTP GET operations per minute, Equalizer enhances the Scalability, Availability and Manageability of any server cluster. Equalizer works with all standard protocols, including: HTTP, FTP, POP, SMTP, DNS, etc. Equalizer is based on the FreeBSD kernel."
 
 [[hardware]]
 id = "DAVICOM"
@@ -100,7 +93,7 @@ description = "MOXA makes attractively priced multi-port serial cards which are 
 [[hardware]]
 id = "Netgate"
 name = "Netgate"
-url = "http://store.netgate.com/"
+url = "https://shop.netgate.com/"
 description = "Netgate is a high quality communications appliance manufacturer that designs highly configurable computers engineered for low-power, high-throughput, dependable deployments. We offer quick deployment with off-the-shelf systems, specialized custom product solutions and an end-to-end OEM service program for large customers. <p>Netgate directly supports Open Source software and Open Source hardware projects by providing management, engineering and support resources for the pfSense project.</p>"
 
 [[hardware]]
@@ -108,12 +101,6 @@ id = "iXsystems"
 name = "iXsystems"
 url = "http://www.iXsystems.com/"
 description = "iXsystems (formerly OffMyServer) provides FreeBSD and Linux-based Internet infrastructure-grade rackmount servers, network appliances, enterprise blade servers, and storage products to a global market. We use only the best quality components and do the required testing in advance - knowing that you are going to run your mission-critical applications on our servers. We are confident that you will appreciate our approach - give us an opportunity to server you! Send us an email at <a href=\"mailto:info@iXsystems.com\">info@iXsystems.com</a>."
-
-[[hardware]]
-id = "OrbitMicro"
-name = "Orbit Micro"
-url = "http://www.orbitmicro.com/"
-description = "Orbit Micro is a system integrator of servers, workstations, industrial computers and networking products. Our application design approach allows us to maximize performance for your computing needs. Our products line also includes a vareity of computer components and peripherals as well as software. Contact us at <a href=\"mailto:sales@orbitmicro.com\">sales@orbitmicro.com</a> to speak to a sales engineer or if you have questions or comments."
 
 [[hardware]]
 id = "PCW"
@@ -140,21 +127,9 @@ url = "http://www.perle.com/"
 description = "Perle Specialix makes a wide variety of multi-port async serial expansion products. The ISA, EISA, and PCI SI/XIO host cards work under FreeBSD, using the <em>si</em> driver."
 
 [[hardware]]
-id = "serveru"
-name = "ServerU Inc."
-url = "https://www.serveru.us/en/"
-description = "We make Server hardware for open source flavors of Unix-like systems. ServerU is a joint effort of FreeBSD specialist company with more than 15 years expertise, and ServerU itself, a US company based on Miami, FL. We focus on designing and making rack-mount 1U networking appliances completely supported by open source Unix-like systems. We make hardware supported and certified for FreeBSD, OpenBSD and Linux. We also focus on ProApps, pfSense, Vyatta (VyOS), Endian and other systems, as well as Juniper, Brocade and other networking products accelerated by Netmap and DPDK technologies. Se offer FreeBSD consulting, support and services on US east cost and Caribbean."
-
-[[hardware]]
-id = "StoreAnyWhere"
-name = "StoreAnyWhere.com"
-url = "http://StoreAnyWhere.com/"
-description = "StoreAnyWhere.com offers a wide range of high-performance and cost-effective quad- and dual-processor servers, workstations, and networking products with FreeBSD and Linux as their operating systems. Just go to our website for servers in a variety of configurations or custom-made systems."
-
-[[hardware]]
 id = "SWTechnology"
 name = "SW Technology"
-url = "http://freebsd.swt.com/"
+url = "https://www.swt.com/"
 description = "SW Technology offers quality Pentium machines with FreeBSD pre-installed."
 
 [[hardware]]
@@ -162,12 +137,6 @@ id = "Synetic"
 name = "Synetic, Inc."
 url = "http://www.synetic.net/"
 description = "Synetic Inc. is a Canadian and North American distributor for IDE-to-IDE, SCSI-to-IDE and SCSI-to-SCSI RAID controllers, supporting the FreeBSD platform."
-
-[[hardware]]
-id = "Zantech"
-name = "Zantech KVM Australia"
-url = "http://www.zantech.com.au/"
-description = "Zantech KVM Australia is an Australian distributor of FreeBSD compatible KVM switches, KVM over IP products and serial console terminal servers."
 
 [[hardware]]
 id = "NCSTechnologies"
@@ -213,9 +182,9 @@ description = "Server Racks Online computer rack superstore. At Server Racks Onl
 
 [[hardware]]
 id = "CPTechnologies"
-name = "CP Technologies"
-url = "https://cp-techusa.com/"
-description = "CP Technologies designs, fabricates and integrates standard and custom high-performance computing platforms, data links, and LCD displays for military, industrial, and commercial markets."
+name = "CP North America"
+url = "https://cpnorthamerica.com/"
+description = "CP North America designs, fabricates and integrates standard and custom high-performance computing platforms, data links, and LCD displays for military, industrial, and commercial markets."
 
 [[hardware]]
 id = "servaris"
@@ -228,12 +197,6 @@ id = "thinkpenguin"
 name = "ThinkPenguin"
 url = "https://www.thinkpenguin.com"
 description = "ThinkPenguin specializes in supporting free software operating systems via one of the largest hardware catalogs in the world. We stock a wide array of computers, peripherals, and accessories. What sets us apart is our devotion to improving hardware support for free software operating systems and ensuring that hardware can be properly and natively supported by the FreeBSD community."
-
-[[hardware]]
-id = "bargainhardware"
-name = "Bargain Hardware"
-url = "https://www.bargainhardware.co.uk"
-description = "Bargain Hardware supply a huge variety of refurbished desktops and laptops, all of which are offered with FreeBSD OS installation as an option on the website configurator. Server and Workstation installation is also available by request of our sales team."
 
 [[hardware]]
 id = "minifree"
