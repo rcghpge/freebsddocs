@@ -49,6 +49,7 @@
 * {loader}
 * {melifaro}
 * {theraven}
+* {jaeyoon}
 * {davidcs}
 * {jrtc27}
 * {marcus}
@@ -277,6 +278,7 @@
 * {0mp}
 * {pizzamig}
 * {rpokala}
+* {vladlen}
 * {arrowd}
 * {khorben}
 * {kp}
