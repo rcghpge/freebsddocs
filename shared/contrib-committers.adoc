@@ -109,6 +109,7 @@
 * {ultima}
 * {gallatin}
 * {avg}
+* {tiga}
 * {beat}
 * {sjg}
 * {gibbs}
@@ -394,6 +395,7 @@
 * {yongari}
 * {rcyu}
 * {oshogbo}
+* {andy}
 * {riggs}
 * {egypcio}
 * {zec}

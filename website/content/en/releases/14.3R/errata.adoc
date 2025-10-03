@@ -45,6 +45,7 @@ For a list of all FreeBSD CERT security advisories, see https://www.FreeBSD.org/
 |===
 |Advisory |Date |Topic
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-25:07.libarchive.asc[FreeBSD-SA-25:07.libarchive] |8 August 2025 |Integer overflow in libarchive leading to double free
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-25:08.openssl.asc[FreeBSD-SA-25:08.openssl] |30 September 2025 |Multiple vulnerabilities in OpenSSL
 |===
 
 [[errata]]
@@ -60,6 +61,7 @@ For a list of all FreeBSD CERT security advisories, see https://www.FreeBSD.org/
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-25:15.arm64.asc[FreeBSD-EN-25:15.arm64] |16 September 2025 |arm64 syscall(2) allows unprivileged user to panic kernel
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-25:16.vfs.asc[FreeBSD-EN-25:16.vfs] |16 September 2025 |copy_file_range(2) fails to set output parameters
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-25:17.bnxt.asc[FreeBSD-EN-25:17.bnxt] |16 September 2025 |bnxt(4) fails to set media type in some cases
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-25:18.freebsd-update.asc[FreeBSD-EN-25:18.freebsd-update] |30 September 2025 |freebsd-update(8) installs libraries in incorrect order
 |===
 
 [[open-issues]]

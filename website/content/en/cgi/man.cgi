@@ -334,6 +334,7 @@ $sectionpath = {
     'openSUSE 15.4' => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:g:n' },
     'openSUSE 15.5' => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:g:n' },
     'openSUSE 15.6' => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:g:n' },
+    'openSUSE 16.0' => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:g:n' },
 };
 
 foreach my $os ( keys %$sectionpath ) {
@@ -929,6 +930,7 @@ $manPathDefault = 'FreeBSD 14.3-RELEASE and Ports';
     'openSUSE 15.4', "$manLocalDir/openSUSE-15.4",
     'openSUSE 15.5', "$manLocalDir/openSUSE-15.5",
     'openSUSE 15.6', "$manLocalDir/openSUSE-15.6",
+    'openSUSE 16.0', "$manLocalDir/openSUSE-16.0",
 
     'Debian 2.0.0', "$manLocalDir/Debian-2.0r0/man:$manLocalDir/Debian-2.0r0/misc",
     'Debian 2.2.7', "$manLocalDir/Debian-2.2r7/man:$manLocalDir/Debian-2.2r7/misc",
@@ -942,7 +944,7 @@ $manPathDefault = 'FreeBSD 14.3-RELEASE and Ports';
     'Debian 10.13.0', "$manLocalDir/Debian-10.13.0/man:$manLocalDir/Debian-10.13.0/misc",
     'Debian 11.11.0', "$manLocalDir/Debian-11.11.0/man:$manLocalDir/Debian-11.11.0/misc",
     'Debian 12.11.0', "$manLocalDir/Debian-12.11.0/man:$manLocalDir/Debian-12.11.0/misc",
-    'Debian 13.0.0', "$manLocalDir/Debian-13.0.0/man:$manLocalDir/Debian-13.0.0/misc",
+    'Debian 13.1.0', "$manLocalDir/Debian-13.1.0/man:$manLocalDir/Debian-13.1.0/misc",
     'Debian 14.0 unstable', "$manLocalDir/Debian-unstable/man:$manLocalDir/Debian-unstable/misc",
 
     'Ubuntu 23.10 mantic', "$manLocalDir/Ubuntu-mantic-23.10/man:$manLocalDir/Ubuntu-mantic-23.10/misc",
@@ -1222,12 +1224,12 @@ while ( ( $key, $val ) = each %manPath ) {
     'slackware',  'Linux Slackware 3.1',
     'redhat',     'Red Hat 9',
     'suse',       'SuSE 11.3',
-    'debian',     'Debian 13.0.0',
+    'debian',     'Debian 13.1.0',
     'ubuntu',     'Ubuntu 24.04 noble',
     'dragonfly',  'DragonFly 6.4.0',
     'centos',     'CentOS 7.9',
     'rocky',      'Rocky 10.0',
-    'linux',      'Debian 13.0.0',
+    'linux',      'Debian 13.1.0',
     'darwin',     'Darwin 8.0.1/ppc',
     'opendarwin', 'OpenDarwin 7.2.1',
     'macosx',     'Darwin 8.0.1/ppc',
