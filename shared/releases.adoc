@@ -28,7 +28,7 @@
 :beta2-local-where: IGNORE
 :beta3-local-where: IGNORE
 
-:rel-head-major: 15
+:rel-head-major: 16
 :rel-head: {rel-head-major}.0
 
 // If there is no release currently in the release cycle (i.e. we
@@ -82,6 +82,18 @@
 // fully complete yet.  I plan to followup on this and expand it
 // more (in addition to cleaning up this file) following the 11.3
 // release (likely as part of the 11.3 announcement commit). -gjb
+
+//:rel150-current-major: 15
+:rel150-current: 15.0
+//:rel150-current-date: December 2, 2025
+//
+//:u-rel150-notes: https://www.FreeBSD.org/releases/{rel150-current}R/relnotes/
+//:u-rel150-announce: https://www.FreeBSD.org/releases/{rel150-current}R/announce/
+//:u-rel150-errata: https://www.FreeBSD.org/releases/{rel150-current}R/errata/
+//:u-rel150-hardware: https://www.FreeBSD.org/releases/{rel150-current}R/hardware/
+//:u-rel150-installation: https://www.FreeBSD.org/releases/{rel150-current}R/installation/
+//:u-rel150-readme: https://www.FreeBSD.org/releases/{rel150-current}R/readme/
+//:u-rel150-signatures: https://www.FreeBSD.org/releases/{rel150-current}R/signatures/
 
 :rel143-current-major: 14
 :rel143-current: 14.3

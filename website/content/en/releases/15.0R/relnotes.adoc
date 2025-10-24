@@ -57,9 +57,6 @@ Clearly the release notes cannot list every single change made to FreeBSD betwee
 [[upgrade]]
 == Upgrading from Previous Releases of FreeBSD
 
-NOTE: FreeBSD Update is probably not going to exist in {releaseCurrent}!
-The text below is boilerplate from previous releases and should be replaced with instructions for using pkgbase once those are finalized.
-
 Binary upgrades between RELEASE versions (and snapshots of the various security branches) are supported using the man:freebsd-update[8] utility.
 See the release-specific upgrade procedure, link:../installation/#upgrade-binary[FreeBSD {releaseCurrent} upgrade information], with more details in the FreeBSD handbook link:{handbook}cutting-edge/#freebsdupdate-upgrade[binary upgrade procedure].
 This will update unmodified userland utilities, as well as unmodified GENERIC kernels distributed as a part of an official FreeBSD release.
@@ -904,7 +901,7 @@ gitref:3965be101c43[repository=src]
 [[wireless-networking]]
 === Wireless Networking
 
-The LinuxKPI 802.11 comapt layer man:linuxkpi_wlan[4] gained support for the Galois/Counter Mode Protocol (GCMP) from man:wlan_gcmp[4]. (Sponsored by The FreeBSD Foundation)
+The LinuxKPI 802.11 compatibility layer man:linuxkpi_wlan[4] gained support for the Galois/Counter Mode Protocol (GCMP) from man:wlan_gcmp[4]. (Sponsored by The FreeBSD Foundation)
 
 The man:rtw88[4] driver was made to work (associate) again and a memory leak got resolved. (Sponsored by The FreeBSD Foundation)
 
