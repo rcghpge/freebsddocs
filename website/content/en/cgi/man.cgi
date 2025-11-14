@@ -1432,6 +1432,8 @@ form#man > input, form#man > button { font-size: large; }
 form#man > input[name='query'] { text-align: center; }
 p#section_links, div#footer { max-width: 50em; }
 hr { margin-left: 0em; max-width: 50em; }
+a:link  { text-decoration:none; }
+a:hover { text-decoration:underline; }
 
 @media only screen and (max-height: 640px), (max-width: 760px) {
   /* hide logo color top */
@@ -1455,7 +1457,7 @@ hr { margin-left: 0em; max-width: 50em; }
       if !cgi_style::HAS_FREEBSD_CGI_STYLE;
 
     ( my $header = &cgi_style::short_html_header( $title, 1 ) ) =~
-      s,<head>,<head>\n$html_meta,s;
+      s,</head>,$html_meta\n</head>,s;
 
     $header =~ s,^Content-type:\s+\S+\s+,,s;
     $header =~ s,<head>,<head>\n<base href="$base" />,s if $base;
@@ -2054,7 +2056,7 @@ qq{Please try a <a href="$BASE?apropos=1&amp;manpath=freebsd-release-ports&amp;q
 # and then in your cgi script itself set the GROFF_TMAC_PATH as appropriate
 # like:
 #
-# GROFF_TMAC_PATH=$manLocalDir/NetBSD-1.4.2/tmac:/usr/share/tmac/
+# GROFF_TMAC_PATH=$manLocalDir/NetBSD-1.4.2/tmac
 #
 sub groff_path {
     local $manpath = shift;
@@ -2064,7 +2066,7 @@ sub groff_path {
         push( @groff_path, $_ . '/tmac' );
     }
 
-    $ENV{'GROFF_TMAC_PATH'} = join( ':', @groff_path, '/usr/share/tmac' );
+    $ENV{'GROFF_TMAC_PATH'} = join( ':', @groff_path );
 }
 
 sub mlnk {
