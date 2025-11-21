@@ -173,7 +173,7 @@ Raptor CS:
 * Talos II (POWER9)
 * Blackbird (POWER9)
 
-crossref:platforms[powerpc,FreeBSD/powerpc64] supports 64-bit, big-endian POWER7 through POWER4, including:
+crossref:platforms[powerpc,FreeBSD/powerpc64] supports 64-bit, big-endian POWER9 through POWER4, including the above as well as:
 
 A-EON:
 
@@ -757,7 +757,7 @@ The man:ehci[4] driver supports USB 2.0 controllers implementing the Enhanced Ho
 
 &hwlist.fwohci;
 
-[amd64, i386] Serial Bus Protocol 2 (SBP-2) storage devices (man:sbp[4] driver)
+&hwlist.sbp;
 
 [[bluetooth]]
 === Bluetooth Devices
@@ -819,6 +819,8 @@ including many laptop pointing devices (man:psm[4] driver)
 man:moused[8] has more information on using traditional pointing devices with the FreeBSD console.
 ====
 
+&hwlist.hgame;
+
 [amd64, i386] Floppy drives (man:fdc[4] driver)
 
 [amd64, i386] VGA-compatible video cards (man:vga[4] driver)
@@ -829,12 +831,6 @@ Information regarding specific video cards and compatibility with Xorg can be fo
 ====
 
 [amd64, i386] "PC standard" parallel ports (man:ppc[4] driver)
-
-[i386] PHS Data Communication Card/PCCARD
-
-* NTT DoCoMo P-in Comp@ct
-* Panasonic KX-PH405
-* SII MC-P200
 
 &hwlist.ads111x;
 

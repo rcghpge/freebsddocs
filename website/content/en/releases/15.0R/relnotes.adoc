@@ -555,7 +555,7 @@ This section covers changes in support for cloud environments.
 {releaseCurrent} supports cloudinit, including the `nuageinit` startup script and support for a `config-drive` partition.
 It is compatible with OpenStack and many hosting facilities.
 See the https://cloud-init.io[cloud-init] web site and the commit messages,
-gitref:16a6da44e28d[repository=src] gitref:227e7a205edf[repository=src]. (Sponsored by OVHCloud)
+gitref:16a6da44e28d[repository=src] gitref:227e7a205edf[repository=src]. (Sponsored by OVHcloud)
 
 The FreeBSD project is now publishing OCI-compatible container images.
 gitref:8a688fcc242e[repository=src]
@@ -650,6 +650,18 @@ A driver is available for man:ice[4] Ethernet network controllers in the Intel E
 It was upgraded to version 1.43.2-k.
 gitref:38a1655adcb3[repository=src] (Sponsored by Intel Corporation)
 
+man:rtw88[4]: Merge Realtek's rtw88 driver based on Linux v6.17 (gitref:c1d365f39e08[repository=src]).
+A possible issue that devices cannot authenticate is still being investigated.
+(Sponsored by The FreeBSD Foundation).
+
+man:rtw89[4]: Merge Realtek's rtw89 driver based on Linux v6.17 (gitref:b35044b38f74[repository=src]).
+The driver is under-tested and may still have issues.
+(Sponsored by The FreeBSD Foundation).
+
+man:iwlwifi[4]: Merge Intels's iwlwifi mvm/mld driver based on Linux v6.17 (gitref:69caa1cf3ce5[repository=src]).
+The BE200 based chipsets will need newer firmware requiring further driver fixes which are not in this release.
+(Sponsored by The FreeBSD Foundation).
+
 Numerous stability improvements have been in the man:iwlwifi[4] driver for Intel Wi-Fi devices.
 (Sponsored by The FreeBSD Foundation)
 
@@ -719,8 +731,6 @@ Required firmware files are already included in to package:comms/iwmbt-firmware[
 man:ena[4] driver version has been updated to v2.8.1 (gitref:a1685d25601e[repository=src]).
 (Sponsored by Amazon, Inc.)
 
-man:ix[4]: Add support for 1000BASE-BX SFP modules x550(gitref:24491b4acce5[repository=src]).
-
 man:bnxt[4]: Enable NPAR support on BCM57504 10/25GbE NICs.
 (gitref:54f842ed8897[repository=src]).
 
@@ -732,7 +742,7 @@ man:bnxt[4]: Add support for 400G speed modules (gitref:32fdad17f060[repository=
 
 man:ix[4]: Add support for 1000BASE-BX SFP modules.
 Add support for 1Gbit BiDi modules.
-(gitref:c34817d9aef7[repository=src]).
+(gitref:89d4096950c4[repository=src]).
 
 man:igc[4]: Fix attach for I226-K and LMVP devices.
 The device IDs for these were in the driver's list of PCI ids to attach to, but `igc_set_mac_type()` had never been setup to set the correct mac type for these devices.
@@ -915,9 +925,11 @@ gitref:3965be101c43[repository=src]
 
 The LinuxKPI 802.11 compatibility layer man:linuxkpi_wlan[4] gained support for the Galois/Counter Mode Protocol (GCMP) from man:wlan_gcmp[4]. (Sponsored by The FreeBSD Foundation)
 
-The man:rtw88[4] driver was made to work (associate) again and a memory leak got resolved. (Sponsored by The FreeBSD Foundation)
-
 Following other drivers man:iwlwififw[4] firmware was removed from the base system in favor of the ports based solution and man:fwget[8] support.  In case of updating from earlier releases, users must install the firmware packages upfront. (Sponsored by The FreeBSD Foundation)
+
+The man:iwlwifi[4] wireless driver supports 802.11ac (VHT) for some Intel Wi-Fi 5, and all of Intel Wi-Fi 6 and Wi-Fi 7 hardware. (Sponsored by The FreeBSD Foundation)
+The man:iwx[4] wireless driver supports 802.11ac (VHT) for Intel Wi-Fi 6 harddware. (Sponsored by The FreeBSD Foundation)
+The man:rtwn[4] wireless driver supports 802.11ac (VHT) for the RTL8812A and RTL8821A chipsets.
 
 [[hardware]]
 == Hardware Support
