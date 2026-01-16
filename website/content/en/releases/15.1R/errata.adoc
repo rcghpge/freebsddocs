@@ -1,10 +1,10 @@
 ---
-title: "FreeBSD 15.0-RELEASE Errata"
+title: "FreeBSD 15.1-RELEASE Errata"
 sidenav: download
 ---
 
-:release: 15.0-RELEASE
-:releaseNext: 15.1-RELEASE
+:release: 15.1-RELEASE
+:releaseNext: 15.2-RELEASE
 :releaseBranch: 15-STABLE
 
 = FreeBSD {release} Errata
@@ -44,7 +44,9 @@ For a list of all FreeBSD CERT security advisories, see https://www.FreeBSD.org/
 [width="100%",cols="40%,30%,30%",options="header",]
 |===
 |Advisory |Date |Topic
-|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-25:12.rtsold.asc[FreeBSD-SA-25:12.rtsold] |16 December 2025 |Remote code execution via ND6 Router Advertisements
+
+|No advisories.||
+
 |===
 
 [[errata]]
@@ -53,32 +55,15 @@ For a list of all FreeBSD CERT security advisories, see https://www.FreeBSD.org/
 [width="100%",cols="40%,30%,30%",options="header",]
 |===
 |Errata |Date |Topic
-|link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-25:19.zfs.asc[FreeBSD-EN-25:19.zfs] |16 December 2025 |Unprivileged kernel NULL pointer dereference
-|link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-25:20.vmm.asc[FreeBSD-EN-25:20.vmm] |16 December 2025 |bhyve(8) PCI passthru regression
+
+|No errata notices.||
+
 |===
 
 [[open-issues]]
 == Open Issues
 
-1. **man:ipfw[8]** denies networking when booting a 15.0 kernel with 14.3 userland +
-**Workaround**: disable man:ipfw[8] or upgrade completely before rebooting man:ipfw[8] systems +
-**State**: open - https://bugs.freebsd.org/291562 +
-
-2. **man:devinfo[8]** output format accidentally changed +
-**Workaround**: users parsing man:devinfo[8] must build it from a newer source +
-**State**: reverted in main - https://bugs.freebsd.org/291511 +
-
-3. **man:pkgbase[7]** system upgrading from 14.3 to 15.0 is not supported +
-**Workaround**: systems installed with man:pkgbase[7] must backup and reinstall +
-**State**: works as intended, man:pkgbase[7] is an experimental preview +
-
-4. **FreeBSD/powerpc** images do not boot on Apple G5 systems +
-**Workaround**: do not install this release on Apple G5 systems +
-**State**: fixed in main - https://bugs.freebsd.org/292341 +
-
-5. **man:loader.efi[8]** has a regression preventing boot on some systems +
-**Workaround**: set `console="eficom"` at the man:loader[8] prompt if it hangs when loading the kernel +
-**State**: fixed in main - https://bugs.freebsd.org/291461 +
+No open issues.
 
 [[late-news]]
 == Late-Breaking News

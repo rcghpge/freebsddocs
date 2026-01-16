@@ -1,9 +1,9 @@
 ---
-title: FreeBSD 14.4 Hardware Notes
+title: FreeBSD 15.1 Hardware Notes
 sidenav: download
 ---
 
-:localRel: 14.4
+:localRel: X.Y
 :doctype: article
 :toc: macro
 :toclevels: 2
@@ -247,9 +247,10 @@ This means that some devices, which are supported by multiple drivers, may appea
 === Disk Controllers
 
 
-Controllers supported by the
+The
 **aac**
-driver include:
+driver supports the following Parallel SCSI, SATA, and 3G SAS
+RAID controllers from the Adaptec AAC family:
 
 *	Adaptec AAC-364
 *	Adaptec RAID 2045
@@ -338,9 +339,10 @@ driver include:
 
 
 
-Controllers supported by the
+The
 **aacraid**
-driver include:
+driver supports the following
+Adaptec 6G and 12G SAS/SATA RAID controllers:
 
 *	Adaptec ASR-6405(T|E)
 *	Adaptec ASR-6445
@@ -357,11 +359,7 @@ driver include:
 
 The
 **ahc**
-driver supports the following
-`SCSI`
-host adapter chips and
-`SCSI`
-controller cards:
+driver supports the following VL/ISA/PCI parallel SCSI controllers and cards:
 
 *	Adaptec
 	`AIC7770`
@@ -504,7 +502,7 @@ device.
 
 The
 **ahd**
-driver supports the following:
+driver supports the following PCI/PCI-X parallel SCSI controllers:
 
 *	Adaptec
 	`AIC7901`
@@ -576,7 +574,9 @@ driver supports the following cards:
 
 
 
-The currently supported ATA/SATA controller chips are:
+The
+**ata**
+driver supports the IDE interface on the following ATA/SATA controllers:
 
 Acard:
 
@@ -929,6 +929,11 @@ EISA adapters are not supported.
 ====
 
 
+The
+**mmcsd**
+driver implements direct access block device for MMC and SD memory cards.
+
+
 
 These controllers are supported by the
 **mpi3mr**
@@ -947,9 +952,9 @@ driver:
 
 
 
-These controllers are supported by the
+The
 **mpr**
-driver:
+driver supports the following SATA/SAS/NVMe RAID controllers:
 
 *	Broadcom Ltd./Avago Tech (LSI) SAS 3004 (4 Port SAS)
 *	Broadcom Ltd./Avago Tech (LSI) SAS 3008 (8 Port SAS)
@@ -965,6 +970,7 @@ driver:
 *	Broadcom Ltd./Avago Tech (LSI) SAS 3616 (16 Port SAS/PCIe)
 *	Broadcom Ltd./Avago Tech (LSI) SAS 3708 (8 Port SAS/PCIe)
 *	Broadcom Ltd./Avago Tech (LSI) SAS 3716 (16 Port SAS/PCIe)
+*	Broadcom Ltd./Avago Tech (LSI) SAS 3808 (8 Port SAS/PCIe)
 *	Broadcom Ltd./Avago Tech (LSI) SAS 3816 (16 Port SAS/PCIe)
 *	Broadcom Ltd./Avago Tech (LSI) SAS 3916 (16 Port SAS/PCIe)
 
@@ -1122,6 +1128,20 @@ ATAPI and non-DMA ATA commands executed one by one for each port.
 
 
 
+The
+**nda**
+driver supports NVMe
+(Non-Volatile Memory Express)
+storage devices connected via PCIe or over NVMF
+(NVMe over Fabric)
+via the CAM subsystem.
+
+
+
+The
+**nvd**
+driver supports NVMe storage devices using NVMe namespaces.
+
 
 
 The
@@ -1190,14 +1210,28 @@ controller.
 
 The
 **sdhci**
-driver supports different specification compatible chips.
-The following chips have been verified to work:
+driver supports the SD Host Controller Specification.
+When attaching via the PCI bus,
+the controller is automatically configured.
+Many SoC chips provide a SDHCI controller directly mapped to I/O memory.
+For those, the controller may be configured using
+fdt(4)
+or
+acpi(4)
+methods, supplied by your board's vendor.
 
-*	ENE CB712
-*	ENE CB714
-*	RICOH R5C822
-*	RICOH R5CE823
-*	TI PCIXX21/XX11/XX12
+Unlike most other drivers that support a generic standard,
+**sdhci**
+requires a large number of quirks to cope with hardware bugs,
+proprietary registers and poorly specified power management.
+While many chipsets from
+Intel, Xilinx, Rockchip, Frescale, Ricoh, and TI have these entries,
+suboptimal performance may result when using some controllers.
+Quirks and custom configuration are most often required
+when the device is configured via
+fdt(4)
+or
+acpi(4).
 
 
 
@@ -1268,6 +1302,12 @@ driver supports the following SATA/SAS RAID controller:
 
 *	LSI's 3ware SAS 9750 series
 
+
+
+The
+**ufshci**
+driver supports both host controllers and devices implementing the
+Universal Flash Storage Host Controller Interface 4.1 and earlier.
 
 
 With all supported SCSI controllers, full support is provided for SCSI-I, SCSI-II, and SCSI-III peripherals, including hard disks, optical disks, tape drives (including DAT, 8mm Exabyte, Mammoth, and DLT), medium changers, processor target devices and CD-ROM drives.
@@ -1508,9 +1548,8 @@ following:
 
 The
 **bnxt**
-driver provides support for various NICs based on the Broadcom NetXtreme-C and
-NetXtreme-E families of Gigabit Ethernet controller chips, including the
-following:
+driver supports the following
+Broadcom 10Gb to 400Gb Ethernet controllers:
 
 *	Broadcom BCM57301 NetXtreme-C 10Gb Ethernet Controller
 *	Broadcom BCM57302 NetXtreme-C 10Gb/25Gb Ethernet Controller
@@ -1533,6 +1572,16 @@ following:
 *	Broadcom BCM57416 NetXtreme-E Partition
 *	Broadcom BCM57417 NetXtreme-E Ethernet Partition
 *	Broadcom BCM57454 NetXtreme-E 10Gb/25Gb/40Gb/50Gb/100Gb Ethernet
+*	Broadcom BCM57502 NetXtreme-E 10Gb/25Gb/50Gb Ethernet
+*	Broadcom N425 BCM57504 NetXtreme-E 10Gb/25Gb Ethernet
+*	Broadcom P425 BCM57504 NetXtreme-E 10Gb/25Gb Ethernet
+*	Broadcom N1100 BCM57504 NetXtreme-E 10Gb/25Gb/50Gb/100Gb Ethernet
+*	Broadcom N2100 BCM57508 Thor 10Gb/25Gb/50Gb/100Gb Ethernet
+*	Broadcom P2100 BCM57508 Thor 10Gb/25Gb/50Gb/100Gb Ethernet
+*	Broadcom N2200 BCM57608 Thor 2 10Gb/25Gb/50Gb/100Gb/200Gb Ethernet
+*	Broadcom P2200 BCM57608 Thor 2 10Gb/25Gb/50Gb/100Gb/200Gb Ethernet
+*	Broadcom N1400 BCM57608 Thor 2 25Gb/50Gb/100Gb/200Gb/400Gb Ethernet
+*	Broadcom P1400 BCM57608 Thor 2 25Gb/50Gb/100Gb/200Gb/400Gb Ethernet
 
 
 
@@ -1592,7 +1641,7 @@ Network Control Model (CDC NCM) protocol, such as:
 *	Prolific PL-2501 Host-to-Host Bridge Controller
 *	Sharp Zaurus PDA
 *	Terayon TJ-715 DOCSIS Cable Modem
-*	Huawei 3G/4G LTE (eg. E3372, E5573) and other mobile network devices
+*	Huawei 3G/4G LTE (e.g., E3372, E5573) and other mobile network devices
 
 
 
@@ -1888,15 +1937,58 @@ The man:gve[4] driver supports the Google Cloud Compute Engine (GCE) Virtual NIC
 
 The
 **ice**
-driver supports the Intel Ethernet 800 series.
-Most adapters in this series with SFP28/QSFP28 cages
-have firmware that requires that Intel qualified modules are used; these
-qualified modules are listed below.
+driver supports the following
+Intel 800 series 1Gb to 200Gb Ethernet controllers:
+
+*	Intel Ethernet Controller E810-C
+*	Intel Ethernet Controller E810-XXV
+*	Intel Ethernet Connection E822-C
+*	Intel Ethernet Connection E822-L
+*	Intel Ethernet Connection E823-C
+*	Intel Ethernet Connection E823-L
+*	Intel Ethernet Connection E825-C
+*	Intel Ethernet Connection E830-C
+*	Intel Ethernet Connection E830-CC
+*	Intel Ethernet Connection E830-L
+*	Intel Ethernet Connection E830-XXV
+*	Intel Ethernet Connection E835-C
+*	Intel Ethernet Connection E835-CC
+*	Intel Ethernet Connection E835-L
+*	Intel Ethernet Connection E835-XXV
+
+The
+**ice**
+driver supports some adapters in this series with SFP28/QSFP28 cages
+which have firmware that requires that Intel qualified modules are used;
+these qualified modules are listed below.
 This qualification check cannot be disabled by the driver.
 
 The
 **ice**
 driver supports 100Gb Ethernet adapters with these QSFP28 modules:
+
+*	Intel 100G QSFP28 100GBASE-SR4   E100GQSFPSR28SRX
+*	Intel 100G QSFP28 100GBASE-SR4   SPTMBP1PMCDF
+*	Intel 100G QSFP28 100GBASE-CWDM4 SPTSBP3CLCCO
+*	Intel 100G QSFP28 100GBASE-DR    SPTSLP2SLCDF
+
+The
+**ice**
+driver supports 25Gb and 10Gb Ethernet adapters with these SFP28 modules:
+
+*	Intel 10G/25G SFP28 25GBASE-SR E25GSFP28SR
+*	Intel     25G SFP28 25GBASE-SR E25GSFP28SRX (Extended Temp)
+*	Intel     25G SFP28 25GBASE-LR E25GSFP28LRX (Extended Temp)
+
+The
+**ice**
+driver supports 10Gb and 1Gb Ethernet adapters with these SFP+ modules:
+
+*	Intel 1G/10G SFP+ 10GBASE-SR E10GSFPSR
+*	Intel 1G/10G SFP+ 10GBASE-SR E10GSFPSRG1P5
+*	Intel 1G/10G SFP+ 10GBASE-SR E10GSFPSRG2P5
+*	Intel    10G SFP+ 10GBASE-SR E10GSFPSRX (Extended Temp)
+*	Intel 1G/10G SFP+ 10GBASE-LR E10GSFPLR
 
 
 
@@ -2652,6 +2744,7 @@ The
 **e6000sw**
 driver supports the following Gigabit Ethernet switch controllers:
 
+*	Marvell 88E6190X
 *	Marvell 88E6190
 *	Marvell 88E6176
 *	Marvell 88E6172
@@ -2975,6 +3068,16 @@ driver provides support for:
 
 
 
+The
+**iwx**
+driver supports the following M.2 wireless network adapters:
+
+*	Intel Wi-Fi 6 AX200
+*	Intel Wi-Fi 6 AX201 CNVi
+*	Intel Wi-Fi 6 AX210
+*	Intel Wi-Fi 6 AX211 CNVi
+
+
 
 The following cards are among those supported by the
 **malo**
@@ -2987,6 +3090,21 @@ driver:
 
 
 Marvell 88W8363 IEEE 802.11n wireless network adapters (man:mwl[4] driver)
+
+
+The
+**mtw**
+driver supports MediaTek MT7601U based USB wireless network adapters
+including (but not all of them tested):
+
+*	ASUS USB-N10 v2
+*	D-Link DWA-127 rev B1
+*	Edimax EW-7711UAn v2
+*	Foxconn WFU03
+*	Tenda U2
+*	Tenda W311MI v2
+*	TP-LINK TL-WN727N v4 (tested working)
+*	Yealink WF40
 
 
 
@@ -3128,6 +3246,7 @@ wireless network adapters, including:
 *	Planex GW-USNano
 *	Sitecom WL-349 v1
 *	Sitecom WL-353
+*	Sitecom WLA-1100 v1001
 *	Sweex LW154
 *	TRENDnet TEW-646UBH
 *	TRENDnet TEW-648UB
@@ -3333,6 +3452,7 @@ driver supports the following wireless adapters:
 *	Sitecom WL-301
 *	Sitecom WL-302
 *	Sitecom WL-315
+*	Sitecom WL-364
 *	SMC SMCWUSBS-N2
 *	Sweex LW303
 *	Sweex LW313
@@ -3540,6 +3660,20 @@ for the complete list.
 
 
 
+The
+**umb**
+driver should support any USB device implementing MBIM, including
+the following cellular modems:
+
+*	Ericsson H5321gw and N5321gw
+*	Fibocom L831-EAU
+*	Medion Mobile S4222 (MediaTek OEM)
+*	Sierra Wireless EM7345
+*	Sierra Wireless EM7455
+*	Sierra Wireless EM8805
+*	Sierra Wireless MC8305
+
+
 [[serial]]
 === Serial Interfaces
 
@@ -3574,167 +3708,26 @@ driver supports the following classes of Serial Communications Controllers:
 The
 **puc**
 driver supports the following
-PCI multi-port serial and parallel adapters:
+PCI/PCIe multi-port serial and parallel adapters:
 
-*	Sunix SUN1889
-*	HP Diva Serial \[GSP] Multiport UART:
-
-	-	Tosca Console
-	-	Tosca Secondary
-	-	Maestro SP2
-	-	Superdome Console
-	-	Keystone SP2
-	-	Everest SP2
-
-*	VScom:
-
-	-	PCI-800
-	-	PCI-400
-	-	PCI-200
-
-*	Boca Research Turbo Serial:
-
-	-	658
-	-	654
-
-*	Dolphin Peripherals:
-
-	-	4035
-	-	4014
-
-*	Applied Micro Circuits 8 Port UART
-*	Digi Neo:
-
-	-	PCI 4 Port
-	-	PCI 8 Port
-	-	PCIe 8 Port
-	-	PCIe 4 Port
-	-	PCIe 4 Port RJ45
-	-	PCIe 8 Port RJ45
-
-*	Comtrol RocketPort:
-
-	-	550/8 RJ11 part A
-	-	550/8 RJ11 part B
-	-	550/8 Octa part A
-	-	550/8 Octa part B
-	-	550/4 RJ45
-	-	550/Quad
-	-	550/16 part A
-	-	550/16 part B
-	-	550/8 part A
-	-	550/8 part B
-
-*	IBM SurePOS 300 Series (481033H) serial ports
-*	SIIG Cyber I/O PCI (10x family and 20x family):
-
-	-	16C550
-	-	16C650
-	-	16C850
-
-*	SIIG Cyber Parallel Dual PCI (10x family and 20x family):
-*	SIIG Cyber Serial Dual PCI (10x family and 20x family):
-
-	-	16C550
-	-	16C650
-	-	16C850
-
-*	SIIG Cyber 2S1P PCI (10x family and 20x family):
-
-	-	16C550
-	-	16C650
-	-	16C850
-
-*	SIIG Cyber 4S PCI (10x family and 20x family):
-
-	-	16C550
-	-	16C650
-	-	16C850
-
-*	SIIG PS8000 8S PCI 16C650 (20x family)
+*	Advantech 2-port PCI PCI-1602/1603 Rev A/B1
+*	Applied Micro Circuits PCI 8 Port UART
+*	Avlab Technology PCI IO 2S
+*	Avlab Low Profile PCI 4 Serial
+*	Boca Research PCI Turbo Serial 658/654
 *	Brainboxes:
 
-	-	PX-101
-	-	PX-246
-	-	PX-257
-	-	PX-260
-	-	PX-279
-	-	PX-310
-	-	PX-313
-	-	PX-320
-	-	PX-346
-	-	PX-368
-	-	PX-420
-	-	PX-431
-	-	PX-475
-	-	PX-803
-	-	PX-820
-	-	PX-831
-	-	PX-846
-	-	PX-857
-	-	UC-101
-	-	UC-203
-	-	UC-253
-	-	UC-257
-	-	UC-260
-	-	UC-268
-	-	UC-279
-	-	UC-302
-	-	UC-310
-	-	UC-313
-	-	UC-346
-	-	UC-357
-	-	UC-368
-	-	UC-414
-	-	UC-420
-	-	UC-431
-	-	UC-475
-	-	UC-607
-	-	UC-836
-	-	UP-189
-	-	UP-200
-	-	UP-869
-	-	UP-880
+	-	Instashield PCIe IX-400, IX-200, IX-100
+	-	Instashield PCI IS-400, IS-200
+	-	PX Series PCIe RS232/RS422/RS485/LPT
+	-	UC Series Universal PCI RS232/RS422/RS485/LPT
+	-	UP Series PCI Dual RS232
 
-*	Intashield:
-
-	-	IS-200
-	-	IS-400
-	-	IX-100
-	-	IX-200
-	-	IX-400
-
-*	Quatech:
-
-	-	QSC-100
-	-	DSC-100
-	-	DSC-200/300
-	-	QSC-200/300
-	-	ESC-100D
-	-	ESC-100M
-	-	QSCLP-100
-	-	DSCLP-100
-	-	DSCLP-200/300
-	-	ESCLP-100
-
-*	Moxa Technologies:
-
-	-	Smartio CP-102E/PCIe
-	-	Smartio CP-102EL/PCIe
-	-	Smartio C104H/PCI
-	-	Smartio CP-104UL/PCI
-	-	Smartio CP-104JU/PCI
-	-	Smartio CP-104EL/PCIe
-	-	Smartio CP-104EL-A/PCIe
-	-	CP-112UL
-	-	Industio CP-114
-	-	Smartio CP-114EL/PCIe
-	-	Smartio CP-118EL-A/PCIe
-	-	C168H/PCI
-	-	C168U/PCI
-	-	CP-168EL/PCIe
-	-	Smartio CP-168EL-A/PCIe
-
+*	Comtrol RocketPort 550 PCI 16/8/4 port
+*	Decision Computer PCCOM PCI 8/4/2 port
+*	Digi Neo PCIe 4 and 8 Port (with and without RJ45)
+*	Digi Neo PCI 4 and 8 Port
+*	Dolphin Peripherals PCI 4035/4014
 *	Exar:
 
 	-	XR17C/D152
@@ -3745,137 +3738,97 @@ PCI multi-port serial and parallel adapters:
 	-	XR17V354
 	-	XR17V358
 
-*	Advantech
-
-	-	PCI-1602 Rev A
-	-	2-port PCI (PCI-1602 Rev B1/PCI-1603)
-
-*	Lava Computers:
-
-	-	Dual Serial
-	-	Quatro A
-	-	Quatro B
-	-	Quattro-PCI A
-	-	Quattro-PCI B
-	-	Octo A
-	-	Octo B
-
-*	Sunix SUN1888
-*	I-O DATA RSA-PCI2/R
-*	SIIG Cyber 4 PCI 16550
-*	SIIG Cyber 4S PCI 16C650 (20x family)
-*	SIIG Quartet Serial 850
-*	Kuroutoshikou SERIAL4P-LPPCI2
-*	Oxford Semiconductor OX16PCI954 UARTs
-*	SIIG Cyber:
-
-	-	2S PCIe
-	-	Serial Dual PCI 16C850
-	-	2SP1 PCIe
-
-*	Oxford Semiconductor:
-
-	-	OX16PCI954 UARTs
-	-	OX9160/OX16PCI954 UARTs (function 1)
-	-	OX16PCI952 UARTs
-	-	OX16PCI958 UARTs
-
-*	Perle:
-
-	-	Ultraport4 Express
-	-	Speed2 LE
-	-	Speed4 LE
-	-	Speed8 LE
-
-*	Oxford Semiconductor OXPCIe952:
-
-	-	1S1P
-	-	UARTs
-	-	UARTs (function 1)
-
-*	Oxford Semiconductor OXPCIe954:
-
-	-	UARTs
-	-	UARTs (function 1)
-
-*	Oxford Semiconductor OXPCIe958:
-
-	-	UARTs
-	-	UARTs (function 1)
-
-*	VScom:
-
-	-	PCI-100L
-	-	PCI-200L
-	-	200Li
-
-*	Titan:
-
-	-	PCI-800H
-	-	PCI-800H
-	-	PCI-200H
-
-*	Titan VScom:
-
-	-	PCI-800L
-	-	PCI-200HV2
-	-	PCIex-800H
-	-	PCIex-800H
-
-*	Avlab Technology PCI IO 2S
-*	Avlab Low Profile PCI 4 Serial
-*	Syba Tech Ltd PCI-4S2P-550-ECP
-*	Sunix SER5xxxx
-
-	-	2-port serial
-	-	4-port serial
-	-	8-port serial
-
-*	Sunix MIO5xxxx (1284 Printer port):
-
-	-	1-port serial
-	-	2-port serial
-	-	4-port serial
-
 *	Feasso PCI FPP-02 2S1P
-*	Sun 1040 PCI Quad Serial
-*	Decision Computer Inc PCCOM:
+*	HP Diva Serial \[GSP] Multiport UART:
 
-	-	4-port serial
-	-	8-port serial
+	-	Tosca Console
+	-	Tosca Secondary
+	-	Maestro SP2
+	-	Superdome Console
+	-	Keystone SP2
+	-	Everest SP2
 
-*	PCCOM dual port RS232/422/485
-*	NetMos NM9815 Dual 1284 Printer port
-*	NetMos NM9835:
-
-	-	based 1-port serial
-	-	based 2-port serial
-	-	Dual UART and 1284 Printer port
-
-*	NetMos NM9845:
-
-	-	6 Port UART
-	-	Quad UART and 1284 Printer port
-
-*	NetMos NM9865:
-
-	-	Dual UART
-	-	Triple UART
-	-	Quad UART
-	-	Single UART and 1284 Printer port
-	-	Dual UART and 1284 Printer port
-	-	Dual 1284 Printer port
-
+*	I-O DATA RSA-PCI2/R
+*	IBM SurePOS 300 Series (481033H) serial ports
 *	IC Book Labs:
 
-	-	Gunboat x4 Lite
-	-	Gunboat x4 Pro
-	-	Ironclad x8 Lite
+	-	Dreadnought x16 Pro/Lite
 	-	Ironclad x8 Pro
-	-	Dreadnought x16 Pro
-	-	Dreadnought x16 Lite
+	-	Gunboat x4 Pro/Lite/Low Profile
 	-	Gunboat x2 Low Profile
-	-	Gunboat x4 Low Profile
+
+*	Kuroutoshikou SERIAL4P-LPPCI2
+*	Lava Computers:
+
+	-	Dual Serial PCI
+	-	Quattro-PCIe
+	-	Quattro-PCI
+	-	Octopus-550 PCI
+
+*	Moxa Technologies:
+
+	-	Smartio CP-102E/PCIe
+	-	Smartio CP-102EL/PCIe
+	-	Smartio C104H/PCI
+	-	Smartio CP-104UL/PCI
+	-	Smartio CP-104JU/PCI
+	-	Smartio CP-104EL/PCIe
+	-	Smartio CP-104EL-A/PCIe
+	-	CP-112UL PCI
+	-	Industio CP-114
+	-	Smartio CP-114EL/PCIe
+	-	Smartio CP-118EL-A/PCIe
+	-	C168H/PCI
+	-	C168U/PCI
+	-	CP-168EL/PCIe
+	-	Smartio CP-168EL-A/PCIe
+
+*	NetMos NM9815 Dual 1284 Printer port PCI
+*	NetMos NM9835 2/1 port UART + 1284 Printer PCI
+*	NetMos NM9845 4/6 port UART + 1284 Printer PCI
+*	NetMos NM9865 4/3/2 port UART + 1/2 port 1284 Printer PCI
+*	Oxford Semiconductor based boards:
+
+	-	OX16PCI952 UART (with and without Parallel port)
+	-	OX16PCI954 UART
+	-	OX9160/OX16PCI954 UARTs
+	-	OX16PCI958 UART
+
+*	Perle Ultraport4 Express PCIe Serial
+*	Perle Speed8/Speed4/Speed2 LE PCI Serial
+*	Quatech:
+
+	-	DSC-300/200/100 PCI
+	-	DSCLP-300/200/100 PCI
+	-	ESC-100/100D/100M PCI
+	-	QSC-300/200/100 PCI
+	-	QSCLP-100 PCI
+
+*	SIIG Cyber Series of UART and parallel port boards:
+
+	-	Cyber 2S and 2SP1 PCI 16550
+	-	Cyber 4 and 4S PCI 16C650 (10x family and 20x family)
+	-	Cyber I/O PCI (10x family and 20x family)
+	-	Cyber Parallel Dual PCI (10x family and 20x family)
+	-	Cyber Serial Dual PCI (10x family and 20x family)
+	-	Cyber 2S1P PCI (10x family and 20x family)
+	-	PS8000 8S PCI 16C650 (20x family)
+	-	Quartet Serial 850 PCI
+
+*	Sun 1040 PCI Quad Serial
+*	Sunix MIO5xxxx 4/2/1 port UART and 1284 Printer
+*	Sunix SUN1889/1888 PCI dual port serial
+*	Sunix SER5xxxx 8/4/2 port serial
+*	Syba Tech Ltd PCI-4S2P-550-ECP
+*	Systembase SB16C1054/8 4/8 port serial
+*	Titan PCI-800H/PCI-200H
+*	VScom:
+
+	-	PCIex-800H
+	-	PCI-200HV2
+	-	200Li uPCI
+	-	PCI-800L, PCI-200L, and PCI-100L
+	-	PCI-800, PCI-400, and PCI-200
 
 
 
@@ -3908,6 +3861,16 @@ The
 **ubser**
 driver provides support for the BWCT console management serial adapters.
 
+
+
+The
+**uchcom**
+driver supports the following USB to serial UART controllers:
+
+*	WinChipHead CH9102 (max 6Mbps)
+*	WinChipHead CH343 (max 6Mbps)
+*	WinChipHead CH341 (max 2Mbps)
+*	WinChipHead CH340 (max 2Mbps)
 
 
 
@@ -4307,13 +4270,16 @@ The
 **snd\_hdspe**
 driver supports the following audio devices:
 
-*	RME HDSPe AIO
+*	RME HDSPe AIO (optional AO4S-192 and AI4S-192 extension boards)
 *	RME HDSPe RayDAT
 
 By default, each
 pcm(4)
 device corresponds to a physical port on the sound card.
 For ADAT ports, 8 channel, 4 channel and 2 channel formats are supported.
+The effective number of ADAT channels is 8 channels at single speed
+(32kHz-48kHz), 4 channels at double speed (64kHz-96kHz), and 2 channels at
+quad speed (128kHz-192kHz).
 Depending on sample rate and channel format selected, not all pcm channels can
 be mapped to ADAT channels and vice versa.
 
@@ -4393,6 +4359,12 @@ driver supports the following audio devices:
 *	Trident 4DWave DX
 *	Trident 4DWave NX
 
+
+
+The
+**snd_uaudio**
+driver provides support for USB audio class devices and
+USB MIDI class devices.
 
 
 
@@ -4564,6 +4536,15 @@ driver supports the following iPAQ devices:
 
 
 
+The
+**umass**
+driver supports USB Mass Storage devices such as:
+
+*	USB thumb drives
+*	USB hard disk drives
+*	USB floppy drives
+
+
 
 The following devices are supported by the
 **urio**
@@ -4707,6 +4688,13 @@ The driver supports the following IEEE 1394 OHCI chipsets:
 *	Texas Instruments TSB82AA2
 *	VIA Fire II (VT6306)
 
+
+
+The
+**sbp**
+driver supports FireWire Serial Bus Protocol 2
+(SBP-2)
+storage devices.
 
 
 [[bluetooth]]
@@ -4861,6 +4849,13 @@ man:moused[8] has more information on using traditional pointing devices with th
 ====
 
 
+The
+**hgame**
+driver supports HID gamepads, joysticks, and controllers such as:
+
+*	8bitdo USB Wireless Adapter 2
+
+
 [amd64, i386] Floppy drives (man:fdc[4] driver)
 
 [amd64, i386] VGA-compatible video cards (man:vga[4] driver)
@@ -4949,7 +4944,7 @@ driver supports the following chipsets:
 
 The
 **mx25l**
-driver provides support for the following devices:
+driver supports the following spi flash memory devices:
 
 *	AT25DF641
 *	EN25F32
@@ -4965,6 +4960,7 @@ driver provides support for the following devices:
 *	MX25LL256
 *	MX25LL32
 *	MX25LL64
+*	N25Q64
 *	S25FL032
 *	S25FL064
 *	S25FL128
@@ -5002,33 +4998,16 @@ driver:
 
 
 
-These temperature sensors are supported by the
+The
 **ow\_temp**
-driver:
+driver supports the following temperature sensors:
 
-DS1820
-
-> 1-Wire Digital Thermometer
-
-DS18S20
-
-> High-Precision 1-Wire Digital Thermometer
-
-DS18B20
-
-> Programmable Resolution 1-Wire Digital Thermometer
-
-DS1822
-
-> Econo 1-Wire Digital Thermometer
-
-DS1825
-
-> Programmable Resolution 1-Wire Digital Thermometer with 4-bit ID
-
-MAX31820
-
-> 1-Wire, Parasite-Power, Ambient Temperature Sensor
+	DS1820     1-Wire Digital Thermometer  
+	DS18S20    High-Precision 1-Wire Digital Thermometer  
+	DS18B20    Programmable Resolution 1-Wire Digital Thermometer  
+	DS1822     Econo 1-Wire Digital Thermometer  
+	DS1825     Programmable Resolution 1-Wire Digital Thermometer with 4-bit ID  
+	MAX31820   1-Wire, Parasite-Power, Ambient Temperature Sensor
 
 The driver supports Family codes 0x10, 0x22, 0x28, and 0x3b.
 
@@ -5060,44 +5039,34 @@ formerly known as Winbond, and ITE, namely:
 
 
 
+The
+**u2f**
+driver supports FIDO/U2F-compatible USB security keys.
 
-The following devices should work:
 
-Century Corp. Japan Plus One LCD-8000U
 
-Century Corp. Japan Plus One LCD-4300U
+The
+**udl**
+driver supports USB display devices
+based on the DisplayLink DL-120 and DL-160 graphic chips, including:
 
-DisplayLink USB to DVI
-
-ForwardVideo EasyCAP008 USB to DVI
-
-HP USB 2.0 Docking Station (FQ834)
-
-HP USB Graphics Adapter (NL571)
-
-IOGEAR USB 2.0 External DVI (GUC2020)
-
-Koenig CMP-USBVGA10 and CMP-USBVGA11
-
-Lenovo 45K5296 USB to DVI
-
-Lenovo ThinkVision LT1421
-
-Lilliput UM-70
-
-Nanovision MiMo UM-710 and UM-740
-
-Rextron VCUD60 USB to DVI
-
-Samsung LD220
-
-StarTech CONV-USB2DVI
-
-Sunweit USB to DVI
-
-Unitek Y-2240 USB to DVI
-
-VideoHome NBdock1920
-
-i-tec USB 2.0 Docking Station (USBDVIDOCK)
+*	Century Corp. Japan Plus One LCD-8000U
+*	Century Corp. Japan Plus One LCD-4300U
+*	DisplayLink USB to DVI
+*	ForwardVideo EasyCAP008 USB to DVI
+*	HP USB 2.0 Docking Station (FQ834)
+*	HP USB Graphics Adapter (NL571)
+*	IOGEAR USB 2.0 External DVI (GUC2020)
+*	Koenig CMP-USBVGA10 and CMP-USBVGA11
+*	Lenovo 45K5296 USB to DVI
+*	Lenovo ThinkVision LT1421
+*	Lilliput UM-70
+*	Nanovision MiMo UM-710 and UM-740
+*	Rextron VCUD60 USB to DVI
+*	Samsung LD220
+*	StarTech CONV-USB2DVI
+*	Sunweit USB to DVI
+*	Unitek Y-2240 USB to DVI
+*	VideoHome NBdock1920
+*	i-tec USB 2.0 Docking Station (USBDVIDOCK)
 
