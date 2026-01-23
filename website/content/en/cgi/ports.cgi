@@ -1,4 +1,4 @@
-#!/usr/bin/perl -T
+#!/usr/local/bin/perl -T
 #
 # SPDX-License-Identifier: BSD-2-Clause
 # Copyright (c) 1996-2026 Wolfram Schneider <wosch@FreeBSD.ORG>
@@ -29,23 +29,33 @@
 
 use POSIX qw(strftime);
 use Time::Local;
+use warnings;
 
+our $hsty_base;
 require "./cgi-style.pl";
-$t_style = qq`
+
+our $t_style = qq`
 <style type="text/css">
-h3 { font-size: 1.2em; border-bottom: thin solid black; }
-span.footer_links { font-size: small; }
+h3 { font-size: 1.20em; border-bottom: thin solid black; max-width: 42em; }
 
 form#ports > input[name='query'] { text-align: center; }
-form#ports > input[name='query'] { width: 14em; }
+form#ports > input[name='query'] { width: 20em; }
 form#ports > input, form#ports > button, form#ports > select { font-size: large; }
+
+span.footer_links { font-size: small; }
+span.space { font-size: xx-small; }
+
+p#section_links, div#footer { max-width: 50em; }
+hr { margin-left: 0em; max-width: 50em; }
+a:link  { text-decoration:none; }
+a:hover { text-decoration:underline; }
 </style>
 
 <link rel="search" type="application/opensearchdescription+xml" href="https://www.freebsd.org/opensearch/ports.xml" title="FreeBSD Ports" />
 `;
 
 # No unlimited result set. A HTML page with 1000 results can be 10MB big.
-my $max_hits = 1000;
+my $max_hits         = 1000;
 my $max_hits_default = 250;
 my $max;
 
@@ -78,7 +88,7 @@ sub init_variables {
     $mailto = 'www@FreeBSD.org';
 
     # Mailinglist for FreeBSD Ports
-    $mailtoList = 'ports@FreeBSD.org';
+    $mailtoList = 'freebsd-ports@FreeBSD.org';
 
     # use mailto:email?subject
     $mailtoAdvanced = 'yes';
@@ -88,23 +98,6 @@ sub init_variables {
 
     # security
     $ENV{'PATH'} = '/bin:/usr/bin';
-}
-
-sub packages_exist {
-    local ( $file, *p ) = @_;
-
-    open( P, $file ) || do {
-        warn "open $file: $!\n";
-        warn "Cannot create packages links\n";
-        return 1;
-    };
-
-    while (<p>) {
-        chop;
-        $p{$_} = 1;
-    }
-    close P;
-    return 0;
 }
 
 # return the date of the last ports database update
@@ -124,7 +117,7 @@ sub last_update {
 }
 
 sub last_update_message {
-    return "<p>Last database update: @{[ &last_update ]}</p>\n";
+    return "Last database update: @{[ &last_update ]}\n";
 }
 
 sub dec {
@@ -173,7 +166,6 @@ s/([\000-\032\;\/\?\:\@\&\=\%\'\"\`\<\>\177-\377 ])/sprintf('%%%02x',ord($1))/eg
     $_;
 }
 
-sub warn { print "$_[0]" }
 sub env  { defined( $ENV{ $_[0] } ) ? $ENV{ $_[0] } : undef; }
 sub exit { exit 0 }
 
@@ -227,7 +219,7 @@ sub readcoll {
             open( C, $localportsdb ) || do {
                 warn "Cannot open ports database $localportsdb: $!\n";
                 &exit;
-              }
+            }
         }
 
         while (<C>) {
@@ -256,7 +248,7 @@ sub readcoll {
 # basic function for HTML output
 sub out {
     local ($line) = @_;
-    local (
+    my (
         $version, $path,     $local,    $comment,  $descfile,
         $email,   $sections, $bdepends, $rdepends, @rest
     ) = split( /\|/, $line );
@@ -271,11 +263,12 @@ sub out {
         }
     }
 
+    $rdepends //= "";
     $counter++;
-    $pathB        = $path;
+    $pathB = $path;
     $pathB =~ s/^$localPrefix/ports/o;
 
-    $path         =~ s/^$localPrefix/$remotePrefixFtp/o;
+    $path     =~ s/^$localPrefix/$remotePrefixFtp/o;
     $descfile =~ s/^$localPrefix/$remotePrefixFtp/o;
     $version = &encode_url($version);
 
@@ -284,7 +277,7 @@ sub out {
     local ($l) = $path;
     $l =~ s%^$remotePrefixFtp%$remotePrefixRepo/log%o;
     local ($t) = $path;
-    $t =~ s%^$remotePrefixFtp%$remotePrefixRepo/tree%o;
+    $t        =~ s%^$remotePrefixFtp%$remotePrefixRepo/tree%o;
     $descfile =~ s%^$remotePrefixFtp%$remotePrefixRepo/plain%o;
 
     print
@@ -370,8 +363,11 @@ sub search_ports {
         elsif ( $stype eq 'maintainer' && $a[5] =~ /$query/io ) {
             &out( $today{$key} );
         }
-        elsif ( $stype eq 'requires'
-            && ( $a[7] =~ /$query/io || $a[8] =~ /$query/io ) )
+        elsif (
+            $stype eq 'requires'
+            && ( defined $a[7] && $a[7] =~ /$query/io
+                || ( defined $a[8] && $a[8] =~ /$query/io ) )
+          )
         {
             &out( $today{$key} );
         }
@@ -380,29 +376,18 @@ sub search_ports {
 }
 
 sub forms {
-    print qq{<p>
-The FreeBSD Ports and Packages Collection offers a simple way for users and administrators to install applications.
-</p>
-};
 
-    print qq{<p>
-"Package Name" searches for the name of a port or distribution.
-"Description" searches case-insensitive in a short comment about the port.
-"All" searches case-insensitive for the package name and in the
-description about the port.
-</p>
-
+    print qq{
 <form id="ports" method="get" action="$script_name">
-Search for:
 <input name="query" value="$query" type="text" autocapitalize="none" autofocus />
 <select name="stype">
 };
 
     local (%d);
     %d = (
-        'name',       'Package Name',     'all',      'All',
-        'maintainer', 'Maintainer',       'text',     'Description',
-        'requires', 'Requires',
+        'name',       'Package Name', 'all',  'All',
+        'maintainer', 'Maintainer',   'text', 'Description',
+        'requires',   'Requires',
     );
 
     foreach ( 'all', 'name', 'text', 'maintainer', 'requires' ) {
@@ -435,37 +420,21 @@ Search for:
 
 }
 
-sub footer {
-
-print <<EOF;
-<span class="footer_links">
-  <img align="right" src="$hsty_base/gifs/powerlogo.gif" alt="Powered by FreeBSD"/>
-  &copy; 1996-2026 by Wolfram Schneider. All rights reserved.<br/>
-
-  General questions about FreeBSD ports should be sent to 
-  <a href="mailto:$mailtoList"><i>$mailtoList</i></a><br/>
-
-  @{[ &last_update_message ]}
-</span>
-<hr noshade="noshade" />
-<p/>
-
-EOF
-}
-
 sub check_query {
-    my ($query, $sourceid) = @_;
+    my ( $query, $sourceid ) = @_;
 
     $query =~ s/"/ /g;
     $query =~ s/^\s+//;
     $query =~ s/\s+$//;
 
     # XXX: Firefox opensearch autocomplete workarounds
-    if ($sourceid eq 'opensearch') {
-	# remove space before a dot 
-	$query =~ s/ \././g;
-	# remove space between double colon
-	$query =~ s/: :/::/g;
+    if ( $sourceid eq 'opensearch' ) {
+
+        # remove space before a dot
+        $query =~ s/ \././g;
+
+        # remove space between double colon
+        $query =~ s/: :/::/g;
     }
 
     return $query;
@@ -484,29 +453,47 @@ sub check_input {
             )
           )
         {
-            &warn(
-"unknown search type ``$stype'', use `all', `text', `name', 'requires', or `maintainer'\n"
-            );
+            print
+"unknown search type, use `all', `text', `name', 'requires', or `maintainer'\n";
+            warn "unknown search type ``", escapeHTML($stype),
+              "'', use `all', `text', `name', 'requires', or `maintainer'\n"
+              if $debug >= 1;
             &exit(0);
         }
     }
 
     $max = int($max);
-    if ($max <= 0 || $max > $max_hits) {
+    if ( $max <= 0 || $max > $max_hits ) {
         warn "reset max=$max to $max_hits_default\n";
         $max = $max_hits_default;
     }
 }
 
-sub faq {
-    print <<EOF
+sub help {
+    print <<EOF;
 <br/>
 <h1>FreeBSD Ports Search Help</h1>
 
-<h2>Keywords</h2>
+<p>
+The FreeBSD Ports and Packages Collection offers a simple way for
+users and administrators to install applications.
+</p>
+
+<p>
+<b>Package Name</b> searches for the name of a port or distribution.
+<b>Description</b> searches case-insensitive in a short comment about the port.
+<b>All</b> searches case-insensitive for the package name and in the
+description about the port.
+<b>Maintainer</b> searches for the email address of the port maintainer.
+<b>Requires</b> searches for ports which depends on this port.
+
+</p>
+
+<h2>External Links</h2>
+
 <dl>
   <dt><b>Description</b></dt>
-  <dd>A more detailed description (text).</dd>
+  <dd>A more detailed description (text) via the git repo</dd>
 
   <dt><b>Changes</b></dt>
   <dd>Read the latest changes via the git repo</dd>
@@ -531,6 +518,27 @@ as database for its operations. $ports_database is updated automatically every
 two hours.
 </p>
 
+<p>
+@{[ &last_update_message ]}
+</p>
+
+<h2>Copyright</h2>
+<pre>
+Copyright (c) 1996-2026 <a href="https://wolfram.schneider.org">Wolfram Schneider</a> &lt;wosch\@FreeBSD.org&gt;
+</pre>
+<p/>
+
+<h2>Misc</h2>
+<ul>
+<li><a href="https://forums.freebsd.org/categories/ports-and-packages.21/">FreeBSD Forums: Ports and Packages</a></li>
+<li><a href="https://www.freshports.org/">FreshPorts -- The Place For Ports - Most recent commits</a></li>
+</ul>
+
+<h2>Questions</h2>
+<p>
+General questions about FreeBSD ports should be sent to 
+<a href="mailto:$mailtoList">$mailtoList</a>
+</p>
 
 @{[ &footer_links ]}
 <hr noshade="noshade" />
@@ -541,7 +549,7 @@ sub footer_links {
     return <<EOF;
 <span class="footer_links">
   <a href="$script_name">home</a>
-  @{[ $stype eq "faq" ? "" : qq, | <a href="$script_name?stype=faq">help</a>, ]}
+  @{[ $stype eq "help" ? "" : qq, | <a href="$script_name?stype=help">help</a>, ]}
 </span>
 EOF
 }
@@ -552,31 +560,28 @@ EOF
 
 &init_variables;
 $query_string = &env('QUERY_STRING');
-$path_info    = &env('PATH_INFO');
+$path_info    = &env('PATH_INFO') // "";
 &decode_form( $query_string, *form );
 
 $section     = $form{'sektion'};
 $section     = 'all' if ( !$section );
-$query       = $form{'query'};
-$stype       = $form{'stype'};
+$query       = $form{'query'}    // "";
+$stype       = $form{'stype'}    // "";
 $sourceid    = $form{'sourceid'} // "";
 $script_name = &env('SCRIPT_NAME');
 $max         = $form{'max'} // $max_hits_default;
 
 if ( $path_info eq "/source" ) {
-
-    # XXX
     print "Content-type: text/plain\n\n";
-    open( R, $0 ) || do { print "ick!\n"; &exit; };
+    open( R, $0 ) || do { warn "open $0: $!!\n"; &exit; };
     while (<R>) { print }
     close R;
     &exit;
 }
 
-if ( $stype eq "faq" ) {
+if ( $stype eq "help" ) {
     print &short_html_header( "FreeBSD Ports Search Help", 1 );
-    &faq;
-    &footer;
+    &help;
     print &html_footer;
     &exit(0);
 }
@@ -592,11 +597,10 @@ if ( !$query && $query_string =~ /^([^=&]+)$/ ) {
 # automatically read collections, need only 0.2 sec on a pentium
 @sec = &readcoll;
 
-$query = &check_query($query, $sourceid);
+$query = &check_query( $query, $sourceid );
 &forms;
 
 if ( $query_string eq "" || !$query ) {
-    &footer;
     print &html_footer;
     &exit(0);
 }
@@ -605,7 +609,7 @@ if ( $query_string eq "" || !$query ) {
 $counter = 0;
 
 # no prefix search for requires supported yet
-$query =~ s/^\^// if $stype eq 'requires'; 
+$query =~ s/^\^// if $stype eq 'requires';
 
 # quote non characters
 $query =~ s/([^\w\^])/\\$1/g;
@@ -628,14 +632,14 @@ EOF
 else {
     print "</dl>\n";
     my $counter_message = $counter;
-    if ($counter >= $max) {
+    if ( $counter >= $max ) {
         $counter_message .= " (max hit limit reached)";
-        warn "$counter_message: query=$query stype=$stype section=$section\n" if $debug >= 1;
+        warn "$counter_message: query=$query stype=$stype section=$section\n"
+          if $debug >= 1;
     }
     print "<p>Number of hits: $counter_message\n</p>\n";
     print &footer_links;
 }
 
 print qq{<hr noshade="noshade" />\n};
-&footer;
 print &html_footer;

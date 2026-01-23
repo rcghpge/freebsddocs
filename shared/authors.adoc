@@ -3179,6 +3179,10 @@
 :simon-email: simon@FreeBSD.org
 :simon: {simon-name} <{simon-email}>
 
+:siva-name: Siva Mahadevan
+:siva-email: siva@FreeBSD.org
+:siva: {siva-name} <{siva-email}>
+
 :sjg-name: Simon J. Gerraty
 :sjg-email: sjg@FreeBSD.org
 :sjg: {sjg-name} <{sjg-email}>
@@ -3830,8 +3834,8 @@
 
 // FreeBSD Release Engineering Teams
 :re: re@FreeBSD.org
-:re-members: {dch}, {blackend}, {jfree}, {delphij}, {emaste}, {mmokhi}, {cperciva}, {bofh}, {ivy}
-:re-members-email: {dch-email}, {blackend-email}, {jfree-email}, {delphij-email}, {emaste-email}, {mmokhi-email}, {cperciva-email}, {bofh-email}, {ivy-email}
+:re-members: {dch}, {blackend}, {delphij}, {emaste}, {cperciva}, {bofh}, {ivy}
+:re-members-email: {dch-email}, {blackend-email}, {delphij-email}, {emaste-email}, {cperciva-email}, {bofh-email}, {ivy-email}
 
 // FreeBSD Security Officer
 :so: {gordon}
