@@ -45,6 +45,7 @@ For a list of all FreeBSD CERT security advisories, see https://www.FreeBSD.org/
 |===
 |Advisory |Date |Topic
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-25:12.rtsold.asc[FreeBSD-SA-25:12.rtsold] |16 December 2025 |Remote code execution via ND6 Router Advertisements
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:01.openssl.asc[FreeBSD-SA-26:01.openssl] |27 January 2026 |Multiple vulnerabilities in OpenSSL
 |===
 
 [[errata]]
@@ -55,6 +56,9 @@ For a list of all FreeBSD CERT security advisories, see https://www.FreeBSD.org/
 |Errata |Date |Topic
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-25:19.zfs.asc[FreeBSD-EN-25:19.zfs] |16 December 2025 |Unprivileged kernel NULL pointer dereference
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-25:20.vmm.asc[FreeBSD-EN-25:20.vmm] |16 December 2025 |bhyve(8) PCI passthru regression
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:01.devinfo.asc[FreeBSD-EN-26:01.devinfo] |27 January 2026 |devinfo output formatting regression
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:02.arm64.asc[FreeBSD-EN-26:02.arm64] |27 January 2026 |arm64 SVE signal context misalignment
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:03.vm.asc[FreeBSD-EN-26:03.vm] |27 January 2026 |The page fault handler fails to zero memory
 |===
 
 [[open-issues]]
@@ -76,8 +80,8 @@ For a list of all FreeBSD CERT security advisories, see https://www.FreeBSD.org/
 **Workaround**: do not install this release on Apple G5 systems +
 **State**: fixed in main - https://bugs.freebsd.org/292341 +
 
-5. **man:loader.efi[8]** has a regression preventing boot on some systems +
-**Workaround**: set `console="eficom"` at the man:loader[8] prompt if it hangs when loading the kernel +
+5. **man:loader.efi[8]** has a regression preventing boot on some systems with remote serial console facilities including HPE systems +
+**Workaround**: unset `hw.uart.console` at the man:loader[8] prompt if it hangs and/or instant reboots when loading the kernel +
 **State**: fixed in main - https://bugs.freebsd.org/291461 +
 
 [[late-news]]
