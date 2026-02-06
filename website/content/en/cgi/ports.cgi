@@ -53,14 +53,62 @@ a:link  { text-decoration:none; }
 a:hover { text-decoration:underline; }
 table, th, td { border: 1px solid black; border-collapse: collapse; }
 th, td { padding-left: 0.5em; padding-right: 0.5em; }
+
+span#noscript { color: red; font-size: normal; font-weight: bold; }
 </style>
 
 <link rel="search" type="application/opensearchdescription+xml" href="https://www.freebsd.org/opensearch/ports.xml" title="FreeBSD Ports" />
 `;
 
+my $no_javascript_warning = <<'EOF';
+<span id="noscript">
+<noscript>
+<p>Please enable JavaScript in your browser for sorting columns. Thanks!</p>
+</noscript>
+</span>
+EOF
+
+my $pkg_javascript = <<'EOF';
+
+<script type="text/javascript">
+let sort_directions = {}; // remember asc/desc per column
+
+function sort_table(column_index) {
+    const table = document.getElementById("pkg-result");
+    const tbody = table.tBodies[0];
+    const rows = Array.from(tbody.rows);
+
+    // toggle direction
+    const current = sort_directions[column_index] || "asc";
+    const direction = current === "asc" ? "desc" : "asc";
+    sort_directions[column_index] = direction;
+
+    rows.sort((a, b) => {
+        const a_text = a.cells[column_index].textContent.trim();
+        const b_text = b.cells[column_index].textContent.trim();
+
+        cmp = a_text.localeCompare(b_text, undefined, {
+            numeric: true,
+            sensitivity: "base"
+        });
+
+        return direction === "asc" ? cmp : -cmp;
+    });
+
+    // re-append in sorted order
+    rows.forEach(row => tbody.appendChild(row));
+}
+
+// always sort by release
+document.addEventListener("DOMContentLoaded", function() { sort_table(0) });
+</script>
+
+EOF
+
 # No unlimited result set. A HTML page with 1000 results can be 10MB big.
 my $max_hits         = 1000;
 my $max_hits_default = 250;
+my $max_hits_pkg     = 400;
 my $max;
 
 my $debug = 1;
@@ -359,6 +407,7 @@ sub package_links {
             die join( " ", @system ) . " $!\n";
         }
     }
+
     binmode( PKG_IN, ":bytes" );
 
     my $hash;
@@ -379,7 +428,8 @@ sub package_links {
         }
 
         if ( $. == 1 ) {
-            print qq[<h2>$perl->{"name"}: $perl->{"comment"}</h2>\n];
+            print qq[<h2>$perl->{"name"}: ], escapeHTML( $perl->{"comment"} ),
+              qq[</h2>\n];
 
             print qq[homepage: <a href="], $perl->{"www"},
               qq[">] . $perl->{"www"} . "</a><br/>\n";
@@ -390,12 +440,20 @@ sub package_links {
             print qq[maintainer: ], $perl->{"maintainer"}, "<br/>\n";
 
             print qq[<h3>Description</h3>\n];
-            print "<pre>", $perl->{"desc"}, "</pre>\n";
+            print "<pre>", escapeHTML( $perl->{"desc"} ), "</pre>\n";
             print qq[<h3>Download packages in *.pkg format</h3>\n];
-            print qq{<table>\n};
+
+            print $no_javascript_warning, $pkg_javascript;
+            print qq{<table id="pkg-result">\n};
             print qq{<thead>\n};
+            print qq{<tr>\n};
             print
-qq{<tr><th>Release</th><th>Version</th><th>Build Time</th></tr>\n};
+qq{ <th onclick="sort_table(0)" title="click to sort asc/desc by release">Release &lt;&gt;</th>\n};
+            print
+qq{ <th onclick="sort_table(1)" title="click to sort asc/desc by version">Version &lt;&gt;</th>\n};
+            print
+qq{ <th onclick="sort_table(2)" title="click to sort asc/desc by build time">Build Time &lt;&gt;</th>\n};
+            print qq{</tr>\n};
             print qq{</thead>\n};
             print qq{<tbody>\n};
         }
@@ -404,6 +462,12 @@ qq{<tr><th>Release</th><th>Version</th><th>Build Time</th></tr>\n};
         my $time     = $perl->{"annotations"}->{"build_timestamp"} // "";
         my $version  = $perl->{"version"};
         my $repopath = $perl->{"repopath"};
+        my $flavor   = $perl->{"annotations"}->{"flavor"} // "";
+
+        # show flavor
+        if ($flavor) {
+            $release = $release . " (" . $flavor . ")";
+        }
 
         $time =~ s/\+\d{4}$//;
         $time =~ s/T(\d\d):(\d\d):(\d\d)$/ $1:$2/;
@@ -417,9 +481,11 @@ qq{<tr><th>Release</th><th>Version</th><th>Build Time</th></tr>\n};
               if index( $release, $filter ) < 0
               && index( $pkg_opt, $filter ) < 0
               && index( $version, $filter ) < 0
-              && index( $time,    $filter ) < 0;
+              && index( $time,    $filter ) < 0
+              && index( $flavor,  $filter ) < 0;
         }
 
+        next if $counter >= $max;
         $counter++;
 
         my $info =
@@ -439,6 +505,7 @@ qq{<tr><th>Release</th><th>Version</th><th>Build Time</th></tr>\n};
         $hash->{'version'}->{$version}++;
         $hash->{'arch'}->{$arch}++;
         $hash->{'release'}->{$rel}++;
+        $hash->{'flavor'}->{$flavor}++ if $flavor ne "";
         $hash->{'snapshot'}->{$snapshot}++
           if $snapshot eq 'latest' || $snapshot eq 'quarterly';
     }
@@ -608,8 +675,10 @@ sub check_input {
 
     $max = int($max);
     if ( $max <= 0 || $max > $max_hits ) {
-        warn "reset max=$max to $max_hits_default\n";
-        $max = $max_hits_default;
+        my $old_max = $max;
+        $max = $enable_packages_link
+          && $stype eq 'pkg' ? $max_hits_pkg : $max_hits_default;
+        warn "reset max=$old_max to $max\n";
     }
 }
 
@@ -717,7 +786,8 @@ $stype       = $form{'stype'}      // "";
 $sourceid    = $form{'sourceid'}   // "";
 $pkg_filter  = $form{'pkg_filter'} // "";
 $script_name = &env('SCRIPT_NAME');
-$max         = $form{'max'} // $max_hits_default;
+$max         = $form{'max'} // ( $enable_packages_link
+      && $stype eq 'pkg' ? $max_hits_pkg : $max_hits_default );
 
 if ( $path_info eq "/source" ) {
     print "Content-type: text/plain\n\n";
