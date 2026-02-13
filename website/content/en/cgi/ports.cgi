@@ -115,6 +115,9 @@ my $debug = 1;
 
 # feature flags
 my $enable_packages_link = 1;
+my $enable_check_freebsd_mailing_list = 1;
+
+my %lists;
 
 sub init_variables {
     $localPrefix = '/usr/ports';    # ports prefix
@@ -327,6 +330,7 @@ sub out {
     $path     =~ s/^$localPrefix/$remotePrefixFtp/o;
     $descfile =~ s/^$localPrefix/$remotePrefixFtp/o;
     $version = &encode_url($version);
+    $email = &check_freebsd_mailing_list($email) if $enable_check_freebsd_mailing_list;
 
     #$version =~ s/[\+,]/X/g;
 
@@ -361,8 +365,7 @@ sub out {
     if ( $#s > 0 ) {
         print qq{<i>Also listed in:</i> };
         foreach (@s) {
-            print qq{<a href="$remotePrefixRepo/tree/$_">$_</a> }
-              if $_ ne $out_sec;
+            print qq{$_ } if $_ ne $out_sec;
         }
         print "<br />\n";
     }
@@ -437,7 +440,10 @@ sub package_links {
               . $perl->{"origin"} . qq[">]
               . $perl->{"origin"}
               . qq[</a><br/>\n];
-            print qq[maintainer: ], $perl->{"maintainer"}, "<br/>\n";
+
+            my $maintainer = $perl->{"maintainer"};
+            $maintainer = &check_freebsd_mailing_list($maintainer) if $enable_check_freebsd_mailing_list;
+            print qq[maintainer: $maintainer<br/>\n];
 
             print qq[<h3>Description</h3>\n];
             print "<pre>", escapeHTML( $perl->{"desc"} ), "</pre>\n";
@@ -732,11 +738,15 @@ The script ports.cgi use the file
 <a href="https://download.FreeBSD.org/ports/index/$ports_database.xz">$ports_database</a>
 as database for its operations. $ports_database is updated automatically every
 two hours.
+
+For other FreeBSD Releases INDEX files, please look at
+<a href="https://download.freebsd.org/ports/index/">https://download.freebsd.org/ports/index/</a>
 </p>
 
 <p>
 @{[ &last_update_message ]}
 </p>
+
 
 <h2>Copyright</h2>
 <pre>
@@ -768,6 +778,21 @@ sub footer_links {
   @{[ $stype eq "help" ? "" : qq, | <a href="$script_name?stype=help">help</a>, ]}
 </span>
 EOF
+}
+
+# expand FreeBSD mailing list aliases to full name,
+# e.g 'office' => 'freebsd-office'
+sub check_freebsd_mailing_list {
+    my $email = shift;
+
+    my ($user, $hostname) = split('@', $email);
+
+    # email is a ports section, not a real user
+    if ($lists{$user}) {
+        $user = 'freebsd-' . $user;
+    }
+
+    return $user . '@' . $hostname;
 }
 
 #
@@ -812,8 +837,11 @@ if ( !$query && $query_string =~ /^([^=&]+)$/ ) {
     $query = $1;
 }
 
-# automatically read collections, need only 0.2 sec on a pentium
+# get all categories
 @sec = &readcoll;
+
+# mailing list aliases
+%lists = map { $_ => 1 } qw/apache chromium desktop elastic emulation enlightenment erlang fortran gecko gnome go haskell java multimedia office perl pkg ports python ruby tcltk tex uboot x11 xfce zope/;
 
 $query = &check_query( $query, $sourceid );
 
