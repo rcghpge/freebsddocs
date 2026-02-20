@@ -337,10 +337,10 @@ admins mail aliases intentionally left incomplete
 Почтовая команда отвечает за корректную доставку почты на адреса электронной почты коммиттеров, обеспечение работы списков рассылки и должна принимать меры против возможных сбоев в работе почтовых служб проекта, таких как настройка фильтров против троллинга, спама и вирусов.
 
 * {bapt}
-* {krion}
 * {ler}
 * {philip}
 * {pi}
+* {rea}
 * {vsevolod}
 * {zi}
 
@@ -365,5 +365,5 @@ admins mail aliases intentionally left incomplete
 //
 // The FreeBSD Russian Documentation Project
 //
-// Original EN revision (05.02.2026): cdf54afec844cf096ccd5b922cc8942e97517a2e
+// Original EN revision (16.02.2026): a7b894c3ca9966ff7f8e11d249416643f554b4e3
 //
