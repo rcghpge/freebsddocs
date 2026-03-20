@@ -45,6 +45,7 @@
 * {adrian}
 * {dchagin}
 * {jch}
+* {laurent}
 * {nc}
 * {loader}
 * {melifaro}
@@ -159,6 +160,7 @@
 * {kan}
 * {bjk}
 * {phk}
+* {mce}
 * {pkelsey}
 * {yasu}
 * {pkubaj}

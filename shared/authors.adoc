@@ -1983,6 +1983,10 @@
 :laszlof-email: laszlof@FreeBSD.org
 :laszlof: {laszlof-name} <{laszlof-email}>
 
+:laurent-name: Laurent Chardon
+:laurent-email: laurent@FreeBSD.org
+:laurent: {laurent-name} <{laurent-email}>
+
 :lawrance-name: Sam Lawrance
 :lawrance-email: lawrance@FreeBSD.org
 :lawrance: {lawrance-name} <{lawrance-email}>
@@ -2238,6 +2242,10 @@
 :mbr-name: Martin Blapp
 :mbr-email: mbr@FreeBSD.org
 :mbr: {mbr-name} <{mbr-email}>
+
+:mce-name: Kousuke Kannagi
+:mce-email: mce@FreeBSD.org
+:mce: {mce-name} <{mce-email}>
 
 :mckay-name: Stephen McKay
 :mckay-email: mckay@FreeBSD.org
