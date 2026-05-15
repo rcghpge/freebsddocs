@@ -9,7 +9,11 @@ sidenav: download
 include::shared/releases.adoc[]
 include::shared/en/urls.adoc[]
 
+[[install]]
 = Get FreeBSD
+
+The FreeBSD Operating System is available for installation via images on this page or directly from cloud vendors.
+Please read the link:{handbook}bsdinstall/[**installation guide**] before downloading an image.
 
 For general information about past, present and future releases, see link:../releases/[Release Information].
 
@@ -244,23 +248,6 @@ Installer and SD card images are available for link:{url-snapshot}/amd64/amd64/I
 
 VM images are available for link:{url-snapshot}/VM-IMAGES/{rel144-current}-STABLE/amd64/Latest/[amd64], link:{url-snapshot}/VM-IMAGES/{rel144-current}-STABLE/i386/Latest/[i386], link:{url-snapshot}/VM-IMAGES/{rel144-current}-STABLE/aarch64/Latest/[aarch64], and link:{url-snapshot}/VM-IMAGES/{rel144-current}-STABLE/riscv64/Latest/[riscv64].
 
-[[install]]
-== Installation
-
-Options include:
-
-* images
-* direct download (anonymous FTP, and HTTPS).
-
-Before downloading an entire distribution, please read the link:{handbook}bsdinstall/[installation guide].
-
-If you plan to get FreeBSD via FTP or HTTPS, check the FreeBSD Handbook for link:{handbook}mirrors/#mirrors[suitable mirrors] for your region.
-
-[[distribution]]
-== Purchase FreeBSD Media
-
-FreeBSD can be acquired on DVD from link:{handbook}mirrors/#mirrors-disc[DVD publishers].
-
 [[apps]]
 == Applications and Utility Software
 
@@ -274,16 +261,6 @@ A diverse collection of utility and application software that has been _ported_ 
 * Browse the Collection: https://cgit.freebsd.org/ports/tree/[FreeBSD ports Git repository] | https://download.freebsd.org/ports/[web].
 
 For information about how _you_ can contribute _your_ favorite piece of software to the Collection, have a look at _link:{porters-handbook}[The Porter's Handbook]_ and _link:{contributing}[Contributing to FreeBSD]_.
-
-[[derived]]
-== FreeBSD-derived Operating System Distributions
-
-FreeBSD is widely used as a building block for other commercial and open-source operating systems.
-The projects below are of particular interest.
-
-* https://www.ghostbsd.org[GhostBSD] is derived from FreeBSD, and uses the GTK environment to provide a beautiful look and a comfortable experience on a modern BSD platform offering a natural and native UNIX(R)-like work environment.
-* https://www.midnightbsd.org[MidnightBSD] was forked from FreeBSD 6.1 beta, and continues to use parts of more recent FreeBSD code bases. Developed with desktop users in mind, MidnightBSD includes everything that you would expect for your daily tasks: mail, web browsing, word processing, gaming, and much more.
-* https://www.pfsense.org/[pfSense] is a FreeBSD-based customized distribution tailored for use as a firewall and router.
 
 [[past]]
 == Archives
