@@ -158,6 +158,34 @@ This section lists the various Security Advisories and Errata Notices since {rel
 | 29 April 2026
 | Heap overflow in libnv
 
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:18.setcred.asc[FreeBSD-SA-26:18.setcred]
+| 20 May 2026
+| Stack buffer overflow via man:setcred[2]
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:19.file.asc[FreeBSD-SA-26:19.file]
+| 20 May 2026
+| Kernel use-after-free via file descriptor syscalls
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:20.fusefs.asc[FreeBSD-SA-26:20.fusefs]
+| 20 May 2026
+| Heap overflow in FUSE_LISTXATTR
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:21.ptrace.asc[FreeBSD-SA-26:21.ptrace]
+| 20 May 2026
+| Missing validation in ptrace(PT_SC_REMOTE)
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:22.libcasper.asc[FreeBSD-SA-26:22.libcasper]
+| 20 May 2026
+| man:select[2] file descriptor set overflow causes stack overflow
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:23.bsdinstall.asc[FreeBSD-SA-26:23.bsdinstall]
+| 20 May 2026
+| Remote code execution via installer Wi-Fi access point scans
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:24.cap_net.asc[FreeBSD-SA-26:24.cap_net]
+| 20 May 2026
+| Incorrect man:libcap_net[3] limitation list manipulation
+
 |===
 
 [[errata]]
@@ -222,12 +250,35 @@ This section lists the various Security Advisories and Errata Notices since {rel
 | 1 May 2026
 | man:dhclient[8] lease validation is too strict
 
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:13.freebsd-update.asc[FreeBSD-EN-26:13.freebsd-update]
+| 20 May 2026
+| man:freebsd-update[8] attempts to merge a generated file
+
 |===
 
 [[userland]]
 == Userland
 
 This section covers changes and additions to userland applications, contributed software, and system utilities.
+
+[[userland-packages]]
+=== System Packaging Changes
+
+Changes in this section only affect systems installed using base system packages (sometimes called _pkgbase_), supported in FreeBSD 15.0 and later.
+
+OpenPAM has moved to a new `FreeBSD-pam` package.
+Systems with the `FreeBSD-set-minimal` or `FreeBSD-set-minimal-jail` package sets installed will install this package automatically, and no user action is required.
+Systems which do not have either of the minimal sets installed must install the new package if they need to support PAM authentication, e.g. for man:login[1] or man:sshd[8].
+gitref:95cc7f59b7ce[repository=src].
+
+Zstandard, including the man:zstd[1] utility, has moved to a new `FreeBSD-zstd` package.
+Systems with the `FreeBSD-set-minimal` or `FreeBSD-set-minimal-jail` package sets installed will install this package automatically, and no user action is required.
+Other systems should install this package manually if Zstandard support is required.
+gitref:8c61751d078e[repository=src].
+
+The `installworld` and `installkernel` targets are now blocked on systems installed from packages to prevent package database inconsistencies.
+Users wishing to perform source-based upgrades should first unregister the base system packages, as described in man:freebsd-base[7].
+gitref:ef82bdc864c5[repository=src], gitref:235cb4b4970f[repository=src].
 
 [[userland-config]]
 === Userland Configuration Changes
@@ -441,20 +492,21 @@ gitref:6197518ee905[repository=src].
 Adds man:strdupa[3] and man:strndupa[3] functions, which allocate memory for a copy of a string on the stack using man:alloca[3]. This provides a convenient alternative to man:strdup[3] and man:strndup[3] for temporary string copies that are automatically freed when the function returns.
 gitref:b2e649a0b98d[repository=src].
 
-Adds C23 `<stdbit.h>` header with bit manipulation functions like `stdc_bit_ceil()`, `stdc_bit_width()`, and `stdc_count_ones()`. This provides standard bit operations for C programs.
-gitref:275c11b7ccff[repository=src].
-
-The C23 trigonometric functions from the `*pi` family (acospi, acospif etc.) have beed exposed in <math.h>. This provides standard-conforming APIs for applications using these functions.
-gitref:104488641aca[repository=src].
-
-The C23 `memalignment()` function has been added to libc, allowing programs to compute pointer alignment. A man page has been included.
-gitref:24ea81047de7[repository=src].
-
 The SONAME of libzfs and libzpool have been bumped to libzfs7 and libzpool7 due to ABI-breaking changes, requiring recompilation of dependent applications.
 gitref:5b2489caf266[repository=src].
 
 Adds libuvmem, a userland port of the man:vmem[9] kernel memory allocator, providing a similar interface for userland applications.
 gitref:3ae14e8f332f[repository=src].
+
+Partial support for the C23 version of the C Programming language is now available. It will continue to evolve, with complete support anticipated for FreeBSD 16. New features include the `<stdbit.h>` header, the man:memalignment[3] function, updates to the `<limits.h>` and `<stdint.h>` headers including the `_WIDTH` macros and `char8_t`, as well as various other extensions.
+gitref:275c11b7ccff[repository=src],
+gitref:104488641aca[repository=src],
+gitref:24ea81047de7[repository=src],
+gitref:5656d0f7453e[repository=src],
+gitref:72609bb2bb25[repository=src],
+gitref:ff50ace5fe0e[repository=src],
+gitref:cbad54ba46e6[repository=src],
+gitref:6fc280810ead[repository=src].
 
 [[cloud]]
 == Cloud Support
@@ -476,12 +528,13 @@ I/O interrupts from the man:ena[4] device on Graviton (arm64) systems are now sp
 gitref:b2ba4131b9b0[repository=src].
 {{< sponsored "Amazon" >}}
 
-Cloud image configurations for cloud-init and ec2-small now use firstboot_pkg_upgrade for package updates.
-gitref:73ec43ab702f[repository=src].
-
 A firstboot package auto updater has been introduced for cloud images. On first boot, the base system packages are automatically updated to patch the system.
 gitref:10c4498f93d2[repository=src].
 {{< sponsored "Google Cloud" >}}
+
+The EC2 "small" flavour of AMIs no longer runs firstboot_pkgs by default; users who provide a list of packages to install by setting `firstboot_pkgs_list` in EC2 user-data should now also set `firstboot_pkgs_enable="YES"`.
+gitref:b9ee42d7712b[repository=src].
+{{< sponsored "Amazon" >}}
 
 [[kernel]]
 == Kernel
@@ -879,20 +932,8 @@ gitref:142df248ac06[repository=src].
 [[ports-packages]]
 === Packaging Changes
 
-zstd has been packaged as a separate library and program package, similar to zlib, bzip2, and xz. The zstd package has been included in the minimal package set, ensuring it remains installed by default.
-gitref:8c61751d078e[repository=src].
-{{< sponsored "https://www.patreon.com/bsdivy" >}}
-
 Package repository configuration changes redirect package requests from pkgbase.freebsd.org to pkg.freebsd.org mirrors, adding approximately 70 seconds to pkgbase system installation/upgrade operations. Systems with 15.0-PRERELEASE, ALPHA, or BETA installations become orphaned as they expect packages signed with old pkg keys rather than new pkgbase signing keys.
 gitref:0c87d29a54da[repository=src].
-
-OpenPAM has been moved to a separate 'pam' package, allowing systems without PAM (e.g., jails, containers) to avoid installing PAM modules. The pam package is included in minimal installation sets by default, but custom or embedded systems can omit it.
-gitref:95cc7f59b7ce[repository=src].
-{{< sponsored "https://www.patreon.com/bsdivy" >}}
-
-The `installworld` and `installkernel` targets are now blocked on systems using pkgbase to prevent package database inconsistencies. Users can override this check with `DESTDIR=/` if needed.
-gitref:ef82bdc864c5[repository=src].
-{{< sponsored "https://www.patreon.com/bsdivy" >}}
 
 Firmware packages from the kmods repository have been included on the DVD installation media, ensuring that firmware modules are usable on the release version.
 gitref:b0fbed20ceb9[repository=src].
