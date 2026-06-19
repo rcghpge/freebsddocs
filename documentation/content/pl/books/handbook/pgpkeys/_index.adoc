@@ -17,7 +17,6 @@ params:
 :toclevels: 1
 :icons: font
 :sectnums:
-:sectnumlevels: 6
 :sectnumoffset: D
 :partnums:
 :source-highlighter: rouge
@@ -52,7 +51,7 @@ toc::[]
 include::../../../../../shared/asciidoctor.adoc[]
 endif::[]
 
-W tym rozdziale zostało zebranych, dla naszej wygody, wiele kluczy oficerów czy twórców FreeBSD, gdybyśmy musieli zweryfikować podpis bądź wysłać do jednego z nich zaszyfrowaną wiadomość. Kompletna baza kluczy użytkowników `FreeBSD.org` dostępna jest pod adresem link:https://docs.FreeBSD.org/pgpkeys/pgpkeys.txt[pgpkeyring.txt].
+W tym rozdziale zostało zebranych, dla naszej wygody, wiele kluczy oficerów czy twórców FreeBSD, gdybyśmy musieli zweryfikować podpis bądź wysłać do jednego z nich zaszyfrowaną wiadomość. Kompletna baza kluczy użytkowników `FreeBSD.org` dostępna jest pod adresem link:https://docs.FreeBSD.org/pgpkeys/pgpkeys.txt[pgpkeys.txt].
 
 [[pgpkeys-officers]]
 == Oficerowie
@@ -70,4 +69,3 @@ include::{pgpkeys-path}static/pgpkeys/portmgr-secretary.key[]
 include::{pgpkeys-path}static/pgpkeys/doceng-secretary.key[]
 
 :sectnums:
-:sectnumlevels: 6

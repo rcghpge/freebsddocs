@@ -43,8 +43,8 @@ include::shared/ru/urls.adoc[]
 |Начало сборок RC2 |29 мая 2026 |30 мая 2026 |Второй кандидат для релиза.
 |Начало сборок RC3 |5 июня 2026 |6 июня 2026 |Третий кандидат для релиза.
 // Нужно было указать "29 мая" и "2 июня" в следующих строках, однако новый дизайн веб-сайта отображает такое форматирование некорректно
-|Начало сборок RELEASE |12 июня 2026 |- |Начало сборок {localRel}-RELEASE.
-|Объявление о RELEASE |16 июня 2026 |- |Пресс-релиз о {localRel}-RELEASE.
+|Начало сборок RELEASE |12 июня 2026 |12 июня 2026 |Начало сборок {localRel}-RELEASE.
+|Объявление о RELEASE |16 июня 2026 |16 июня 2026 |Пресс-релиз о {localRel}-RELEASE.
 |{localRelPrev} EoL |30 сентября 2026 |- |{localRelPrev}-RELEASE больше не поддерживается.
 |{localRel} EoL |31 марта 2027 |- |{localRel}-RELEASE больше не поддерживается.
 |{localBranchStable} EoL |31 декабря 2029 |- |{localBranchStable} больше не поддерживается.
@@ -64,5 +64,5 @@ link:todo/[Страница TODO Команды подготовки релиз�
 //
 // The FreeBSD Russian Documentation Project
 //
-// Original EN revision (06.06.2026): 52f1192217518dc8897809f9c6fd897c9b097019
+// Original EN revision (16.06.2026): 271dd1d2b598ef558236033d0292a473a44d9f0f
 //

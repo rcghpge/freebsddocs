@@ -6,8 +6,8 @@ sidenav: download
 :localRel: 15.1
 :releaseCurrent: 15.1-RELEASE
 :releaseBranch: 15-STABLE
-:releasePrev: X.Y-RELEASE
-:releaseNext: X.Y-RELEASE
+:releasePrev: 15.0-RELEASE
+:releaseNext: 15.2-RELEASE
 :releaseType: "release"
 
 include::shared/ru/urls.adoc[]
@@ -15,59 +15,30 @@ include::shared/ru/urls.adoc[]
 = Информация о релизе FreeBSD {releaseCurrent}
 :doctype: article
 :toc: macro
-:toclevels: 1
+:toclevels: 2
 :icons: font
 
-== Краткое описание
+== Аннотация
 
 [.abstract-title]
-Информация о релизе FreeBSD {releaseCurrent} содержит сводку изменений, внесённых в базовую систему FreeBSD в рамках работ над веткой {releaseBranch}.
-Этот документ перечисляет применимые рекомендации по безопасности, выпущенные с момента последнего релиза, а также существенные изменения в ядре FreeBSD и пользовательском окружении.
-Также даны некоторые краткие пояснения по обновлению.
+Примечания к выпуску FreeBSD {releaseCurrent} содержат краткий обзор изменений, внесённых в операционную систему в рамках ветки разработки {releaseBranch}.
+В этом документе перечислены соответствующие бюллетени безопасности и исправления, выпущенные после предыдущего релиза, а также значительные изменения в экосистеме.
+
+toc::[]
 
 [[intro]]
 == Введение
 
-Этот документ содержит информацию о релизе FreeBSD {releaseCurrent}.
-Он описывает недавно добавленные, изменённые или удалённые функции FreeBSD.
-Также в нём содержатся некоторые пояснения по обновлению с предыдущих версий FreeBSD.
+В этом документе подробно описаны изменения, внесённые начиная с FreeBSD {releasePrev}.
 
-Дистрибутив {releaseType}, к которому относится эта информация о релизе, соответствует последней точке в ветке разработки {releaseBranch} с момента создания {releaseBranch}.
-Информацию о предварительно собранных бинарных дистрибутивах {releaseType} этой ветки можно найти по адресу https://www.FreeBSD.org/releases/[].
+Инструкции по установке см. в главе link:{handbook}bsdinstall/[Установка FreeBSD] Руководства FreeBSD.
 
-Дистрибутив {releaseType}, к которому относится эта информация о релизе, соответствует последней точке в ветке разработки между {releasePrev} и будущим {releaseNext}.
-Информацию о предварительно собранных бинарных дистрибутивах {releaseType} этой ветки можно найти по адресу https://www.FreeBSD.org/releases/[].
+Инструкции по обновлению см. в разделе link:../upgrading[Инструкция по обновлению до FreeBSD {releaseCurrent}].
 
-Этот дистрибутив FreeBSD {releaseCurrent} является дистрибутивом {releaseType}.
-Его можно найти по адресу https://www.FreeBSD.org/releases/[] или на любом из зеркалирующих серверов.
-Дополнительную информацию о получении этого (или другого) дистрибутива {releaseType} FreeBSD можно найти в link:{handbook}mirrors[приложении по получению FreeBSD] к link:{handbook}[Руководству FreeBSD].
+Информацию о поддерживаемом оборудовании см. в link:../hardware[Списке совместимости оборудования FreeBSD {releaseCurrent}].
 
-Всем пользователям рекомендуется ознакомиться с исправлениями и дополнениями релиза перед установкой FreeBSD.
-Документ с исправлениями и дополнениями обновляется «последней информацией», обнаруженной в конце цикла выпуска или после выпуска.
-Обычно он содержит информацию об известных ошибках, уведомлениях о безопасности и исправлениях в документации.
-Актуальную копию исправлений и дополнений для FreeBSD {releaseCurrent} можно найти на веб-сайте FreeBSD.
-
-В этом документе описаны наиболее заметные для пользователя новые или измененные функции в FreeBSD после {releasePrev}.
-Как правило, описанные здесь изменения уникальны для ветки {releaseBranch}, если они не отмечены специально как функции MERGED.
-
-Обычные пункты информации о релизе документируют недавние уведомления о безопасности, выпущенные после {releasePrev}, новые драйверы или поддержку оборудования, новые команды или опции, основные исправления ошибок или обновления предоставленного программного обеспечения.
-Также могут перечисляться изменения в основных портах/пакетах или практиках инженерии выпуска.
-Очевидно, что информация о релизе не может перечислить каждое изменение, внесенное в FreeBSD между выпусками; этот документ в основном фокусируется на уведомлениях о безопасности, изменениях, заметных для пользователя, и основных архитектурных улучшениях.
-
-[[upgrade]]
-== Обновление с предыдущих релизов FreeBSD
-
-Бинарные обновления между RELEASE-версиями (и промежуточными релизами различных веток с исправлениями уязвимостей) поддерживаются с помощью утилиты man:freebsd-update[8].
-Ознакомьтесь с процедурой обновления конкретного релиза, с link:../installation/#upgrade-binary[Информацией об обновлении FreeBSD {releaseCurrent}] и с более подробной информацией в разделе Руководства FreeBSD о link:{handbook}cutting-edge/#freebsdupdate-upgrade[процедуре бинарного обновления].
-При этом будут обновлены неизменённые пользовательские утилиты, а также неизменённые ядра GENERIC, распространяемые как часть официального релиза FreeBSD.
-Утилита man:freebsd-update[8] требует, чтобы обновляемая система имела подключение к сети Интернет.
-
-Поддерживаются обновления на основе исходного кода (когда из него происходит перекомпиляция базовой системы FreeBSD) с предыдущих версий в соответствии с указаниями в [.filename]#/usr/src/UPDATING#.
-
-[IMPORTANT]
-====
-Попытку обновления FreeBSD следует предпринимать только после резервного копирования _всех_ данных и конфигурационных файлов.
-====
+Всем читателям рекомендуется ознакомиться с link:../errata[исправлениями к FreeBSD {releaseCurrent}] перед установкой или обновлением.
+Документ с исправлениями содержит информацию, обнаруженную на поздних стадиях цикла выпуска, например, известные ошибки, бюллетени безопасности или исправления документации.
 
 [[security-errata]]
 == Безопасность и информация об ошибках
@@ -84,9 +55,153 @@ include::shared/ru/urls.adoc[]
 | Дата
 | Тема
 
-|Бюллетени отсутствуют.
-|
-|
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-25:09.netinet.asc[FreeBSD-SA-25:09.netinet]
+| 22 октября 2025 г.
+| SO_REUSEPORT_LB нарушает работу man:connect[2] для сокетов UDP
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-25:10.unbound.asc[FreeBSD-SA-25:10.unbound]
+| 26 ноября 2025 г.
+| Отравление кэша в службе local-unbound
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-25:12.rtsold.asc[FreeBSD-SA-25:12.rtsold]
+| 16 декабря 2025
+| Удалённое выполнение кода через ND6 Router Advertisements
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:01.openssl.asc[FreeBSD-SA-26:01.openssl]
+| 27 января 2026
+| Несколько уязвимостей в OpenSSL
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:03.blocklistd.asc[FreeBSD-SA-26:03.blocklistd]
+| 10 февраля 2026
+| Утечка идентификаторов сетевых соединений в man:blocklistd[8]
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:05.route.asc[FreeBSD-SA-26:05.route]
+| 24 февраля 2026
+| Локальный отказ в обслуживании и возможное повышение полномочий через маршрутизирующие сокеты
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:06.tcp.asc[FreeBSD-SA-26:06.tcp]
+| 26 марта 2026
+| TCP: возможность дистанционной DoS-атаки (утечка mbuf)
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:07.nvmf.asc[FreeBSD-SA-26:07.nvmf]
+| 26 марта 2026
+| Дистанционный отказ в обслуживании через обращение к нулевому указателю
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:08.rpcsec_gss.asc[FreeBSD-SA-26:08.rpcsec_gss]
+| 26 марта 2026
+| Дистанционное выполнение кода через проверку корректности пакета в RPCSEC_GSS
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:09.pf.asc[FreeBSD-SA-26:09.pf]
+| 25 марта 2026
+| pf игнорирует определённые правила, не сообщая об этом
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:10.tty.asc[FreeBSD-SA-26:10.tty]
+| 21 апреля 2026
+| Ошибка использования памяти после её высвобождения в коде обработчика TIOCNOTTY в ядре
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:11.amd64.asc[FreeBSD-SA-26:11.amd64]
+| 21 апреля 2026
+| Отсутствие обработки больших страниц памяти в pmap_pkru_update_range()
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:12.dhclient.asc[FreeBSD-SA-26:12.dhclient]
+| 29 апреля 2026
+| Дистанционный запуск кода через злонамеренную настройку параметров DHCP
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:13.exec.asc[FreeBSD-SA-26:13.exec]
+| 29 апреля 2026
+| Локальное повышение полномочий через execve()
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:14.pf.asc[FreeBSD-SA-26:14.pf]
+| 29 апреля 2026
+| Обработка особым образом сформированных пакетов SCTP в pf может привести к переполнению стека
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:15.dhclient.asc[FreeBSD-SA-26:15.dhclient]
+| 29 апреля 2026
+| Дистанционно вызываемая запись в область вне границы выделенной памяти в dhclient
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:16.libnv.asc[FreeBSD-SA-26:16.libnv]
+| 29 апреля 2026
+| Переполнение стека через превышение количества файловых дескрипторов в select()
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:17.libnv.asc[FreeBSD-SA-26:17.libnv]
+| 29 апреля 2026
+| Переполнение распределённой памяти в libnv
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:18.setcred.asc[FreeBSD-SA-26:18.setcred]
+| 20 мая 2026
+| Переполнение буфера стека через man:setcred[2]
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:19.file.asc[FreeBSD-SA-26:19.file]
+| 20 мая 2026
+| Обращение к памяти в ядре после её высвобождения через системные вызовы, работающие с файловыми дескрипторами
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:20.fusefs.asc[FreeBSD-SA-26:20.fusefs]
+| 20 мая 2026
+| Переполнение распределённой памяти в FUSE_LISTXATTR
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:21.ptrace.asc[FreeBSD-SA-26:21.ptrace]
+| 20 мая 2026
+| Отсутствующая проверка достоверности в ptrace(PT_SC_REMOTE)
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:22.libcasper.asc[FreeBSD-SA-26:22.libcasper]
+| 20 мая 2026
+| Превышение количества файловых дескрипторов в man:select[2] вызывает переполнение стека
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:23.bsdinstall.asc[FreeBSD-SA-26:23.bsdinstall]
+| 20 мая 2026
+| Дистанционное выполнение кода при помощи сканирования точек доступа Wi-Fi в программе установки
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:24.cap_net.asc[FreeBSD-SA-26:24.cap_net]
+| 20 мая 2026
+| Некорректная обработка списка ограничений в man:libcap_net[3]
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:25.thr.asc[FreeBSD-SA-26:25.thr]
+| 9 июня 2026 г.
+| Отсутствие проверки разрешений в man:thr_kill2[2]
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:26.ktls.asc[FreeBSD-SA-26:26.ktls]
+| 9 июня 2026 г.
+| Произвольная перезапись файлов через путь приёма KTLS
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:27.sound.asc[FreeBSD-SA-26:27.sound]
+| 9 июня 2026 г.
+| Множественные уязвимости в пути mmap man:sound[4]
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:28.capsicum.asc[FreeBSD-SA-26:28.capsicum]
+| 9 июня 2026 г.
+| Отсутствие ограничения режима возможностей в man:sigqueue[2]
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:29.ip6_multicast.asc[FreeBSD-SA-26:29.ip6_multicast]
+| 9 июня 2026 г.
+| Ошибка использования после освобождения в обработчике параметра сокета IPV6_MSFILTER
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:30.linux.asc[FreeBSD-SA-26:30.linux]
+| 9 июня 2026 г.
+| Ошибка в Linuxulator при выполнении двоичных файлов setugid
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:31.arm64.asc[FreeBSD-SA-26:31.arm64]
+| 9 июня 2026 г.
+| Ошибки в процессорах Arm могут обходить изменения разрешений таблицы страниц
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:32.elf.asc[FreeBSD-SA-26:32.elf]
+| 9 июня 2026 г.
+| Обход ASLR для исполняемых файлов setuid через man:procctl[2]
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:33.unbound.asc[FreeBSD-SA-26:33.unbound]
+| 9 июня 2026 г.
+| Множественные уязвимости в unbound
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:34.vt.asc[FreeBSD-SA-26:34.vt]
+| 9 июня 2026 г.
+| Целочисленное переполнение в ioctl CONS_HISTORY man:vt[4]
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:35.openssl.asc[FreeBSD-SA-26:35.openssl]
+| 9 июня 2026 г.
+| Множественные уязвимости в OpenSSL
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:36.ldns.asc[FreeBSD-SA-26:36.ldns]
+| 9 июня 2026 г.
+| Недостаточная проверка ответов в резолвере-заглушке ldns
 
 |===
 
@@ -100,32 +215,347 @@ include::shared/ru/urls.adoc[]
 | Дата
 | Тема
 
-|Уведомления отсутствуют.
-|
-|
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-25:19.zfs.asc[FreeBSD-EN-25:19.zfs]
+| 16 декабря 2025
+| Непривилегированное обращение к указателю NULL на уровне ядра
 
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-25:20.vmm.asc[FreeBSD-EN-25:20.vmm]
+| 16 декабря 2025
+| Некорректная реализация сквозного доступа к PCI в man:bhyve[8]
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:01.devinfo.asc[FreeBSD-EN-26:01.devinfo]
+| 27 января 2026
+| Некорректный формат выдачи команды devinfo
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:02.arm64.asc[FreeBSD-EN-26:02.arm64]
+| 27 января 2026
+| Некорректное выравнивание контекста регистров при обработке сигналов на системах arm64 с поддержкой SVE
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:03.vm.asc[FreeBSD-EN-26:03.vm]
+| 27 января 2026
+| Обработчик событий отсутствия страниц памяти обнуляет её некорректно
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:04.arm64.asc[FreeBSD-EN-26:04.arm64]
+| 10 февраля 2026
+| Аварийное завершение работы ядра при сохранении образа памяти процесса на системах arm64
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:05.vm.asc[FreeBSD-EN-26:05.vm]
+| 21 апреля 2026
+| Обработчик событий отсутствия страниц памяти обнуляет её некорректно
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:06.timerfd.asc[FreeBSD-EN-26:06.timerfd]
+| 21 апреля 2026
+| Повторяющиеся таймеры man:timerfd[2] могут выдавать некорректные результаты
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:07.pkgbase.asc[FreeBSD-EN-26:07.pkgbase]
+| 21 апреля 2026
+| Ошибка компиляции пакетов из базового установочного набора с обновлёнными версиями libucl
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:08.pf.asc[FreeBSD-EN-26:08.pf]
+| 29 апреля 2026
+| Некорректное распознавание повторяющихся правил для автоматических таблиц
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:09.tzdata.asc[FreeBSD-EN-26:09.tzdata]
+| 29 апреля 2026
+| Обновление информации в базе данных часовых поясов
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:10.amd64.asc[FreeBSD-EN-26:10.amd64]
+| 29 апреля 2026
+| Программная ошибка при устаревании TLB в системах AMD с поддержкой INVLPGB
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:11.dhclient.asc[FreeBSD-EN-26:11.dhclient]
+| 1 мая 2026
+| Чрезмерно строгая проверка запросов в man:dhclient[8]
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:13.freebsd-update.asc[FreeBSD-EN-26:13.freebsd-update]
+| 20 мая 2026
+| man:freebsd-update[8] пытается выполнить слияние со сгенерированным файлом
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:14.syslogd.asc[FreeBSD-EN-26:14.syslogd]
+| 9 июня 2026 г.
+| Утечка памяти в man:syslogd[8] в casper_ttymsg()
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:15.openssl.asc[FreeBSD-EN-26:15.openssl]
+| 9 июня 2026 г.
+| Обновление OpenSSL до версий 3.0.20 и 3.5.6
 
 |===
 
 [[userland]]
 == Пользовательское окружение
 
-Этот раздел охватывает изменения и дополнения в пользовательских приложениях, предоставленном программном обеспечении и системных утилитах.
+Этот раздел охватывает изменения и дополнения в пользовательских приложениях, системном программном обеспечении сторонних разработчиков и системных утилитах.
+
+[[userland-packages]]
+=== Изменения в системных пакетах
+
+Изменения в этом разделе относятся только к системам, установленным из базовых системных пакетов (иногда их называют _pkgbase_), которые поддерживаются во FreeBSD 15.0 и более поздних версиях.
+
+Программное обеспечение OpenPAM перемещено в новый пакет `FreeBSD-pam`.
+Системы с установленными наборами пакетов `FreeBSD-set-minimal` или `FreeBSD-set-minimal-jail` будут выполнять установку этого пакета в автоматическом режиме, каких-либо пользовательских действий не требуется.
+В системы, в которых не установлен ни тот, ни другой минимальный набор, в обязательном порядке должен быть установлен этот новый пакет, если требуется поддержка аутентификации через PAM, например, для man:login[1] или man:sshd[8].
+gitref:95cc7f59b7ce[repository=src].
+
+Программное обеспечение Zstandard, включая утилиту man:zstd[1], перемещено в новый пакет `FreeBSD-zstd`.
+Системы с установленными наборами пакетов `FreeBSD-set-minimal` или `FreeBSD-set-minimal-jail` будут выполнять установку этого пакета в автоматическом режиме, каких-либо пользовательских действий не требуется.
+Для остальных систем при наличии потребности в поддержке Zstandard этот пакет должен быть установлен в ручном режиме.
+gitref:8c61751d078e[repository=src].
+
+Цели `installworld` и `installkernel` теперь блокируются в системах, установленных из пакетов, чтобы избежать неконсистентности базы данных пакетов.
+Пользователи, желающие выполнить модернизацию систем из исходного кода, должны сначала отменить регистрацию базовых системных пакетов, как описано в man:freebsd-base[7].
+gitref:ef82bdc864c5[repository=src], gitref:235cb4b4970f[repository=src].
 
 [[userland-config]]
 === Изменения в конфигурации пользовательского окружения
 
+Устанавливается и доступна к использованию в консоли man:vt[4] раскладка клавиатуры `us.intl.acc.kbd`.
+gitref:34196ce83f9c[repository=src].
+
+Устанавливается и доступна к использованию в консоли man:vt[4] раскладка клавиатуры ноутбука Lenovo.
+gitref:23eaa98d6dc1[repository=src].
+
+Оболочка командной строки man:csh[1], используемая по умолчанию для пользователей root и 'freebsd' в образах релизов, заменена на man:sh[1].
+gitref:c8763bd078d8[repository=src].
+
+rc.subr теперь поддерживает указание аудирующего пользователя для сервисов через директивы rc.conf, что позволяет администраторам переопределять идентификатор аудирующего пользователя при запуске сервисов и предотвращать доступ к журналам аудита в ситуациях перезапуска сервисов непривилегированными пользователями при помощи sudo.
+gitref:7edef9117688[repository=src].
+{{< sponsored "Modirum MDPay; Klara, Inc." >}}
+
 [[userland-programs]]
 === Изменения в пользовательских приложениях
+
+Утилита man:find[1] теперь поддерживает первичные параметры -xattr и -xattrname для поиска файлов по расширенным атрибутам. Параметр -xattr выбирает файлы, имеющие хоть какой-то расширенный атрибут, тогда как -xattrname выполняет отбор по названию конкретного атрибута, перед которым опционально указано некоторое пространство имён, например, "user:" или "system:".
+gitref:5cbb1e05086c[repository=src].
+{{< sponsored "Klara, Inc." >}}
+
+Утилита man:newfs[8] теперь не разрешает одновременное использование журналирования GEOM и асинхронного обновления. При запросе журналирования GEOM асинхронное обновление автоматически не активируется, а явный запрос обеих функций приводит к сообщению об ошибке.
+gitref:f758262e66dd[repository=src].
+
+Утилита man:tr[1] теперь корректно обрабатывает класс символов CCLASS ([:alpha:]) в режиме Unicode, что исправляет ошибку в операциях преобразования регистров для буквенных символов.
+gitref:a51ec1cc5a82[repository=src].
+
+Режим объединения утилиты man:diff3[1] сделан совместимым с GNU diff3, что улучшает взаимную заменяемость с другими системами и инструментами.
+gitref:a6f17dd2430b[repository=src].
+
+Утилита man:pwd[1] теперь по умолчанию использует параметр -L (логический) в соответствии с семантикой POSIX. Пути, содержащие точки или двойные точки, в логическом режиме отклоняются.
+gitref:24b95c5ece3d[repository=src].
+
+В man:bectl[8] был добавлен флаговый параметр -E для создания пустых загрузочных окружений без клонирования работающего в данный момент окружения. Это позволяет пользователям создавать новое независимое загрузочное системное окружение для установки или настройки в неавтоматизированном режиме.
+gitref:2b5087e9850b[repository=src].
+
+Утилита man:daemon[8] теперь поддерживает указание режима файла выдачи при помощи нового параметра, что позволяет получать доступ к файлам журналов и собирать их пользователям без полномочий root, улучшая совместимость с инструментами ротации журналов.
+gitref:4bc40d5a624e[repository=src].
+
+Утилита man:newfs[8] получила флаговый параметр `-u` для отключения асинхронных обновлений и их журналирования, что даёт способ отключить асинхронные обновления для файловых систем UFS2, где эти обновления используются по умолчанию.
+gitref:f5a51cfba15c[repository=src].
+{{< sponsored "Klara, Inc.; NetApp, Inc." >}}
+
+Команда clone в man:zfs[8] теперь принимает параметр `-u`, предотвращающий автоматическое монтирование новых созданных наборов данных. Это позволяет пользователям создавать клоны без немедленного их монтирования, что может оказаться полезным при использовании в скриптах или при подготовке наборов данных для последующего использования.
+gitref:6ab8f46c6c47[repository=src].
+
+Утилита man:zdb[8] получила параметр `-O` для использования совместно с `-r` для явного указания идентификатора объекта, что позволяет копировать файл по идентификатору объекта, а не по имени.
+gitref:ccb7c82aa15b[repository=src].
+
+Для управления политиками аудита была добавлена утилита man:setaudit[8].
+gitref:dc88f0003e85[repository=src].
+{{< sponsored "Modirum MDPay; Klara, Inc." >}}
+
+Утилита man:ipfs[8] по умолчанию отключена, а её поддержка на уровне ядра теперь не является обязательной. Пользователи, работающие с ipfs, должны обязательно активировать её в конфигурации ядра.
+gitref:91de9b501aa7[repository=src].
+
+Утилита man:sockstat[1] теперь по умолчанию отображает конечные точки UDP-Lite.
+gitref:c10317b0c455[repository=src].
+
+Утилита man:dtrace[1] теперь поддерживает переменную `ustackdepth` на системах arm64, что даёт пользователям возможность для данной архитектуры запрашивать глубину стека в пользовательском пространстве в скриптах DTrace.
+gitref:00412df3265e[repository=src].
+
+В диагностических сообщениях ядра, относящихся к DTrace, теперь используется более интуитивно понятный префикс `dtrace`, что улучшает единообразие поиска в журнале событий.
+gitref:7781f5e09ffc[repository=src].
+
+Скрипт bsdinstall теперь по умолчанию выполняет установку pkgbase с компонентами, заданными в переменной COMPONENTS, при этом старый метод установки дистрибутивных наборов остаётся доступным, если определена переменная DISTRIBUTIONS.
+gitref:cb7880bb0900[repository=src].
+{{< sponsored "ConnectWise" >}}
+
+В man:cron[8] теперь реализован полный цикл сеанса PAM для пользовательских заданий, что даёт возможность модулям PAM получать учётные данные и устанавливать сеансы до выполнения заданий. Переменные окружения PAM экспортируются процессам задания, при этом пользовательские переменные crontab имеют более высокий приоритет. В /etc/pam.d/cron добавлено используемое по умолчанию правило pam_permit.so для сеанса, что позволяет активировать поддержку сеансов без изменения стандартного поведения.
+gitref:770479c4cea0[repository=src].
 
 [[userland-contrib]]
 === Системное программное обеспечение сторонних разработчиков
 
+Набор авторизованных сертифицирующих центров был повторно сгенерирован из NSS 3.123.1, при этом были добавлены новые доверенные сертификаты (OISTE Server Root ECC G1, OISTE Server Root RSA G1, SwissSign RSA TLS Root CA 2022, TrustAsia TLS ECC Root CA, TrustAsia TLS RSA Root CA, Certigna Root CA, e-Szigno TLS Root CA 2023, Atos TrustedRoot Root CA ECC G2 2020 и Atos TrustedRoot Root CA RSA G2 2020), а несколько сертификатов были удалены. Несколько центров сертификации, ранее считавшихся доверенными, были перенесены в категорию недоверенных, также было добавлено некоторое количество новых недоверенных сертификатов.
+gitref:5bb9cd154dfa[repository=src].
+
+Код для работы с часовыми поясами был обновлён до версии 2026b.
+gitref:b72580fcb0a7[repository=src].
+
+База данных tzdata была обновлена до версии 2026b.
+gitref:1e5aff8e5bc6[repository=src].
+
+Программное обеспечение OpenSSL обновлено до версии 3.5.6.
+gitref:e2fcde7333a5[repository=src].
+
+Библиотека libfido2 обновлена до версии 1.16.0.
+gitref:a54428834b9d[repository=src].
+{{< sponsored "The FreeBSD Foundation" >}}
+
+Библиотека expat обновлена до версии 2.7.5.
+gitref:0b94911946e9[repository=src].
+
+Утилита man:xz[1] обновлена до версии 5.8.3.
+gitref:7176f76d2251[repository=src].
+
+Библиотека libcbor обновлена до версии 0.13.0.
+gitref:967186fe0a54[repository=src].
+{{< sponsored "The FreeBSD Foundation" >}}
+
+Утилита man:tcpdump[1] обновлена до версии 4.99.6.
+gitref:6af32a9d37ad[repository=src].
+{{< sponsored "The FreeBSD Foundation" >}}
+
+Библиотека libpcap обновлена до версии 1.10.6.
+gitref:e0ae00f43186[repository=src].
+{{< sponsored "The FreeBSD Foundation" >}}
+
+Библиотека man:zlib[3] обновлена до версии 1.3.2.
+gitref:74f357256769[repository=src].
+
+Программное обеспечение OpenZFS обновлено до версии 2.4.2.
+gitref:409247a6cbd1[repository=src].
+
+База данных вендоров USB обновлена до версии 2025.12.13.
+gitref:9b2cba4a8a69[repository=src].
+
+База данных вендоров PCI, обеспечивающая идентификацию имеющегося оборудования для таких инструментов, как man:pciconf[8], обновлена до версии 2026-02-10.
+gitref:2483216eecf3[repository=src].
+
+Даемон man:blocklistd[8] обновлён до версии 2026-02-07.
+gitref:d73fac00cdd4[repository=src].
+
+Шрифт spleen обновлён до версии 2.2.0. В ней добавлены несколько ранее отсутствующих символов, критически важных для страниц Справочника на дисплеях с высоким разрешением, в том числе длинное тире, короткое тире, дефис, угловые скобки, белый квадрат, типографский крестик и двойной крестик. Также в нём улучшено выравнивание символов для различных размеров шрифта.
+gitref:da4c7b4518dd[repository=src].
+
+Пакет GoogleTest обновлён до версии 1.17.0. Новой версии для компиляции теперь требуется {cpp}17.
+gitref:0029027156f4[repository=src].
+
+Библиотека man:ncurses[3] обновлена до версии 6.6. Обновление совместимо с версией 6.5 на уровне ABI. Документация в формате HTML была удалена.
+gitref:297d5bf89067[repository=src].
+
+Утилита man:nvi[1] обновлена до версии 2.2.2.
+gitref:b840145f1985[repository=src].
+
+Утилита man:mtree[8] обновлена до версии 20260111 из NetBSD.
+gitref:e2e7269461e9[repository=src].
+
+Поддержка Unicode обновлена до версии Unicode 17.0.0 и CLDR 48, при этом было добавлено 4803 символов и 4 новых письменности (сидетская, толонг-сики, загава, тай-йо). Это затрагивает определения региональных настроек, сравнения, отображение финансовой информации и числовых данных для региональных настроек UTF-8.
+gitref:476a063a88aa[repository=src].
+
+Утилита man:bmake[1] обновлена до версии 20251111.
+gitref:11aa32794394[repository=src].
+
+Библиотека man:sqlite3[1] обновлена до версии 3.50.4.
+gitref:e37206a66db0[repository=src].
+
+Программное обеспечение man:unbound[8] обновлено до версии 1.25.1.
+gitref:1b6c85cfac36[repository=src].
+
+Подсистема blacklist переименована в blocklist (man:blocklistd[8]) во всей операционной системе. Старые имена в скриптах rc, правилах межсетевых экранов и конфигурационных параметрах продолжают функционировать, однако выдают предупреждающие сообщения. Это изменение соответствует обновлению терминологии в оригинальном коде.
+gitref:7f6f2139eef9[repository=src].
+
+Утилита man:bsddialog[1] обновлена до версии 1.0.5.
+gitref:aa2fe36f5e4b[repository=src].
+{{< sponsored "The FreeBSD Foundation" >}}
+
+Утилита man:less[1] обновлена до версии 692.
+gitref:109324d5e7ab[repository=src].
+
+Утилита zstd обновлена до версии 1.5.7.
+gitref:1aa2b46a0707[repository=src].
+
+Библиотека MIT krb5 обновлена до версии 1.22.2.
+gitref:3de8ca652d93[repository=src].
+
+Библиотека Heimdal (Kerberos) обновлена до версии 1.22.2.
+gitref:3ee9a0f8924d[repository=src].
+
 [[userland-deprecated-programs]]
 === Выводимые из эксплуатации приложения
 
+Набор lpr утилит для печати (man:lpr[1], man:lpd[8], man:lpc[8], man:lpq[1], man:lprm[1], man:lp[1], man:pac[8], man:lptest[1] и man:chkprintcap[8]) выводится из эксплуатации и может быть удалён до выпуска FreeBSD 16.0. Пользователям рекомендуется использовать такие альтернативы, как print/cups или sysutils/LPRng из Коллекции портов.
+gitref:9b75d6ec6929[repository=src].
+
+Утилита man:bsdlabel[8] спланирована к удалению во FreeBSD 16.0. Пользователи должны перейти на использование man:gpart[8] для разметки диска.
+gitref:be24d85ec784[repository=src].
+{{< sponsored "The FreeBSD Foundation" >}}
+
+Утилита man:fdisk[8] спланирована к удалению во FreeBSD 16.0. Пользователи должны перейти на использование man:gpart[8] или man:bsdinstall[8] для разбиения диска на разделы.
+gitref:2be4c64a0d27[repository=src].
+{{< sponsored "The FreeBSD Foundation" >}}
+
 [[userland-libraries]]
 === Программные библиотеки и API
+
+Интерфейс man:posix_spawn[3] теперь поддерживает файловые операции `chdir` и `fchdir`, требуемые в POSIX, что позволяет процессам менять их рабочий каталог при порождении дочернего процесса.
+gitref:43347b26fb46[repository=src].
+
+Добавлены функции man:posix_spawnattr_getexecfd_np[3] и man:posix_spawnattr_setexecfd_np[3], что позволяет использовать файловый дескриптор в качестве исполнимого файла для posix_spawn.
+gitref:6b9e7e922d8b[repository=src].
+
+Добавлена функция pthread_tryjoin_np(), которая позволяет одному потоку попытаться присоединиться к другому потоку без блокировки.
+gitref:a8891c29d6a0[repository=src].
+
+В библиотеке libc функции работы со строками man:memcpy[3], man:memmove[3] и man:memset[3] в архитектуре AArch64 теперь используют аппаратные инструкции работы с памятью (MOPS) при их доступности, что улучшает производительность этих часто используемых операций.
+gitref:d8e700f2eeb9[repository=src].
+{{< sponsored "Arm Ltd" >}}
+
+В библиотеку libc добавлена совместимая с glibc функция man:tdestroy[3], что даёт стандартный способ удалять деревья бинарного поиска и улучшает совместимость с программным обеспечением, предполагающим наличие этой функции.
+gitref:6197518ee905[repository=src].
+
+Добавлены функции man:strdupa[3] и man:strndupa[3], которые выделяют память для копии строки в стеке при помощи man:alloca[3]. Это даёт удобную альтернативу man:strdup[3] и man:strndup[3] для временных копий строк, которые автоматически удаляются при возвращении из функции.
+gitref:b2e649a0b98d[repository=src].
+
+SONAME для библиотек libzfs и libzpool были изменены на libzfs7 и libzpool7 ввиду изменений, меняющих ABI и требующих перекомпиляцию зависимых приложений.
+gitref:5b2489caf266[repository=src].
+
+Добавлена библиотека libuvmem, представляющая собой перенос функций распределения памяти ядра man:vmem[9] на уровень пользовательского окружения и обеспечивающая аналогичный интерфейс для пользовательских приложений.
+gitref:3ae14e8f332f[repository=src].
+
+Теперь доступна частичная поддержка версии C23 языка программирования C. Она будет продолжать расширяться, при этом полная поддержка этой версии ожидается во FreeBSD 16. К новым функциям относится появление заголовочного файла `<stdbit.h>` и функции man:memalignment[3], обновления в заголовочных файлах `<limits.h>` и `<stdint.h>`, включая макросы `_WIDTH` и `char8_t`, а также различные другие расширения.
+gitref:275c11b7ccff[repository=src],
+gitref:104488641aca[repository=src],
+gitref:24ea81047de7[repository=src],
+gitref:5656d0f7453e[repository=src],
+gitref:72609bb2bb25[repository=src],
+gitref:ff50ace5fe0e[repository=src],
+gitref:cbad54ba46e6[repository=src],
+gitref:6fc280810ead[repository=src].
+
+[[cloud]]
+== Поддержка облачных решений
+
+В этом разделе описываются изменения в поддержке облачных системных окружений.
+
+Скрипты для сборки Oracle Cloud Infrastructure (OCI) и соответствующие цели удалены. Последние официальные образы OCI относятся к FreeBSD 15.0-RELEASE.
+gitref:2702a3ac1ab6[repository=src].
+{{< sponsored "SkunkWerks, GmbH" >}}
+
+Пакет man:pkg[7] теперь присутствует в образах виртуальных машин и образах, предназначенных для облачных платформ, в которых используется пакетированная базовая система, что позволяет выполнять обновление базовой системы без необходимости установки pkg в ручном режиме из хранилища портов.
+gitref:c8d759230a0e[repository=src].
+{{< sponsored "Amazon" >}}
+
+В названиях образов семейства GCE теперь присутствуют TARGET и FS, что обеспечивает уникальность наборов образов для каждой архитектуры и файловой системы. Это позволяет избегать выбора несовместимого образа на уровне API инсталляций GCE при использовании названия семейства образов.
+gitref:0005bb76e2e7[repository=src].
+
+Прерывания ввода/вывода от устройства man:ena[4] в системах Graviton (arm64) теперь распределяются между процессорами, а не направляются все на CPU 0; это даёт существенно более высокую производительность работы сети на таких типах инсталляций в EC2.
+gitref:b2ba4131b9b0[repository=src].
+{{< sponsored "Amazon" >}}
+
+В конфигурациях образов, предназначенных для облачных платформ, появилось автоматическое обновление пакетов при первой загрузке. При первом запуске пакеты базовой системы автоматически актуализируются для обновления системы.
+gitref:10c4498f93d2[repository=src].
+{{< sponsored "Google Cloud" >}}
+
+В варианте "small" образов виртуальных машин для EC2 по умолчанию firstboot_pkgs больше не запускается; пользователи, указывающие список пакетов для установки через настройку `firstboot_pkgs_list` в пользовательских данных EC2, должны теперь также указывать `firstboot_pkgs_enable="YES"`.
+gitref:b9ee42d7712b[repository=src].
+{{< sponsored "Amazon" >}}
 
 [[kernel]]
 == Ядро
@@ -135,6 +565,42 @@ include::shared/ru/urls.adoc[]
 [[kernel-general]]
 === Общие изменения в ядре
 
+На 32-разрядной платформе powerpc и на powerpc64le теперь включён механизм System Dynamic Tracing (SDT), что даёт пользователям возможность использовать пробы DTrace на указанных архитектурах.
+gitref:769bc6877399[repository=src].
+
+Добавлен механизм выбора планировщика, позволяющий выбирать различные планировщики ЦПУ при загрузке через настраиваемый параметр. Это даёт основу для будущих реализаций планировщиков.
+gitref:159a66aecc9c[repository=src].
+
+Планировщик `sched_ule` теперь реализован как экземпляр планировщика, что может повлиять на производительность системы и поведение планировщика с точки зрения пользователей.
+gitref:ec10524db95a[repository=src].
+
+Конфигурация ядра `GENERIC` для amd64 включает как планировщик `SCHED_ULE`, так и `SCHED_4BSD`, что даёт пользователям возможность выбирать между ними при загрузке при помощи sysctl-параметра `kern.sched`.
+gitref:a3b5daf4242f[repository=src].
+
+В конфигурацию ядра MINIMAL включён драйвер virtio_scsi, позволяющий осуществлять загрузку в виртуальных машинах qemu/kvm.
+gitref:80dec91da334[repository=src].
+{{< sponsored "Klara, Inc.; NetApp, Inc." >}}
+
+Добавлен системный вызов man:pdwait[2], предназначенный для ожидания дескрипторов процессов, что даёт альтернативу man:wait4[2] для процессов, созданных при помощи man:pdfork[2].
+gitref:758de6465572[repository=src].
+
+Добавлен системный вызов man:pdrfork[2], дающий новый механизм создания процесса с предопределённым наследованием ресурсов.
+gitref:4ae6f372e26c[repository=src].
+
+Решена проблема конкурентности в коде переключения потоков powerpc, которая могла приводить к зависанию системы при загрузке в многопроцессорных гостевых средах power9 pseries.
+gitref:a50789d8b89b[repository=src].
+
+sysctl-параметры `hw.ata.rotating` и `hw.ata.unmapped_io` спланированы к удалению во FreeBSD 16 вместо FreeBSD 15.
+gitref:469ab88d107c[repository=src].
+{{< sponsored "The FreeBSD Foundation" >}}
+
+`vfs.zfs.min_auto_ashift` и другие устаревшие sysctl-параметры для ZFS теперь выдают предупреждения при их использовании, указывая на их вывод из эксплуатации и последующее удаление. Пользователи должны адаптировать скрипты и конфигурации к использованию новых названий sysctl-параметров, таких как `vfs.zfs.vdev.min_auto_ashift`.
+gitref:f0033878b92e[repository=src].
+{{< sponsored "The FreeBSD Foundation" >}}
+
+В слой совместимости с Linux добавлена поддержка команды `F_DUPFD_QUERY` для fcntl, которая используется с `KCMP_FILE` из man:kcmp[2] для проверки эквивалентности файлового дескриптора в контейнерах Linux.
+gitref:ec8d0b5f5dfb[repository=src].
+
 [[drivers]]
 == Устройства и драйверы
 
@@ -143,8 +609,78 @@ include::shared/ru/urls.adoc[]
 [[drivers-device]]
 === Драйверы устройств
 
+Драйвер man:ena[4] обновлён до версии v2.8.3.
+В неё включено исправление ошибки приёма маршрута для гигантских сетевых пакетов, что может дать более чем десятикратный рост производительности сети.
+gitref:b949f8292de5[repository=src].
+{{< sponsored "Amazon, Inc." >}}
+
+Драйвер bcm2838_xhci теперь корректно распознаёт оборудование Raspberry Pi 400 по строке совместимости, что даёт полноценную инициализацию xhci и функциональность USB (включая внешние порты и встроенную клавиатуру) на этой платформе.
+gitref:861deac98c4c[repository=src].
+
+Добавлен драйвер bcm2835-virtgpio контроллера GPIO, имеющегося в Raspberry Pi 3B и некоторых адаптерах Compute Module. Это позволяет реализовать управление (зелёным) индикатором ACT LED через man:gpioled[4].
+gitref:fb10574334ca[repository=src].
+
+Драйвер smartpqi был обновлён до вендорской версии 14.4690.0.2008 - 15.2.0.2008. В обновлении содержится поддержка новых контроллеров и увеличение лимита на размер буфера ввода/вывода для прозрачного преобразования ioctl из 16 разрядов в 32.
+gitref:0c370a416b68[repository=src].
+{{< sponsored "Microchip Technology Inc." >}}
+
+Драйвер man:asmc[4] больше не поддерживает 32-разрядные Mac на платформе Intel, явным образом указывая на то, что оборудование i386 не поддерживается.
+gitref:e16f1bf3baa1[repository=src].
+
+Драйвер mfi(4) теперь поддерживает Fujitsu RAID Controller SAS 6Gbit/s 1GB (D3116), используемый в серверах Fujitsu PRIMERGY.
+gitref:e16e4cd25c1d[repository=src].
+
+Добавлена поддержка датчика мониторинга аппаратной производительности (hwpmc) для дополнительных моделей процессоров Intel: Alder Lake (модели 6-B7, 6-BA, 6-BF), Alder Lake-N и Emerald Rapids. Пользователи, использующие эти процессоры, могут теперь собирать события при помощи man:pmc[3] и соответствующих инструментов. В поддержку Emerald Rapids включены определения событий в формате JSON, которые были импортированы из perfmon версии 1.06 компании Intel, что даёт полноценное покрытие событий.
+gitref:a40167734ecb[repository=src],
+gitref:6b0cb6ea249e[repository=src],
+gitref:9ac702781508[repository=src].
+{{< sponsored "Stormshield" >}}
+
+Драйвер man:hid[4] теперь позволяет участникам группы 'game' обращаться к событиям игрового контроллера, что даёт возможность использования контроллеров в непривилегированном режиме через библиотеки, подобные libsdl.
+gitref:d0e1b3edee70[repository=src].
+
+Драйвер man:iwx[4] был включён в конфигурацию для построения ядра, что обеспечивает поддержку беспроводных сетевых адаптеров Intel AX210/AX211/AX411 Wi-Fi 6E и Wi-Fi 7.
+gitref:0f9ab6c5232b[repository=src].
+
+Драйвер NVMe теперь поддерживает BAR5 для Table BIR и PBA BIR, обеспечивая работоспособность FreeBSD на машинах Google Compute Engine C4 с контроллерами NVMe, которые используют раздельные 32-разрядные регистры BAR4 и BAR5.
+gitref:6c321dc15d52[repository=src].
+{{< sponsored "Google" >}}
+
+Драйвер man:ice[4] теперь поддерживает сетевой адаптер Intel E835-XXV-4.
+gitref:b59a9230a6a8[repository=src].
+{{< sponsored "Intel Corporation" >}}
+
+Драйвер man:ice[4] теперь поддерживает адаптеры Intel E835 Ethernet с функциями обеспечения безопасности SPDM и технологией RDMA на подключениях 100Gbps и 200Gbps.
+gitref:16004d2a9eee[repository=src].
+{{< sponsored "Intel Corporation" >}}
+
+Драйвер man:qat[4] теперь поддерживает устройство 402xx (идентификаторы 0x4944/0x4945) через существующих драйвер qat_4xxx. Были добавлены файлы с микропрограммным обеспечением, специфичным для этого драйвера.
+gitref:88c0ce38bc18[repository=src].
+{{< sponsored "Intel Corporation" >}}
+
+Драйвер padlock_rng теперь компилируется в архитектуре amd64, что обеспечивает аппаратную генерацию случайных чисел на 64-разрядных процессорах Via Nano, Nano X2 и некоторых процессорах Zhaoxin.
+gitref:191573ce0bfd[repository=src].
+
 [[drivers-removals]]
-=== Удалённые и выводимые из эксплуатации драйверы
+=== Удалённые и выводимые из поддержки драйверы
+
+Драйвер man:hifn[4] помечен как запланированный к удалению во FreeBSD 16.0, что предупреждает пользователей о подготовке к будущим изменениям в совместимости.
+gitref:ba6c676ef3ac[repository=src].
+
+Драйвер man:safe[4] помечен к удалению во FreeBSD 16.0, что указывает на вывод из эксплуатации и удаление этого драйвера в будущем.
+gitref:0ef2ecd0ced4[repository=src].
+
+Уведомление о выводе драйвера man:agp[4] из эксплуатации было обновлено для указания его удаления во FreeBSD 16.0, а не 15.0.
+gitref:92f169fe0f19[repository=src].
+{{< sponsored "The FreeBSD Foundation" >}}
+
+Драйвер man:fdc[4] и утилиты для работы с дискетами (man:fdcontrol[8], man:fdformat[8], man:fdread[1] и man:fdwrite[1]) выводится из эксплуатации. Удаление поддержки планируется осуществить во FreeBSD 16.0.
+gitref:661b40ffdee2[repository=src].
+{{< sponsored "The FreeBSD Foundation" >}}
+
+Уведомление о выводе драйвера man:le[4] из эксплуатации было обновлено для отражения того, что он не был удалён до FreeBSD 15.0, и его поддержка продолжается.
+gitref:59ba7278499f[repository=src].
+{{< sponsored "The FreeBSD Foundation" >}}
 
 [[storage]]
 == Системы хранения данных
@@ -154,47 +690,269 @@ include::shared/ru/urls.adoc[]
 [[storage-general]]
 === Общие изменения в системах хранения
 
+В утилиту man:mt[1] и библиотеку libmt добавлена поддержка кодов плотности лент LTO-10 и LTO-10P и спецификации. Ленточные устройства LTO-10 обратно не совместимы с предыдущим поколением лент LTO.
+gitref:7fe98ee4d49a[repository=src].
+{{< sponsored "Spectra Logic" >}}
+
+=== ZFS
+
+Минимальные значения времени для scrub и resilver в ZFS были снижены с нескольких секунд до долей секунд, что позволяет завершать циклы групповых транзакций на современном оборудовании быстрее и улучшить производительность операций записи при высокой нагрузке.
+gitref:35ee242abcba[repository=src].
+
+Введён новый параметр настройки, `zfs_arc_evict_batches_limit`, улучшающий производительность параллельного высвобождения памяти в ZFS ARC. Это изменение снижает конкурентность блокировок и может существенно улучшить пропускную способность при определённых видах нагрузок.
+gitref:8a79d0968006[repository=src].
+
+Команда man:zpool[8] prefetch теперь поддерживает метаданные BRT (Block Reference Table), что улучшает производительность для операций клонирования блоков и высвобождения клонированных блоков. Параметр `-t` теперь является необязательным; при его отсутствии команда выполняет предварительную загрузку как метаданных DDT, так и BRT.
+gitref:41878d57eaf3[repository=src].
+
+=== NFS
+
+Клиент NFS теперь полноценно работает с файловыми системами, не чувствительными к регистру, подобными man:msdosfs[4], при их экспортировании через NFS. Кэширование имён скорректировано так, чтобы исключить ситуацию неверной диагностики отсутствия в кэше для различных вариантов написания одного и того же имени файла.
+gitref:406c98d2ca1d[repository=src].
+
+Бездисковая загрузка в NFSv4 теперь поддерживает конфигурации, использующие man:nfsuserd[8] для сопоставления имён и идентификаторов. Ядро использует кэш сопоставлений с необходимыми записями для того, чтобы избежать блокировок во время загрузки. Пользователи должны в обязательном порядке задать параметры boot.nfsroot.options="nfsv4" и boot.nfsroot.user_domain="<user.domain>" в файле [.filename]#loader.conf#.
+gitref:692a289922d2[repository=src].
+
+Добавлена внутренняя инфраструктура для ACL из предварительной версии POSIX в виде расширения NFSv4.2, основанная на Internet Draft. Эти изменения подготавливают клиент и сервер NFS к будущей поддержке, однако на данный момент изменения в логике, видимые пользователям, отсутствуют. Заметьте, что, ввиду внутренних изменений в KAPI, после обновления модули nfscommon.ko, nfscl.ko и nfsd.ko должны быть перекомпилированы из исходного кода.
+gitref:20bfa56c514b[repository=src],
+gitref:2eddaeb3e505[repository=src],
+gitref:d842c511d84c[repository=src],
+gitref:dccf41dd1834[repository=src],
+gitref:144c1eda3973[repository=src].
+
+Клиент и сервер NFSv4 теперь поддерживают признак архивности (UF_ARCHIVE), который используется клиентами Windows NFSv4.1, несмотря на вывод его из использования в RFC8881. Это улучшает совместную работу с клиентами Windows NFS.
+gitref:3a64c667f16f[repository=src].
+
+Добавлена поддержка монтирования бездисковой корневой файловой системы через NFSv4. Она требует специфичной настройки сервера и клиента в man:loader.conf[5] и man:sysctl.conf[5].
+gitref:2a97b49bc472[repository=src].
+
+Проверка соответствия iSCSI TargetName при регистрации теперь снова является нечувствительной к регистру, что возвращает соответствие RFC 3722.
+gitref:379805b29732[repository=src].
+{{< sponsored "ConnectWise" >}}
+
 [[boot]]
 == Изменения в загрузчике
 
 Этот раздел касается загрузчика, загрузочного меню и других изменений, связанных с загрузкой.
 
 [[boot-loader]]
-== Изменения в загрузчике
+=== Изменения в загрузчике
+
+К функции ядра man:splash[4] добавлена демонстрация заставки при завершении работы системы. Пользователи могут настроить эту заставку, указав изображение в формате PNG при помощи директивы `shutdown_splash` в man:loader.conf[5].
+При аварийном завершении работы ядра экранная заставка поверх выдачи отладчика не выдаётся, что делает доступной информацию об аварийном завершении при отключенном ddb(4).
+gitref:0bd9b26d19e2[repository=src],
+gitref:6a3966f363d3[repository=src].
+{{< sponsored "Defenso" >}}
+
+Загрузчик EFI теперь использует функции Blt, реализованные в микропрограммном обеспечении, только при использовании GOP (Graphics Output Protocol), но не UGA (Universal Graphics Adapter). Это улучшает совместимость с более старыми системами MacBook, где функции Blt, реализованные в UGA, работали ненадёжно.
+gitref:d3902baca506[repository=src].
 
 [[network]]
 == Сеть
 
-Этот раздел описывает изменения, влияющие на сеть в FreeBSD.
+Этот раздел описывает изменения, влияющие на сетевые функции во FreeBSD.
 
 [[network-general]]
-=== Общие сетевые изменения
+=== Изменения в сетевых функциях общего характера
+
+Добавлена поддержка для поиска IP-адресов в таблицах man:ipfw[8] по маске, что даёт возможность использовать префиксы с промежутками и создавать конфигурации межсетевого экрана, более эффективные с точки зрения потребления вычислительной мощности.
+gitref:a9b93531788c[repository=src].
+{{< sponsored "Yandex LLC" >}}
+
+Межсетевой экран man:ipfw[8] теперь поддерживает поиск IP-адресов в таблицах по маске, что даёт возможность использовать префиксы с промежутками для повышения эффективности настроек правил межсетевого экрана. Это позволяет создавать конфигурации межсетевого экрана, более эффективные с точки зрения потребления вычислительной мощности, за счёт маскирования несущественных битов в ключах поиска и записях таблиц.
+gitref:a9b93531788c[repository=src].
+{{< sponsored "Yandex LLC" >}}
+
+Пакеты IPv6 теперь передаются в divert-сокеты, что снимает существовавшее ограничение на использование таких сокетов только для IPv4. Это даёт возможность обрабатывать пакеты IPv6 в приложениях, работающих с divert-сокетами.
+gitref:e5cf3437275f[repository=src].
+{{< sponsored "OPNsense, Klara, Inc." >}}
+
+Добавлен настроечный sysctl-параметр `net.inet.ipf.jail_allowed` для того, чтобы оперировать возможностью изолятора управлять собственными правилами, пулами и настройками ipfilter. По умолчанию доступ запрещён, что требует вмешательства со стороны хостирующей системы в настройки правил изолятора через подключение интерфейса или включения этого sysctl-параметра для управления изолированным окружением.
+gitref:65bc0a1ade72[repository=src].
+
+Удалён код совместимости с man:ipfw[8] версии 3 для FreeBSD 8 и более ранних версий, так как он устарел и больше не нужен. Эта оптимизация может повлиять на системы, всё ещё использующие очень старые конфигурации, однако функциональность для сопровождаемых в настоящее время релизов не изменяется.
+gitref:9657c50cdd77[repository=src].
+{{< sponsored "The FreeBSD Foundation" >}}
+
+Добавлена поддержка RFC 7217 в части генерации стабильных адресов IPv6 через новый флаговый параметр 'stableaddr' в ifconfig, а также связанные с этим настраиваемые sysctl-параметры. По умолчания эта возможность отключена и не изменяет актуального поведения системы. Актуализирована документация на странице Справочника о man:ifconfig[8].
+gitref:865e0b20ca3c[repository=src].
+
+[[wireless-networking]]
+=== Работа с беспроводными сетями
+
+Драйвер беспроводных устройств man:iwlwifi[4] обновлён на основе версии 7.0 из Linux. В это обновление включены изменения, связанные с поддержкой новых беспроводных устройств Intel.
+gitref:f45e34316eb7[repository=src].
+{{< sponsored "The FreeBSD Foundation" >}}
+
+Драйвер беспроводных устройств man:rtw89[4] обновлён на основе версии 7.0 из Linux, что обеспечивает поддержку более новых наборов микросхем Realtek и улучшает стабильность и функциональность. Для нескольких наборов микросхем известные проблемы ещё не устранены.
+gitref:7ffebcdb702d[repository=src].
+{{< sponsored "The FreeBSD Foundation" >}}
+
+Драйвер man:rtw88[4] обновлён на основе версии 7.0 из Linux, в которую включены различные исправления и улучшения для беспроводных устройств Realtek. С некоторыми наборами микросхем наблюдаются проблемы.
+gitref:bcdf750def1d[repository=src].
+{{< sponsored "The FreeBSD Foundation" >}}
+
+Активирована первичная поддержка драйверов беспроводных устройств, основанных на LinuxKPI, в частности, man:iwlwifi[4], для систем RISC-V. Хотя на этой архитектуре ACPI поддерживается ещё не полностью, структура драйвера была адаптирована для обеспечения компиляции и работы там, где это возможно. Заметьте, что драйвер man:rtw89[4] временно не доступен для RISC-V из-за неустранённых зависимостей ACPI.
+gitref:7990fa2a819c[repository=src],
+gitref:24777428cbc2[repository=src],
+gitref:d301aadc994f[repository=src],
+gitref:4a56313c73eb[repository=src].
+{{< sponsored "The FreeBSD Foundation" >}}
 
 [[hardware]]
 == Поддержка оборудования
 
 Этот раздел охватывает общую поддержку оборудования для физических машин, гипервизоров и сред виртуализации, а также изменения и обновления оборудования, которые не подходят в другие разделы этого документа.
 
-Пожалуйста, ознакомьтесь со link:https://www.freebsd.org/releases/{localRel}R/hardware[списком оборудования], поддерживаемым {releaseCurrent}, а также с link:https://www.freebsd.org/platforms/[страницей платформ] для полного списка поддерживаемых архитектур процессоров.
+Пожалуйста, ознакомьтесь со link:https://www.freebsd.org/ru/releases/{localRel}R/hardware[списком оборудования], поддерживаемым {releaseCurrent}, а также со link:https://www.freebsd.org/ru/platforms/[страницей платформ] для получения полного списка поддерживаемых архитектур процессоров.
 
 [[hardware-virtualization]]
 === Поддержка виртуализации
 
+Добавлен новый настраиваемый параметр изоляторов allow.vmm_ppt для управления сквозным доступом к PCI в изолированных окружениях man:bhyve[8]. Изменение требует явной настройки функциональности сквозного доступа к PCI в изоляторах, что заменяет ранее отсутствующее ограничение.
+gitref:94066f9a07ad[repository=src].
+{{< sponsored "The FreeBSD Foundation; Klara, Inc." >}}
+
+Драйвер работы с GPU, virtio, теперь работает с Parallels Desktop, разделяя запросы на присоединение ресурса, и обеспечивает поддержку работы с графикой в этом виртуализированном окружении.
+gitref:91ce7a19120a[repository=src].
+{{< sponsored "Arm Ltd" >}}
+
+Добавлена поддержка регистров Fine-Grained Trap (FGT) в arm64, что обеспечивает расширенные возможности виртуализации для гипервизоров.
+gitref:89776ce6a7b7[repository=src].
+{{< sponsored "Arm Ltd" >}}
+
+Выполнено изменение, позволяющее использовать набор инструкций Memory Operations (MOPS) в пользовательском окружении arm64 при наличии соответствующей аппаратной поддержки. Это даёт возможность пользовательским приложениям использовать инструкции MOPS для повышения производительности операций с памятью.
+gitref:2a9a92ba7bd7[repository=src].
+{{< sponsored "Arm Ltd" >}}
+
+В удалённый видеобуфер man:bhyve[8] добавлена поддержка сокетов домена UNIX. Теперь графическая консоль доступна экземплярам bhyve в изоляторах без поддержки сетевых функций.
+gitref:d29dd64b3f88[repository=src].
+{{< sponsored "Defenso" >}}
+
+Архитектура amd64 теперь поддерживает LASS (Linear Address Space Separation), функцию безопасности, которая помогает изолировать адресные пространства ядра и пользователей. Это изменение может влиять на отладку и низкоуровневое системное программирование.
+gitref:532c8d3f90b9[repository=src].
+
+Архитектура amd64 теперь поддерживает стандарт Extended Destination ID, что даёт возможность поддерживать вплоть до 32768 идентификаторов APIC и MSI без переназначения прерываний; в частности, это обеспечивает поддержку для систем "r8i.96xlarge" в EC2.
+gitref:b54646e37a2b[repository=src].
+{{< sponsored "Amazon" >}}
+
 [[documentation]]
 == Документация
 
-В этом разделе рассматриваются изменения на страницах Справочника (man:man[1]) и другой документации, поставляемой в составе базовой системы.
+В этом разделе рассматриваются изменения страниц Справочника (man:man[1]) и другой документации, поставляемой в составе базовой системы.
 
 [[man-pages]]
 === Страницы Справочника
+
+На странице Справочника о man:sh[1] теперь имеется подробная документация об управлении заданиями, в которой стандартный текст POSIX адаптирован к реализации FreeBSD.
+gitref:0b5ced487a28[repository=src].
+
+Добавлены страницы Справочника man:pdfork[2] и man:pdwait[2], документирующие системные вызовы pdrfork и pdwait.
+gitref:780b7f9e0ece[repository=src].
+
+Задокументирован системный вызов man:renameat2[2], что даёт пользователям информацию о расширенной функциональности переименований.
+gitref:3ccc39d38ed8[repository=src].
+
+Страница Справочника о man:write[2] теперь включает новый раздел, описывающий гарантированность атомарных операций записи.
+gitref:514c8f173ce0[repository=src].
+
+Добавлена страница Справочника о недокументированной функции man:mq_getfd_np[3] из библиотеки man:librt[3]. Она документирует функцию, присутствующую со времён FreeBSD 11.
+gitref:992f994bb71e[repository=src].
+
+Добавлены страницы Справочника о man:posix_spawnattr_getprocdescp_np[3] и man:posix_spawnattr_setprocdescp_np[3], документирующие расширения для управления дескрипторами процессов в posix_spawn.
+gitref:4d8e4b67f5b5[repository=src].
+
+Добавлена страница Справочника о man:posix_spawnattr_getexecfd_np[3].
+gitref:ad6a63b4ec6b[repository=src].
+
+Страница Справочника о man:pthread_join[3] дополнена документированием функции man:pthread_tryjoin_np[3], которая даёт пользователям неблокирующую альтернативу для присоединения потоков.
+gitref:d1ac644ccc43[repository=src].
+
+Добавлены страницы Справочника для нескольких сервисов DTrace, в том числе man:dtrace_vfs[4] (активность VFS), man:dtrace_pid[4] (трассировка процесса на пользовательском уровне), man:dtrace_priv[4] (проверки полномочий) и man:dtrace_callout_execute[4] (вызов обработчика запланированных функций).
+gitref:09af13403983[repository=src],
+gitref:20fc2b332bd2[repository=src],
+gitref:443b7c41d619[repository=src],
+gitref:1c0178baa7c3[repository=src].
+
+Добавлена страница Справочника man:geom_zero[4], документирующая класс GEOM ZERO и его возможности.
+gitref:32ef68b0f30d[repository=src].
+
+Добавлена документация для двух новых sysctl-параметров, tx_reclaim_ticks и tx_reclaim_thresh (man:iflib[4]). Эти sysctl-параметры влияют на поведение сетевого драйвера в части передачи данных.
+gitref:ef8c912aadad[repository=src].
+{{< sponsored "Netflix" >}}
+
+Страница Справочника man:nfsv4[4] теперь включает документацию о настройке корневой файловой системы NFSv4, что даёт руководство к действию пользователям, которые имеют желание использовать эту возможность.
+gitref:6ef2df5e8e7a[repository=src].
+
+В базовую систему добавлена новая страница Справочника man:nlsysevent[4].
+gitref:56a5d11dd69f[repository=src].
+
+Добавлена страница Справочника man:vmgenc[4], документирующая драйвер VM Generation ID Counter, который повторно инициализирует энтропийный пул ядра, когда выявляется клонирование виртуальной машины или восстановление мгновенной копии.
+gitref:252f0c28855b[repository=src].
+
+Справка man:vt[4] теперь включает пример увеличения размера обратной прокрутки и раздел, описывающий консольные шрифты, в том числе преобразование, поддержку и использование.
+gitref:2da71ee296ad[repository=src].
+
+Страница Справочника man:pf.conf[5] теперь содержит `nat-to` и `rdr-to` в нотации BNF, что уточняет синтаксис для пользователей.
+gitref:1c7c2027f2d1[repository=src].
+{{< sponsored "Rubicon Communications, LLC (\"Netgate\")" >}}
+
+Страница Справочника man:resolver[5] теперь документирует параметры `edns0`, `inet6`, `insecure1`,`insecure2`, `no-check-names` и `rotate`, которые обрабатываются в man:res_init[3], но ранее не были описаны.
+gitref:c988f316d6c6[repository=src].
+
+В man:d[7] добавлена документация для нескольких функций работы со строками: `strchr`, `strjoin`, `strrchr`, `strstr`, `strtok`, `strlen` и `substr`.
+gitref:d086bf34b56f[repository=src].
+
+Добавлена новая страница Справочника man:groups[7], описывающая стандартные названия групп.
+gitref:0ac3db880552[repository=src].
+
+Страница Справочника man:ports[7] была существенно улучшена. Раздел `FILES` расширен и для большей ясности преобразован в три таблицы с кратким описанием отдельных файлов порта. Кроме того, теперь задокументирована переменная `DEFAULT_VERSIONS`, что даёт пользователям информацию об установке используемых по умолчанию версий для параметров портов.
+gitref:1b5b7867b67f[repository=src],
+gitref:782ea981ea72[repository=src],
+gitref:0ebf602e1785[repository=src].
+
+Страница Справочника man:tuning[7] теперь документирует параметры планировщика ядра, предоставляя пользователям информацию о доступных параметрах настройки планировщика.
+gitref:4e5c15f3107e[repository=src].
+
+Добавлены страницы Справочника для утилит blacklist, выводимых из эксплуатации (man:blacklistctl[8], man:blacklistd[8], man:blacklistd.conf[5] и man:libblacklist[3]), в которых документируется их вывод из поддержки и прочие нюансы. Это даёт пользователям актуализированную документацию для инструментов blacklist, которые выводятся из эксплуатации и переименованы в blocklist.
+gitref:f935c0f66f75[repository=src].
+
+Страница Справочника man:cron[8] обновлена для уточнения формата системного файла crontab.
+gitref:d2fb6b8f80cc[repository=src].
+
+Форматирование страницы Справочника man:ifconfig[8] было скорректировано для улучшения её читабельности.
+gitref:c20f5fd44322[repository=src].
+
+Страница Справочника man:jail[8] теперь документирует два метода создания изоляторов: из базового пакета и из дистрибутивного набора.
+gitref:f467eb078f51[repository=src],
+gitref:5d7cd576d99b[repository=src].
+
+Страница Справочника man:shutdown[8] теперь документирует дополнительные форматы времени, которые принимает команда shutdown, что улучшает понятность для пользователей.
+gitref:c13157b87b00[repository=src].
+
+Добавлена страница Справочника man:deadfs[9], описывающая соответствующую файловую систему.
+gitref:d8097cf79cfa[repository=src].
 
 [[ports]]
 == Коллекция портов и инфраструктура пакетов
 
 В этом разделе рассматриваются изменения в Коллекции портов FreeBSD, инфраструктуре пакетов, а также в инструментах обслуживания и установки пакетов.
 
+Для того, чтобы уложиться в ограничение размера DVD в 4.7 GB, оболочка KDE была удалена из образа dvd1.iso, а editors/emacs и editors/vim были добавлены.
+gitref:142df248ac06[repository=src].
+
 [[ports-packages]]
 === Изменения в пакетах
+
+Изменения в конфигурации хранилища пакетов обеспечивают перенаправление запросов к пакетам от pkgbase.freebsd.org на зеркала pkg.freebsd.org, что добавляет примерно 70 секунд к операциям установки/модернизации системы pkgbase. Системы с установленными 15.0-PRERELEASE, ALPHA или BETA обрабатываются отдельно, так как они ожидают пакеты, подписанные старыми ключами pkg, а не новыми ключами для подписания pkgbase.
+gitref:0c87d29a54da[repository=src].
+
+Пакеты с микропрограммным обеспечением из хранилища kmods записываются на установочный носитель DVD, что обеспечивает возможность использования модулей с микропрограммным обеспечением в релизной версии.
+gitref:b0fbed20ceb9[repository=src].
+{{< sponsored "https://www.patreon.com/cperciva" >}}
+
+Пакеты ext2 и ntfs добавлены на носители с релизом, что помогает пользователям при переносе пакетов с систем Linux или Windows.
+gitref:8c8ec2cdc9a9[repository=src].
 
 [[future-releases]]
 == Общие комментарии относительно будущих выпусков FreeBSD
@@ -202,5 +960,5 @@ include::shared/ru/urls.adoc[]
 //
 // The FreeBSD Russian Documentation Project
 //
-// Original EN revision (11.02.2026): ef9b4411920f217b302e272712accce1fca94751
+// Original EN revision (14.06.2026): 48c2ee41af936aaec0d948024a1336e1eeb274c7
 //

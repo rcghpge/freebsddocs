@@ -21,60 +21,29 @@ include::shared/en/urls.adoc[]
 == Abstract
 
 [.abstract-title]
-The release notes for FreeBSD {releaseCurrent} contain a summary of the changes made to the FreeBSD base system on the {releaseBranch} development line.
-This document lists applicable security advisories that were issued since the last release, as well as significant changes to the FreeBSD kernel and userland.
-Some brief remarks on upgrading are also presented.
+The release notes for FreeBSD {releaseCurrent} contain a summary of the changes made to the operating system on the {releaseBranch} development line.
+This document lists applicable security advisories and errata issued since the last release as well as significant changes to the ecosystem.
 
 toc::[]
 
 [[intro]]
 == Introduction
 
-This document contains the release notes for FreeBSD {releaseCurrent}.
-It describes recently added, changed, or deleted features of FreeBSD.
-It also provides some notes on upgrading from previous versions of FreeBSD.
+This document details the changes since FreeBSD {releasePrev}.
 
-The {releaseType} distribution to which these release notes apply represents the latest point along the {releaseBranch} development branch since {releaseBranch} was created.
-Information regarding pre-built, binary {releaseType} distributions along this branch can be found at https://www.FreeBSD.org/releases/[].
+For installation instructions, see the link:{handbook}bsdinstall/[Installing FreeBSD] chapter of the FreeBSD Handbook.
 
-The {releaseType} distribution to which these release notes apply represents a point along the {releaseBranch} development branch between {releasePrev} and the future {releaseNext}.
-Information regarding pre-built, binary {releaseType} distributions along this branch can be found at https://www.FreeBSD.org/releases/[].
+For upgrading instructions, see link:../upgrading[FreeBSD {releaseCurrent} Upgrading Instructions].
 
-This distribution of FreeBSD {releaseCurrent} is a {releaseType} distribution.
-It can be found at https://www.FreeBSD.org/releases/[] or any of its mirrors.
-More information on obtaining this (or other) {releaseType} distributions of FreeBSD can be found in the link:{handbook}mirrors[Obtaining FreeBSD appendix] to the link:{handbook}[FreeBSD Handbook].
+For information on supported hardware, see the link:../hardware[FreeBSD {releaseCurrent} Hardware Compatibility List]. 
 
-All users are encouraged to consult the release errata before installing FreeBSD.
-The errata document is updated with "late-breaking" information discovered late in the release cycle or after the release.
-Typically, it contains information on known bugs, security advisories, and corrections to documentation.
-An up-to-date copy of the errata for FreeBSD {releaseCurrent} can be found on the FreeBSD Web site.
-
-This document describes the most user-visible new or changed features in FreeBSD since {releasePrev}.
-In general, changes described here are unique to the {releaseBranch} branch unless specifically marked as MERGED features.
-
-Typical release note items document recent security advisories issued after {releasePrev}, new drivers or hardware support, new commands or options, major bug fixes, or contributed software upgrades.
-They may also list changes to major ports/packages or release engineering practices.
-Clearly the release notes cannot list every single change made to FreeBSD between releases; this document focuses primarily on security advisories, user-visible changes, and major architectural improvements.
-
-[[upgrade]]
-== Upgrading from Previous Releases of FreeBSD
-
-Binary upgrades between RELEASE versions (and snapshots of the various security branches) are supported using the man:freebsd-update[8] utility.
-See the release-specific upgrade procedure, link:../installation/#upgrade-binary[FreeBSD {releaseCurrent} upgrade information], with more details in the FreeBSD handbook link:{handbook}cutting-edge/#freebsdupdate-upgrade[binary upgrade procedure].
-This will update unmodified userland utilities, as well as unmodified GENERIC kernels distributed as a part of an official FreeBSD release.
-The man:freebsd-update[8] utility requires that the host being upgraded have Internet connectivity.
-
-Source-based upgrades (those based on recompiling the FreeBSD base system from source code) from previous versions are supported, according to the instructions in [.filename]#/usr/src/UPDATING#.
-
-[IMPORTANT]
-====
-Upgrading FreeBSD should only be attempted after backing up _all_ data and configuration files.
-====
+All readers are encouraged to consult the link:../errata[FreeBSD {releaseCurrent} errata] before installation or upgrading.
+The errata document contains information discovered late in the release cycle, such as known bugs, security advisories, or documentation corrections.
 
 [[security-errata]]
 == Security and Errata
 
-This section lists the various Security Advisories and Errata Notices since {releasePrev}.
+This section lists the Security Advisories and Errata Notices since {releasePrev}.
 
 [[security]]
 === Security Advisories
@@ -186,6 +155,54 @@ This section lists the various Security Advisories and Errata Notices since {rel
 | 20 May 2026
 | Incorrect man:libcap_net[3] limitation list manipulation
 
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:25.thr.asc[FreeBSD-SA-26:25.thr]
+| 9 June 2026
+| Missing permission check in man:thr_kill2[2]
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:26.ktls.asc[FreeBSD-SA-26:26.ktls]
+| 9 June 2026
+| Arbitrary file overwrite via the KTLS receive path
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:27.sound.asc[FreeBSD-SA-26:27.sound]
+| 9 June 2026
+| Multiple vulnerabilities in the man:sound[4] mmap path
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:28.capsicum.asc[FreeBSD-SA-26:28.capsicum]
+| 9 June 2026
+| man:sigqueue[2] missing capability mode restriction
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:29.ip6_multicast.asc[FreeBSD-SA-26:29.ip6_multicast]
+| 9 June 2026
+| Use-after-free bug in the IPV6_MSFILTER socket option handler
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:30.linux.asc[FreeBSD-SA-26:30.linux]
+| 9 June 2026
+| Flaw in Linuxulator execution of setugid binaries
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:31.arm64.asc[FreeBSD-SA-26:31.arm64]
+| 9 June 2026
+| Arm CPU errata may bypass page table permission changes
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:32.elf.asc[FreeBSD-SA-26:32.elf]
+| 9 June 2026
+| ASLR bypass for setuid executables via man:procctl[2]
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:33.unbound.asc[FreeBSD-SA-26:33.unbound]
+| 9 June 2026
+| Multiple vulnerabilities in unbound
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:34.vt.asc[FreeBSD-SA-26:34.vt]
+| 9 June 2026
+| Integer overflow in man:vt[4] CONS_HISTORY ioctl
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:35.openssl.asc[FreeBSD-SA-26:35.openssl]
+| 9 June 2026
+| Multiple vulnerabilities in OpenSSL
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:36.ldns.asc[FreeBSD-SA-26:36.ldns]
+| 9 June 2026
+| Insufficient response validation in the ldns stub resolver
+
 |===
 
 [[errata]]
@@ -253,6 +270,14 @@ This section lists the various Security Advisories and Errata Notices since {rel
 | link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:13.freebsd-update.asc[FreeBSD-EN-26:13.freebsd-update]
 | 20 May 2026
 | man:freebsd-update[8] attempts to merge a generated file
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:14.syslogd.asc[FreeBSD-EN-26:14.syslogd]
+| 9 June 2026
+| man:syslogd[8] memory leak in casper_ttymsg()
+
+| link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:15.openssl.asc[FreeBSD-EN-26:15.openssl]
+| 9 June 2026
+| Update OpenSSL to 3.0.20 and 3.5.6
 
 |===
 
@@ -494,7 +519,7 @@ gitref:5b2489caf266[repository=src].
 Adds libuvmem, a userland port of the man:vmem[9] kernel memory allocator, providing a similar interface for userland applications.
 gitref:3ae14e8f332f[repository=src].
 
-Partial support for the C23 version of the C Programming language is now available. It will continue to evolve, with complete support anticipated for FreeBSD 16. New features include the `<stdbit.h>` header, the man:memalignment[3] function, updates to the `<limits.h>` and `<stdint.h>` headers including the `_WIDTH` macros and `char8_t`, as well as various other extensions.
+Expanded support for the C23 version of the C Programming language is now available. It will continue to evolve, with complete support anticipated for FreeBSD 16. New features include the `<stdbit.h>` header, the man:memalignment[3] function, updates to the `<limits.h>` and `<stdint.h>` headers including the `_WIDTH` macros and `char8_t`, as well as various other extensions.
 gitref:275c11b7ccff[repository=src],
 gitref:104488641aca[repository=src],
 gitref:24ea81047de7[repository=src],
@@ -605,9 +630,6 @@ gitref:e16f1bf3baa1[repository=src].
 The mfi(4) driver now supports the Fujitsu RAID Controller SAS 6Gbit/s 1GB (D3116) used in Fujitsu PRIMERGY servers.
 gitref:e16e4cd25c1d[repository=src].
 
-man:ath[4] driver code updated to Linux kernel version 6.17, improving Atheros/QCA wireless hardware support.
-gitref:1fa2a48dab66[repository=src].
-
 The hardware performance monitoring counter (hwpmc) support has been added for additional Intel CPU models: Alder Lake (models 6-B7, 6-BA, 6-BF), Alder Lake-N, and Emerald Rapids. Users running on these processors can now collect performance events using man:pmc[3] and related tools. The Emerald Rapids support includes JSON event definitions imported from Intel perfmon version 1.06, providing comprehensive event coverage.
 gitref:a40167734ecb[repository=src],
 gitref:6b0cb6ea249e[repository=src],
@@ -635,9 +657,6 @@ gitref:16004d2a9eee[repository=src].
 The man:qat[4] driver now supports the 402xx device (IDs 0x4944/0x4945) using the existing qat_4xxx driver. Device-specific firmware files has been added.
 gitref:88c0ce38bc18[repository=src].
 {{< sponsored "Intel Corporation" >}}
-
-The padlock_rng driver is now built on amd64, enabling hardware random number generation on 64-bit Via Nano, Nano X2, and some Zhaoxin CPUs.
-gitref:191573ce0bfd[repository=src].
 
 [[drivers-removals]]
 === Deprecated and Removed Drivers
@@ -754,6 +773,10 @@ gitref:9657c50cdd77[repository=src].
 
 The support for RFC 7217 stable IPv6 address generation via a new ifconfig 'stableaddr' flag and associated sysctls has been added. The feature is disabled by default, preserving existing behavior. The man:ifconfig[8] manual page is updated with documentation.
 gitref:865e0b20ca3c[repository=src].
+
+The stable MAC address generated for man:if_bridge[4], man:if_epair[4], and other interfaces will change as of 15.0 due to a critical flaw in the implementation that resulted in a high chance of collisions and some generated addresses outside of the expected OUI.
+If the previous MAC address needs to be retained for, e.g., DHCP leases, then care must be taken to persist the existing MAC address, such as with `ifconfig_bridgeN="... ether aa:bb:cc:dd:ee:ff"` in man:rc.conf[5].
+gitref:604d34c23f77[repository=src]
 
 [[wireless-networking]]
 === Wireless Networking
@@ -910,27 +933,3 @@ gitref:c13157b87b00[repository=src].
 
 Adds man:deadfs[9] manual page documenting the dead file system.
 gitref:d8097cf79cfa[repository=src].
-
-[[ports]]
-== Ports Collection and Package Infrastructure
-
-This section covers changes to the FreeBSD Ports Collection, package infrastructure, and package maintenance and installation tools.
-
-KDE has been removed from the dvd1.iso image to fit within the 4.7 GB DVD size limit, and editors/emacs and editors/vim have been added.
-gitref:142df248ac06[repository=src].
-
-[[ports-packages]]
-=== Packaging Changes
-
-Package repository configuration changes redirect package requests from pkgbase.freebsd.org to pkg.freebsd.org mirrors, adding approximately 70 seconds to pkgbase system installation/upgrade operations. Systems with 15.0-PRERELEASE, ALPHA, or BETA installations become orphaned as they expect packages signed with old pkg keys rather than new pkgbase signing keys.
-gitref:0c87d29a54da[repository=src].
-
-Firmware packages from the kmods repository have been included on the DVD installation media, ensuring that firmware modules are usable on the release version.
-gitref:b0fbed20ceb9[repository=src].
-{{< sponsored "https://www.patreon.com/cperciva" >}}
-
-The ext2 and ntfs packages have been added to release media to assist users in transferring packages from Linux or Windows systems.
-gitref:8c8ec2cdc9a9[repository=src].
-
-[[future-releases]]
-== General Notes Regarding Future FreeBSD Releases

@@ -17,7 +17,6 @@ params:
 :toclevels: 1
 :icons: font
 :sectnums:
-:sectnumlevels: 6
 :sectnumoffset: D
 :partnums:
 :source-highlighter: rouge
@@ -52,7 +51,7 @@ toc::[]
 include::../../../../../shared/asciidoctor.adoc[]
 endif::[]
 
-In het geval een handtekening van een van de beambten of ontwikkelaars gecontroleerd moet worden of er een versleutelde e-mail aan ze gezonden moet worden, worden hier voor het gemak een aantal sleutels weergegeven. Een complete sleutelring van `FreeBSD.org` gebruikers kan op de volgende link gedownload worden:  link:https://docs.FreeBSD.org/pgpkeys/pgpkeys.txt[pgpkeyring.txt].
+In het geval een handtekening van een van de beambten of ontwikkelaars gecontroleerd moet worden of er een versleutelde e-mail aan ze gezonden moet worden, worden hier voor het gemak een aantal sleutels weergegeven. Een complete sleutelring van `FreeBSD.org` gebruikers kan op de volgende link gedownload worden:  link:https://docs.FreeBSD.org/pgpkeys/pgpkeys.txt[pgpkeys.txt].
 
 [[pgpkeys-officers]]
 == Beambten
@@ -70,4 +69,3 @@ include::{pgpkeys-path}static/pgpkeys/portmgr-secretary.key[]
 include::{pgpkeys-path}static/pgpkeys/doceng-secretary.key[]
 
 :sectnums:
-:sectnumlevels: 6
