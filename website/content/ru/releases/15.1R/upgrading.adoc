@@ -1,6 +1,7 @@
 ---
-title: "Инструкция по обновлению до FreeBSD 15.1-RELEASE"
+title: "Инструкции по обновлению до FreeBSD 15.1-RELEASE"
 sidenav: download
+aliases: installation
 ---
 
 :releaseCurrent: 15.1-RELEASE
@@ -10,7 +11,7 @@ sidenav: download
 
 include::shared/ru/urls.adoc[]
 
-= Инструкция по обновлению до FreeBSD {releaseCurrent}
+= Инструкции по обновлению до FreeBSD {releaseCurrent}
 
 == Аннотация
 
@@ -36,13 +37,13 @@ pkg which /usr/bin/uname
 
 Если отображается имя пакета, например `FreeBSD-runtime-15.0`, см. раздел <<upgrade-pkg>> ниже.
 
-[upgrade-source]
+[[upgrade-source]]
 Если выполняется обновление из исходных кодов, обратитесь к link:{handbook}cutting-edge/#makeworld[главе Руководства FreeBSD, посвящённой обновлению FreeBSD из исходных кодов].
 
 [[upgrade-fu]]
-== Обновление с использованием наборов дистрибутива
+== Обновление с использованием дистрибутивных наборов
 
-Системы, развёрнутые с использованием наборов дистрибутива, обновляются с помощью man:freebsd-update[8].
+Системы, развёрнутые с использованием дистрибутивных наборов, обновляются с помощью man:freebsd-update[8].
 Системы, работающие под управлением {releasePrevLegacy} или {releasePrev}, могут быть обновлены следующим образом:
 
 . **Установите все ожидающие патчи**:
@@ -300,3 +301,9 @@ gpart bootcode -b /boot/pmbr -p /boot/gptboot -i 1 ada0
 ----
 shutdown -r now
 ----
+
+//
+// The FreeBSD Russian Documentation Project
+//
+// Original EN revision (23.06.2026): 4df494ffc469a8e3b8e4f760dc76e8223529143b
+//
