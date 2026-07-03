@@ -306,7 +306,7 @@ Häufig soll ein Computer an ein vorhandenes Drahtlosnetzwerk angeschlossen werd
 % ifconfig | grep -B3 -i wireless
 ....
 
-+ 
++
 In FreeBSD 11 und neueren Versionen verwenden Sie stattdessen diesen Befehl:
 +
 
@@ -315,9 +315,9 @@ In FreeBSD 11 und neueren Versionen verwenden Sie stattdessen diesen Befehl:
 % sysctl net.wlan.devices
 ....
 
-+ 
++
 Wenn der drahtlose Adapter nicht aufgeführt wird, könnte ein zusätzliches Kernelmodul erforderlich sein. Es besteht jedoch auch die Möglichkeit, dass der Adapter von FreeBSD nicht unterstützt wird.
-+ 
++
 Dieses Beispiel verwendet einen drahtlosen Atheros-Adapter `ath0`.
 . Fügen Sie in [.filename]#/etc/wpa_supplicant.conf# einen Eintrag für das Netzwerk hinzu. Wenn die Datei nicht existiert, müssen Sie diese erstellen. Ersetzen Sie _myssid_ und _psk_ durch die SSID und den PSK. Diese Informationen werden vom Netzwerkadministrator zur Verfügung gestellt.
 +
@@ -890,7 +890,7 @@ network={
 
 <.> Das Feld `ca_cert` gibt den Pfad zum CA-Zertifikat an. Diese Datei wird zur Verifizierung des Server-Zertifikats benötigt.
 
-<.> Dieses Feld enthält die Parameter für die erste Phase der Authentifizierung, den TLS-Tunnel. Je nachdem, welcher Authentifizierungsserver benutzt wird, kann 
+<.> Dieses Feld enthält die Parameter für die erste Phase der Authentifizierung, den TLS-Tunnel. Je nachdem, welcher Authentifizierungsserver benutzt wird, kann
 ein spezifisches Label für die Authentifizierung verwendet werden. Meistens lautet das Label "client EAP encryption", dass durch `peaplabel=0` gesetzt wird. Weitere Informationen finden Sie in man:wpa_supplicant.conf[5].
 
 <.> Das innerhalb des verschlüsselten TLS-Tunnels verwendete Authentifizierungsprotokoll. In unserem Beispiel handelt es sich dabei um `auth=MSCHAPV2`.
@@ -1256,7 +1256,7 @@ Dieser Abschnitt beschreibt eine Reihe von Maßnahmen zur Behebung von alltägli
 
 * Wird der Access Point bei der Suche nicht gefunden, überprüfen Sie, dass die Konfiguration des drahtlosen Geräts nicht die Anzahl der Kanäle beschränkt.
 * Wenn sich das Gerät nicht mit dem Access Point verbinden kann, überprüfen Sie, ob die Konfiguration der Station auch der des Access Points entspricht. Dazu gehören auch die Authentifzierungsmethode und die Sicherheitsprotokolle. Halten Sie die Konfiguration so einfach wie möglich. Wenn Sie ein Sicherheitsprotokoll wie WPA oder WEP verwenden, können Sie testweise den Access Point auf _offene Authentifizierung_ und _keine Sicherheit_ einstellen.
-+ 
++
 Für die Fehlersuche steht man:wpa_supplicant[8] zur Verfügung. Starten Sie das Programm manuell mit der Option `-dd` und durchsuchen Sie anschließend die Systemprotokolle nach eventuellen Fehlermeldungen.
 * Sobald sich das Gerät mit dem Access Point verbinden kann, prüfen Sie die Netzwerkkonfiguration mit einfachen Werkzeugen wie man:ping[8].
 * Zusätzlich gibt es auch zahlreiche Low-Level-Debugging-Werkzeuge. Die Ausgabe von Debugging-Informationen des 802.11 Protocol Support Layers lassen sich mit dem Programm man:wlandebug[8] aktivieren. Um beispielsweise während der Suche nach Access Points und des Aufbaus von 802.11-Verbindungen (Handshake) auftretende Systemmeldungen auf die Konsole auszugeben, verwenden Sie den folgenden Befehl:
@@ -1266,7 +1266,7 @@ Für die Fehlersuche steht man:wpa_supplicant[8] zur Verfügung. Starten Sie das
 # wlandebug -i wlan0 +scan+auth+debug+assoc
   net.wlan.0.debug: 0 => 0xc80000<assoc,auth,scan>
 ....
-+ 
++
 Der 802.11-Layer liefert umfangreiche Statistiken, die mit dem Werkzeug `wlanstats`, das sich in [.filename]#/usr/src/tools/tools/net80211# befindet, abgerufen werden können. Diese Statistiken sollten alle Fehler identifizieren, die im 802.11-Layer auftreten. Beachten Sie aber, dass einige Fehler bereits im darunterliegenden Gerätetreiber auftreten und daher in diesen Statistiken nicht enthalten sind. Wie Sie Probleme des Gerätetreibers identifizieren, entnehmen Sie bitte der Dokumentation des Gerätetreibers.
 
 Wenn die oben genannten Informationen nicht helfen das Problem zu klären, erstellen Sie einen Problembericht, der die Ausgabe der weiter oben genannten Werkzeuge beinhaltet.
@@ -2103,14 +2103,14 @@ Für Laptop-Benutzer ist es normalerweise wünschenswert, "wireless" als sekund�
 Dies wird erreicht, indem die MAC-Adresse der Ethernet-Schnittstelle mit der MAC Adresse der drahtlosen Schnittstelle überschrieben wird.
 
 [NOTE]
-****
+====
 Theoretisch kann die Ethernet- oder die drahtlose MAC-Adresse so geändert werden, dass sie mit der jeweils anderen Adresse übereinstimmt. Bei einigen drahtlosen Schnittstellen fehlt jedoch die Unterstützung für das Überschreiben der MAC-Adresse. Daher wird empfohlen, die MAC-Adresse der Ethernet-Schnittstelle für diesen Zweck zu überschreiben.
-****
+====
 
 [NOTE]
-****
+====
 Wenn der Treiber für die drahtlose Schnittstelle nicht im `GENERIC`-Kernel oder in einem angepassten Kernel enthalten ist, kann unter FreeBSD {rel121-current} mit `_driver__load="YES"` die entsprechende [.filename]#.ko#-Datei in [.filename]#/boot/loader.conf# geladen werden. Dann muss das System neu gestartet werden. Ein anderer, besserer Weg ist es, den Treiber über [.filename]#/etc/rc.conf# zu laden, indem Sie ihn zu `kld_list` (siehe man:rc.conf[5]) hinzufügen und dann das System neu starten. Dies ist notwendig, da sonst der Treiber zum Zeitpunkt der Konfiguration der man:lagg[4]-Schnittstelle noch nicht geladen ist.
-****
+====
 
 In diesem Beispiel ist die Ethernet-Schnittstelle _re0_ der Master und die drahtlose Schnittstelle _wlan0_ der Failover. Die Schnittstelle _wlan0_ wurde aus der physischen Schnittstelle _ath0_ erstellt, und die Ethernet-Schnittstelle wird mit der MAC-Adresse der drahtlosen Schnittstelle konfiguriert. Im ersten Schritt wird die MAC-Adresse der drahtlosen Schnittstelle ermittelt:
 
@@ -2231,7 +2231,7 @@ Die in diesem Abschnitt dargestellten Schritte konfigurieren die in FreeBSD enth
 ....
 nfs_server_enable="YES"
 ....
-+ 
++
 Exportieren Sie das Root-Verzeichnis über NFS, indem Sie folgende Zeile in [.filename]#/etc/exports# hinzufügen:
 +
 [.programlisting]
@@ -2289,7 +2289,7 @@ Received 264951 bytes in 0.1 seconds
 # Device                                         Mountpoint    FSType   Options  Dump Pass$
 	    myhost.example.com:/b/tftpboot/FreeBSD/install       /         nfs      ro        0    0
 ....
-+ 
++
 Ersetzen Sie _myhost.example.com_ durch den Hostnamen oder die IP-Adresse des NFS-Servers. In diesem Beispiel wird das Root-Dateisystem schreibgeschützt eingehangen, um ein potenzielles Löschen des Inhalts durch die NFS-Clients zu verhindern.
 . Setzen Sie das root-Passwort in der PXE-Umgebung für Client-Maschinen, die über PXE starten:
 +
@@ -2384,7 +2384,7 @@ image::pxe-nfs.png[]
 tftp> get FreeBSD/install/boot/pxeboot
 Received 264951 bytes in 0.1 seconds
 ....
-+ 
++
 Weitere Informationen finden Sie in man:tftpd[8] und man:tftp[1]. Die `BUGS`-Sektionen dieser Seiten dokumentieren einige Einschränkungen von TFTP.
 . Achten Sie darauf, dass Sie das Root-Dateisystem über NFS einhängen können. Auch hier können Sie Ihre Einstellungen aus [.filename]#/usr/local/etc/dhcpd.conf# wie folgt testen:
 +

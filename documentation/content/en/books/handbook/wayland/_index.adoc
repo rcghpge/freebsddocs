@@ -641,7 +641,7 @@ To install `ly`, issue the following command:
 
 There will be some configuration hints presented, the import steps are to add the following lines to [.filename]#/etc/gettytab#:
 
-[programlisting]
+[.programlisting]
 ....
 Ly:\
   :lo=/usr/local/bin/ly:\
@@ -650,7 +650,7 @@ Ly:\
 
 And then modify the ttyv1 line in [.filename]#/etc/ttys# to match the following line:
 
-[programlisting]
+[.programlisting]
 ....
 ttyv1 "/usr/libexec/getty Ly" xterm onifexists secure
 ....

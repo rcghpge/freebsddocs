@@ -509,7 +509,7 @@ certificate_file=/path/to/cert.pem
 
 Будут представлены некоторые подсказки по настройке, основные шаги - добавить следующие строки в [.filename]#/etc/gettytab#:
 
-[programlisting]
+[.programlisting]
 ....
 Ly:\
   :lo=/usr/local/bin/ly:\
@@ -518,7 +518,7 @@ Ly:\
 
 И затем измените строку ttyv1 в файле [.filename]#/etc/ttys#, чтобы она соответствовала следующей строке:
 
-[programlisting]
+[.programlisting]
 ....
 ttyv1 "/usr/libexec/getty Ly" xterm onifexists secure
 ....

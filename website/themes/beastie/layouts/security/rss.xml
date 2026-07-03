@@ -15,12 +15,12 @@
     {{ with hugo.Data.security.errata }}
       {{ $securityCounter := 0 }}
       {{ range (sort .notices "date" "desc") }}
-        {{ if lt $securityCounter 10 }}
+        {{ if lt $securityCounter 20 }}
           <item>
             <title>{{ .name }}</title>
             <link>{{ absLangURL ($.Site.BaseURL) }}security/advisories/{{ .name }}.asc</link>
             <guid>{{ absLangURL ($.Site.BaseURL) }}security/advisories/{{ .name }}.asc</guid>
-            <pubDate>{{ .date }}</pubDate>
+            <pubDate>{{ (time.AsTime .date).Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</pubDate>
           </item>
           {{ $securityCounter = add $securityCounter 1 }}
         {{ end }}
@@ -29,12 +29,12 @@
     {{ with hugo.Data.security.advisories }}
       {{ $advisoriesCounter := 0 }}
       {{ range (sort .advisories "date" "desc") }}
-        {{ if lt $advisoriesCounter 10 }}
+        {{ if lt $advisoriesCounter 20 }}
           <item>
             <title>{{ .name }}</title>
             <link>{{ absLangURL ($.Site.BaseURL) }}security/advisories/{{ .name }}.asc</link>
             <guid>{{ absLangURL ($.Site.BaseURL) }}security/advisories/{{ .name }}.asc</guid>
-            <pubDate>{{ dateFormat "02 Jan 06 15:04 UTC" .date }}</pubDate>
+            <pubDate>{{ (time.AsTime .date).Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</pubDate>
           </item>
           {{ $advisoriesCounter = add $advisoriesCounter 1 }}
         {{ end }}

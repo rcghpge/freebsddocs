@@ -215,10 +215,10 @@ When a port is upgraded, the message displayed can be even more tailored to the 
 ....
 
 [IMPORTANT]
-****
+=====
 When displaying a message on upgrade, it is important to limit when it is being shown to the user.
 Most of the time it is by using `maximum_version` to limit its usage to upgrades from before a certain version when something specific needs to be done.
-****
+=====
 
 ====
 

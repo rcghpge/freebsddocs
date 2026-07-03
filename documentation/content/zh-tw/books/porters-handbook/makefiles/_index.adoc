@@ -133,10 +133,10 @@ See <<makefile-versions-ex-pkg-version>>.
 <.> `1.2` is before `1.2p1` as `2p1`, think "2, patch level 1" which is a version after any `2.X` but before `3`.
 
 [NOTE]
-****
+=====
 In here, the `a`, `b`, and `p` are used as if meaning "alpha", "beta" or "pre-release" and "patch level",
 but they are only letters and are sorted alphabetically, so any letter can be used, and they will be sorted appropriately.
-****
+=====
 
 ====
 
@@ -1124,7 +1124,7 @@ The order into which the ports framework, and pkg, will sort versions is checked
 ....
 % pkg version -t 9.9.9 9.9.9.p1
 > <.>
-% pkg version -t 9.9.9 9.9.9p1 
+% pkg version -t 9.9.9 9.9.9p1
 < <.>
 ....
 
@@ -1136,11 +1136,11 @@ In the port [.filename]#Makefile#, for example package:dns/bind99[], it is achie
 [.programlisting]
 ....
 PORTNAME=	bind
-PORTVERSION=	${ISCVERSION:S/-P/P/:S/b/.b/:S/a/.a/:S/rc/.rc/} 
+PORTVERSION=	${ISCVERSION:S/-P/P/:S/b/.b/:S/a/.a/:S/rc/.rc/}
 CATEGORIES=	dns net
-MASTER_SITES=	ISC/bind9/${ISCVERSION} 
+MASTER_SITES=	ISC/bind9/${ISCVERSION}
 PKGNAMESUFFIX=	99
-DISTNAME=	${PORTNAME}-${ISCVERSION} 
+DISTNAME=	${PORTNAME}-${ISCVERSION}
 
 MAINTAINER=	mat@FreeBSD.org
 COMMENT=	BIND DNS suite with updated DNSSEC and DNS64
@@ -1513,9 +1513,9 @@ GH_TAGNAME=	6dbb17b
 It will automatically have `MASTER_SITES` set to `GH` and `WRKSRC` to `${WRKDIR}/pkg-6dbb17b`.
 
 [TIP]
-****
+====
 `20140411` is the date of the commit referenced in `GH_TAGNAME`, not the date the [.filename]#Makefile# is edited, or the date the commit is made.
-****
+====
 
 ====
 
@@ -1611,7 +1611,7 @@ This creates a versioning scheme that increases over time (well, over commits), 
 ....
 
 [NOTE]
-****
+=====
 If the requested commit is the same as a tag, a shorter description is shown by default.
 The longer version is equivalent:
 
@@ -1624,7 +1624,7 @@ v0.7.3
 v0.7.3-0-gc66c71d
 ....
 
-****
+=====
 
 ====
 
@@ -1813,11 +1813,11 @@ It can also be found on GitHub.
 Each subdirectory that is a submodule is shown as `_directory @ hash_`, for example, `mongoose @ 2140e59`.
 
 [NOTE]
-****
+=====
 While getting the information from GitHub seems more straightforward, the information found using `git submodule status` will provide more meaningful information.
 For example, here, ``lib/wxsqlite3``'s commit hash `fb66eb2` correspond to `v3.4.0`.
 Both can be used interchangeably, but when a tag is available, use it.
-****
+=====
 
 Now that all the required information has been gathered, the [.filename]#Makefile# can be written (only GitHub-related lines are shown):
 

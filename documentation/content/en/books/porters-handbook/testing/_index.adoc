@@ -603,9 +603,9 @@ To build a set with a non default Perl version, for example, `5.20`, using a set
 DEFAULT_VERSIONS+= perl=5.20
 ....
 [NOTE]
-****
+=====
 Note the use of `+=` so that if the variable is already set in the default [.filename]#make.conf# its content will not be overwritten.
-****
+=====
 
 ====
 

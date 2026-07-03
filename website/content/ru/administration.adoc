@@ -362,10 +362,14 @@ https://www.freebsd.org/ru/releng/charter/[Устав команды подго�
 
 Команда Вики FreeBSD отвечает за поддержание работоспособности сайта https://wiki.FreeBSD.org/[Вики] FreeBSD. Она также определяет общий дизайн и структуру контента.
 
+* {adrian}
+* {carlavilla}
+* {pi}
+
 Сообщения электронной почты, направляемые администраторам Вики, обрабатываются администраторами кластера.
 
 //
 // The FreeBSD Russian Documentation Project
 //
-// Original EN revision (22.06.2026): 01bfc34871146e3de912efc4afe374393d265417
+// Original EN revision (01.07.2026): f37462900694c88218150184bd1d06dd241b2027
 //

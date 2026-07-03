@@ -134,7 +134,7 @@ lib/X11/oneko/mouse.xpm
 
 [NOTE]
 ====
-建議清單內的檔名，依照字母順序作排序，那麼下次要升級時， 會比較清楚、方便來更新這份清單。 
+建議清單內的檔名，依照字母順序作排序，那麼下次要升級時， 會比較清楚、方便來更新這份清單。
 ====
 
 [TIP]
@@ -259,9 +259,9 @@ PLIST_FILES=	"@sample ${ETCDIR}/oneko.conf.sample"
 
 
 [IMPORTANT]
-****
+====
 為了讓開發者更容易在他們的 ports tree 使用此 patch ，請基於你的 ports tree 來產生 [.filename]#.diff# 。
-****
+====
 
 ====
 

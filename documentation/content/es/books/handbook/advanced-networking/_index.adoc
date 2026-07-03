@@ -1575,14 +1575,14 @@ Para los usuarios de portátiles, normalmente es deseable configurar el disposit
 Esto se consigue sobrescribiendo la dirección MAC del interfaz Ethernet con el de la interfaz inalámbrica.
 
 [NOTE]
-****
+====
 En teoría, cualquiera de las dos direcciones MAC (Ethernet o inalámbrica) se puede cambiar para igualarse a la otra. Sin embargo, algunas interfaces inalámbricas populares carecen del soporte para sobrescribir la dirección MAX. Por lo tanto para este propósito recomendamos sobrescribir la dirección MAC Ethernet.
-****
+====
 
 [NOTE]
-****
+====
 Si el controlador para el interfaz inalámbrico no está cargado en el kernel `GENERIC` o en el personalizado, y el ordenador está ejecutando FreeBSD{rel121-current}, carga el [.filename]#.ko# correspondiente en [.filename]#/boot/loader.conf# añadiendo `*driver_load="YES"*` a ese fichero y después reiniciando. Otra forma mejor es cargar el driver en [.filename]#/etc/rc.conf# añadiéndolo a `kld_list` (consulta man:rc.conf[5] para los detalles) en ese fichero y reiniciando. Esto es necesario porque de otra forma el controlador no está todavía cargado en el momento en el que se configura el interfaz man:lagg[4].
-****
+====
 
 En este ejemplo, el interfaz Ethernet, _re0_, es el maestro y el interfaz inalámbrico, _wlan0_, es el recambio. El interfaz _wlan0_ ha sido creado a partir del interfaz inalámbrico físico _ath0_, y el interfaz Ethernet se configurará con la dirección MAC del interfaz inalámbrico. Primero, levanta el interfaz inalámbrico (reemplaza _FR_ con tu código de país de dos letras), pero no establezcas una dirección IP. Reemplaza _wlan0_ con el nombre del interfaz inalámbrico del sistema:
 

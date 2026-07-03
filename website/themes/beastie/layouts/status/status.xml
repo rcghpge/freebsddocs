@@ -1,0 +1,94 @@
+{{- /* Template for FreeBSD Status Reports RSS feed */ -}}
+{{- /* Get site language code */ -}}
+{{- $DirectoryLangCode := .Site.Language.Lang -}}
+
+{{- /* Set language-specific variables */ -}}
+{{- $RssLangCode := "en-us" -}}
+{{- $LinkLangCode := .Site.LanguagePrefix -}}
+{{- $DescriptionLangCode := "Quarterly status report for %s. Click the link to read the full report on the FreeBSD website." -}}
+{{- $PageTitleLangCode := "FreeBSD Status Reports" -}}
+
+{{- /* variables for languages with status translations */ -}}
+{{- if eq $DirectoryLangCode "ru" -}}
+  {{- $RssLangCode = "ru-ru" -}}
+  {{- $DescriptionLangCode = "Ежеквартальный отчет о состоянии работ проекта FreeBSD за %s. Перейдите по ссылке, чтобы прочитать полную версию отчета на сайте FreeBSD." -}}
+  {{- $PageTitleLangCode = "Отчёты о состоянии работ FreeBSD" -}}
+{{- else -}}
+{{- end -}}
+
+{{- $indexPath := printf "content/%s/status/_index.adoc" $DirectoryLangCode -}}
+{{- $indexContent := readFile $indexPath -}}
+{{- /* $report is empty container for all reports read from $indexPath file  */ -}}
+{{- $reports := slice -}}
+
+{{- /* Regex pattern to find all entries in format: link:report-YYYY-MM-YYYY-MM/[Month, YYYY - Month, YYYY] */ -}}
+{{- $pattern := `link:report-(\d{4})-(\d{2})-(\d{4})-\d{2}/\[([^\]]+)\]` -}}
+{{- $matches := findRE $pattern $indexContent -1 -}}
+
+{{- range $matches -}}
+
+    {{- /* parse year, month, link and title from line text */ -}}
+    {{- $year := replaceRE `^link:report-\d{4}-\d{2}-(\d{4})-\d{2}/.*$` "$1" . -}}
+    {{- $month := replaceRE `^link:report-\d{4}-\d{2}-\d{4}-(\d{2})/.*$` "$1" . -}}
+    {{- $link := replaceRE `^link:(report-\d{4}-\d{2}-\d{4}-\d{2})/.*$` "$1" . -}}
+    {{- $titlePart := replaceRE `^link:report-\d{4}-\d{2}-\d{4}-\d{2}/\[([^\]]+)\]` "$1" . -}}
+
+    {{- $fullLink := printf "https://www.freebsd.org%s/status/%s/" $LinkLangCode $link -}}
+
+    {{- /* Build the report date (15th of the next month) */ -}}
+    {{ $endDateMonth := int (strings.TrimLeft "0" $month) }}
+    {{ $endDateYear := int $year }}
+    {{ $endDateMonth = add $endDateMonth 1 }}
+    {{ if gt $endDateMonth 12 }}
+      {{ $endDateMonth = 1 }}
+      {{ $endDateYear = add $endDateYear 1 }}
+    {{ end }}
+    {{- /* construct date and convert string to time object */ -}}
+    {{- $reportDate := time.AsTime (printf "%04d-%02d-15" $endDateYear $endDateMonth) -}}
+
+    {{- $report := dict
+      "title" $titlePart
+      "link" $fullLink
+      "year" $year
+      "month" $month
+      "reportDate" $reportDate
+      "id" $fullLink
+    -}}
+    {{- $reports = $reports | append $report -}}
+{{- end -}}
+
+{{- /* Sort reports by date (newest first) */ -}}
+{{- $sortedReports := sort $reports "reportDate" "desc" -}}
+
+{{- /* Take the last 20 reports (or more if needed - change here) */ -}}
+{{- $recentReports := first 20 $sortedReports -}}
+
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ $PageTitleLangCode }}</title>
+    <link>https://www.freebsd.org{{ $LinkLangCode }}/status/</link>
+    <description>RSS feed of FreeBSD quarterly status reports, detailing ongoing development and project updates.</description>
+    <language>{{ $RssLangCode }}</language>
+    <webMaster>freebsd-www@FreeBSD.org (FreeBSD Web Team)</webMaster>
+    <managingEditor>freebsd-www@FreeBSD.org (FreeBSD Web Team)</managingEditor>
+    <image>
+      <url>https://www.freebsd.org/logo/logo-full.png</url>
+      <title>FreeBSD Status Reports</title>
+      <link>{{ printf "https://www.freebsd.org%s/status/" $LinkLangCode }}</link>
+    </image>
+    <atom:link href="https://www.freebsd.org{{ $LinkLangCode }}/status/feed.xml" rel="self" type="application/rss+xml"/>
+
+    {{- range $recentReports }}
+    <item>
+      <title>{{ .title }}</title>
+      <link>{{ .link }}</link>
+      <guid isPermaLink="false">{{ .id }}</guid>
+      <description>
+        {{ printf $DescriptionLangCode .title }}
+      </description>
+      <pubDate>
+      {{ .reportDate.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</pubDate>
+    </item>
+    {{- end }}
+  </channel>
+</rss>

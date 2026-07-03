@@ -1048,7 +1048,7 @@ $manPathDefault = 'FreeBSD 15.1-RELEASE and Ports.quarterly';
     # alias SunOS 0.4, apparently released in April 1983 based on 4.2BSD beta
     'Sun UNIX 0.4', "$manLocalDir/Sun-UNIX-0.4",
 
-    'macOS 26.4',   "$manLocalDir/macOS-26.4/man:$manLocalDir/macOS-26.4/developer-man:$manLocalDir/macOS-26.4/developer-platform-sdk-man:$manLocalDir/macOS-26.4/xctoolchain-man",  
+    'macOS 26.5.2',   "$manLocalDir/macOS-26.5.2/man:$manLocalDir/macOS-26.5.2/developer-man:$manLocalDir/macOS-26.5.2/developer-platform-sdk-man:$manLocalDir/macOS-26.5.2/xctoolchain-man",  
     'macOS 15.7.5',   "$manLocalDir/macOS-15.7.5/man:$manLocalDir/macOS-15.7.5/developer-man:$manLocalDir/macOS-15.7.5/developer-platform-sdk-man:$manLocalDir/macOS-15.7.5/xctoolchain-man",  
     'macOS 14.8.5',   "$manLocalDir/macOS-14.8.5/man:$manLocalDir/macOS-14.8.5/developer-man:$manLocalDir/macOS-14.8.5/developer-platform-man:$manLocalDir/macOS-14.8.5/developer-platform-sdk-man:$manLocalDir/macOS-14.8.5/xctoolchain-man",  
     'macOS 13.6.5', "$manLocalDir/macOS-13.6.5/man:$manLocalDir/macOS-13.6.5/developer-man:$manLocalDir/macOS-13.6.5/developer-platform-man:$manLocalDir/macOS-13.6.5/developer-platform-sdk-man:$manLocalDir/macOS-13.6.5/xctoolchain-man",  
@@ -1303,7 +1303,7 @@ while ( ( $key, $val ) = each %manPath ) {
     'sunos5',        'SunOS 5.10',
     'sunos4',        'SunOS 4.1.3',
     'sunos',         'SunOS 4.1.3',
-    'macos',         'macOS 26.4',
+    'macos',         'macOS 26.5.2',
     'plan9',         'Plan 9',
     'osf1',          'OSF1 V5.1/alpha',
     'true64',        'OSF1 V5.1/alpha',
@@ -1321,7 +1321,7 @@ sub sort_manpath {
         my $name_lc = lc($name);
         my $os_lc;
 
-        # a release has at least 2 numbers seperated by a dot:
+        # a release has at least 2 numbers separated by a dot:
         # FreeBSD 11.1-RELEASE ports
         # X11R7.4
         my ($os, $version, $ports) = ( $name =~ m,^(.*?)(\d+\.[\d\.]+)(.*)$, );

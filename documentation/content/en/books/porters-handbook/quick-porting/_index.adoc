@@ -284,9 +284,9 @@ Patch generated with `git format-patch` will include author identity and email a
 easier for developers to apply (with `git am`) and give proper credit.
 
 [IMPORTANT]
-****
+====
 To make it easier for committers to apply the patch on their working copy of the ports tree, please generate the [.filename]#.diff# from the base of your ports tree.
-****
+====
 
 ====
 

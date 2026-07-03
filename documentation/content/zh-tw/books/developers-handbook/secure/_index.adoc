@@ -1,6 +1,6 @@
 ---
 title: 章 3. Secure Programming
-authors: 
+authors:
   - author: Murray Stokely
 prev: books/developers-handbook/tools
 next: books/developers-handbook/l10n
@@ -139,7 +139,7 @@ int main() {
 
 Let us examine what the memory image of this process would look like if we were to input 160 spaces into our little program before hitting return.
 
-[XXX figure here!]
+[ XXX figure here! ]
 
 Obviously more malicious input can be devised to execute actual compiled instructions (such as exec(/bin/sh)).
 
