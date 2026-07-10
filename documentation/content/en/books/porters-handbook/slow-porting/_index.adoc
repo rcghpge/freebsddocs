@@ -306,7 +306,7 @@ EXTRA_PATCHES=	${PATCHDIR}/extra-patch-fbsd10
 [example]
 ====
 When an crossref:makefiles[makefile-options,option] requires a patch, use ``opt_EXTRA_PATCHES`` and ``opt_EXTRA_PATCHES_OFF`` to make the patch conditional on the `opt` option.
-See crossref:makefiles[options-variables,Generic Variables Replacement, `OPT_VARIABLE` and `OPT_VARIABLE_OFF`] for more information.
+See crossref:makefiles[options-variables,"Generic Variables Replacement, `OPT_VARIABLE` and `OPT_VARIABLE_OFF`"] for more information.
 
 [.programlisting]
 ....

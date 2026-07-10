@@ -277,6 +277,18 @@ Do not use either the `xref` macro or its shortcut `<<` `>>`.
 They do not work well in all output formats.
 ====
 
+[IMPORTANT]
+====
+When the second parameter of the `crossref` macro contains a comma, it must be enclosed in double quotes.
+Otherwise, the comma is interpreted as a parameter separator, and the text after the comma is stripped.
+
+For example:
+....
+crossref:plist[documentation-comma, "First, second"]
+....
+Without quotes, only `First` would be used as the link text, and the rest would be lost.
+====
+
 [[asciidoctor-images-icons]]
 == Images and Icons
 

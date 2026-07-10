@@ -54,5 +54,5 @@ include::shared/ru/urls.adoc[]
 //
 // The FreeBSD Russian Documentation Project
 //
-// Original EN revision (14.02.2026): 1b64c351ad4cfaaf550fee03e60158abc6bc1e54
+// Original EN revision (07.03.2026): 75dea5f71f97a48dedb730635003e20f52f14182
 //

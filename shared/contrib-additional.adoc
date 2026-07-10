@@ -2306,6 +2306,7 @@
 * Vsevolod Lobko <mailto:seva@ip.net.ua[seva@ip.net.ua]>
 * Vyacheslav Anikin <mailto:ghos@mail.ru[ghos@mail.ru]>
 * Vyacheslav Ivanchenko <mailto:ivi@dhs.net.ru[ivi@dhs.net.ru]>
+* Vyacheslav Olkhovchenkov <mailto:slw@zxy.spb.ru[slw@zxy.spb.ru]>
 * W. Gerald Hicks <mailto:wghicks@bellsouth.net[wghicks@bellsouth.net]>
 * W. Richard Stevens <mailto:rstevens@noao.edu[rstevens@noao.edu]>
 * Waitman Gobble <mailto:waitman@waitman.net[waitman@waitman.net]>

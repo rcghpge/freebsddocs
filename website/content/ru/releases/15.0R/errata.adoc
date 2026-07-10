@@ -80,6 +80,19 @@ sidenav: download
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:34.vt.asc[FreeBSD-SA-26:34.vt] |9 июня 2026 |Целочисленное переполнение при обработке ioctl-запроса CONS_HISTORY в драйвере man:vt[4]
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:35.openssl.asc[FreeBSD-SA-26:35.openssl] |9 июня 2026 |Различные уязвимости в OpenSSL
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:36.ldns.asc[FreeBSD-SA-26:36.ldns] |9 июня 2026 |Недостаточная проверка ответов в библиотеке ldns при работе в режиме программной заглушки
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:37.vm.asc[FreeBSD-SA-26:37.vm] |30 июня 2026 |Использование памяти после её высвобождения в списке страниц памяти устройства, отображаемого в оперативную память
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:38.jail.asc[FreeBSD-SA-26:38.jail] |30 июня 2026 |Исчерпание счётчика ссылок на изолятор
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:39.execve.asc[FreeBSD-SA-26:39.execve] |30 июня 2026 |Локальное повышение полномочий по методике TOCTOU в execve(2)
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:40.zfs.asc[FreeBSD-SA-26:40.zfs] |30 июня 2026 |Различные уязвимости в OpenZFS
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:41.libalias.asc[FreeBSD-SA-26:41.libalias] |30 июня 2026 |Переполнение буфера в обработчике RTSP библиотеки libalias
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:42.unlinkat.asc[FreeBSD-SA-26:42.unlinkat] |30 июня 2026 |Игнорирование флагового параметра AT_RESOLVE_BENEATH в unlinkat(2)
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:43.tcp.asc[FreeBSD-SA-26:43.tcp] |30 июня 2026 |Использование памяти после её высвобождения в обработчике параметра RACK протокола TCP
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:44.posixshm.asc[FreeBSD-SA-26:44.posixshm] |30 июня 2026 |Различные уязвимости в реализации объектов POSIX типа largepage
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:45.audit.asc[FreeBSD-SA-26:45.audit] |30 июня 2026 |Некорректные аудиторские записи для запросов на системный вызов ptrace(2)
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:46.ktls.asc[FreeBSD-SA-26:46.ktls] |30 июня 2026 |Дистанционная атака типа DOS через доступ к неинициализированной памяти в KTLS на принимающей стороне
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:47.linux.asc[FreeBSD-SA-26:47.linux] |30 июня 2026 | Раскрытие стека ядра в слое совместимости с Linux
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:48.compat32.asc[FreeBSD-SA-26:48.compat32] |30 июня 2026 |Раскрытие стека ядра в подсистеме поддержки 32-разрядных приложений
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:49.iconv.asc[FreeBSD-SA-26:49.iconv] |30 июня 2026 |Различные уязвимости в iconv(3)
 |===
 
 [[errata]]
@@ -105,6 +118,8 @@ sidenav: download
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:13.freebsd-update.asc[FreeBSD-EN-26:13.freebsd-update] |20 мая 2026 |man:freebsd-update[8] пытается выполнить слияние со сгенерированным файлом
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:14.syslogd.asc[FreeBSD-EN-26:14.syslogd] |9 июня 2026 |Утечка памяти в man:syslogd[8] в casper_ttymsg()
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:15.openssl.asc[FreeBSD-EN-26:15.openssl] |9 июня 2026 |Обновление OpenSSL до версий 3.0.20 и 3.5.6
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:16.arm64.asc[FreeBSD-EN-26:16.arm64] |30 июня 2026 |32-разрядные версии функций setcontext(2) и swapcontext(2) на платформе arm64 работают некорректно
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:17.rpcsec_tls.asc[FreeBSD-EN-26:17.rpcsec_tls] |30 июня 2026 |Исчерпание счётчика ссылок на сетевые соединения в сервере NFS
 |===
 
 [[open-issues]]
@@ -138,5 +153,5 @@ sidenav: download
 //
 // The FreeBSD Russian Documentation Project
 //
-// Original EN revision (10.06.2026): eeb7d33e99fa5fb69fb5859081013d413e7ea7d0
+// Original EN revision (01.07.2026): 4eb8e14cf00470133959e55fc319de5834b00188
 //

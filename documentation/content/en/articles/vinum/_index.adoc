@@ -417,7 +417,7 @@ A typical configuration file might be:
 The subdisks of the second plex are offset by two drives from those of the first plex.
 This helps to ensure that writes do not go to the same subdisks even if a transfer goes over two drives.
 
-crossref:vinum[vinum-raid10-vol, A Mirrored, Striped [.filename]#vinum# Volume] represents the structure of this volume.
+crossref:vinum[vinum-raid10-vol,"A Mirrored, Striped [.filename]#vinum# Volume"] represents the structure of this volume.
 
 [[vinum-raid10-vol]]
 .A Mirrored, Striped [.filename]#vinum# Volume
@@ -678,7 +678,7 @@ The bsdlabel for these devices might look like:
 
 It can be observed that the `size` parameter for the faked `a` partition matches the value outlined above, while the `offset` parameter is the sum of the offset within the [.filename]#vinum# partition `h`, and the offset of this partition within the device or slice.
 This is a typical setup that is necessary to avoid the problem described in
-crossref:vinum[vinum-root-panic, Nothing Boots, the Bootstrap Panics].
+crossref:vinum[vinum-root-panic,"Nothing Boots, the Bootstrap Panics"].
 The entire `a` partition is completely within the `h` partition containing all the [.filename]#vinum# data for this device.
 
 In the above example, the entire device is dedicated to [.filename]#vinum# and there is no leftover pre-[.filename]#vinum# root partition.

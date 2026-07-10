@@ -1324,7 +1324,7 @@ Unlike partitions and slices, disk numbering starts at 0.
 Common codes are listed in crossref:basics[disks-naming,Disk Device Names].
 
 When referring to a partition in a slice, include the disk name, `s`, the slice number, and then the partition letter.
-Examples are shown in crossref:basics[basics-disk-slice-part,Sample Disk, Slice, and Partition Names].
+Examples are shown in crossref:basics[basics-disk-slice-part,"Sample Disk, Slice, and Partition Names"].
 GPT partitions include the disk name, `p`, and then the partition number.
 
 crossref:basics[basics-concept-disk-model,Conceptual Model of a Disk] shows a conceptual model of a disk layout using MBR slices.

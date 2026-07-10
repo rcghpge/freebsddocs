@@ -15,12 +15,12 @@ include::shared/ru/urls.adoc[]
 
 == Аннотация
 
-В данной заметке подробно описан порядок действий по обновлению существующих установок до FreeBSD {releaseCurrent}.
+В данном документе подробно описан порядок действий по обновлению существующих инсталляций до FreeBSD {releaseCurrent}.
 
 [[upgrade]]
 == Введение
 
-В этом документе объясняется порядок обновления существующих установок {releasePrevLegacy} или {releasePrev} до {releaseCurrent}.
+В этом документе объясняется порядок обновления существующих инсталляций {releasePrevLegacy} или {releasePrev} до {releaseCurrent}.
 Системы, работающие под управлением более старых релизов, должны быть поэтапно обновлены до одного из этих релизов перед выполнением данного обновления.
 
 Перед обновлением операционной системы создайте резервные копии _всех_ файловых систем, ознакомьтесь с link:../errata[последними исправлениями] для получения информации об известных проблемах и способах их обхода, а также с link:../relnotes[примечаниями к выпуску] для получения сведений о существенных изменениях и несовместимостях.
@@ -33,7 +33,7 @@ include::shared/ru/urls.adoc[]
 pkg which /usr/bin/uname
 ----
 
-Если отображается сообщение `/usr/bin/uname was not installed by a package`, см. раздел <<upgrade-fu>> ниже.
+Если отображается сообщение `/usr/bin/uname was not found in the database`, то обратитесь к разделу <<upgrade-fu>> ниже.
 
 Если отображается имя пакета, например `FreeBSD-runtime-15.0`, см. раздел <<upgrade-pkg>> ниже.
 
@@ -297,7 +297,7 @@ gpart bootcode -b /boot/pmbr -p /boot/gptboot -i 1 ada0
 +
 . **Завершение**
 +
-Перезагрузитесь после завершения обновления до FreeBSD {releaseCurrent}:
+Выполните перезагрузку после завершения обновления до FreeBSD {releaseCurrent}:
 +
 [source,shell]
 ----
@@ -307,5 +307,5 @@ shutdown -r now
 //
 // The FreeBSD Russian Documentation Project
 //
-// Original EN revision (26.06.2026): d9b67188b5ea2be67e355bb57494d5bceb61bd46
+// Original EN revision (04.07.2026): a639bab1191e4b5c7cf7ea20d35ff941ca74e0eb
 //

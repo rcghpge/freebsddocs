@@ -33,7 +33,7 @@ To determine this, run the following command:
 pkg which /usr/bin/uname
 ----
 
-If `/usr/bin/uname was not installed by a package` is shown, see <<upgrade-fu>> below.
+If `/usr/bin/uname was not found in the database` is shown, see <<upgrade-fu>> below.
 
 If a package name is shown, such as `FreeBSD-runtime-15.0`, see <<upgrade-pkg>> below.
 

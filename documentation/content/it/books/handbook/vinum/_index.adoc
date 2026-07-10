@@ -678,14 +678,14 @@ Alla richiesta di un filesystem di root da montare, ogni periferica che contenga
 
 ==== Si Carica Solo l'Avvio Primario
 
-Se [.filename]#/boot/loader# non si carica, ma l'avvio primario si carica comunque (si capisce dal singolo trattino nella colonna di sinistra dello schermo subito dopo l'inizio dell'avvio), si può tentare di fermare l'avvio primario in questo punto, premendo il tasto kbd:[spazio]. Questo fermerà l'avvio nella seconda fase, vedi crossref:boot[boot-boot1,Stadio Uno, /boot/boot1, e Stadio Due, /boot/boot2]. Qua si può fare un tentativo di caricare una differente partizione, ad esempio la partizione contenente il precedente filesystem di root `"a"`, prima di sostituirlo come sopra indicato.
+Se [.filename]#/boot/loader# non si carica, ma l'avvio primario si carica comunque (si capisce dal singolo trattino nella colonna di sinistra dello schermo subito dopo l'inizio dell'avvio), si può tentare di fermare l'avvio primario in questo punto, premendo il tasto kbd:[spazio]. Questo fermerà l'avvio nella seconda fase, vedi crossref:boot[boot-boot1,"Stadio Uno, /boot/boot1, e Stadio Due, /boot/boot2"]. Qua si può fare un tentativo di caricare una differente partizione, ad esempio la partizione contenente il precedente filesystem di root `"a"`, prima di sostituirlo come sopra indicato.
 
 [[vinum-root-panic]]
 ==== Non si Carica Niente, l'Avvio va in Panico
 
 Questa situazione accade quando l'installazione di Vinum ha distrutto il codice di avvio. Sfortunatamente Vinum lascia solo 4 KB liberi all'inizio della sua partizione prima di scrivere il proprio header. Purtroppo le due fasi dell'avvio e la disklabel compresa tra le due attualmente occupa 8 KB, quindi se la partizione Vinum è creata con spiazzamento 0 in una slice o disco che dovrebbe essere avviabile, la configurazione di Vinum distruggerà il codice di avvio.
 
-Similmente, se la situazione sopra descritta è stata risolta avviando da un disco di "Fixit", e il codice di avvio re-installato usando `disklabel -B` come descritto in crossref:boot[boot-boot1,Stadio Uno, /boot/boot1, e Stadio Due, /boot/boot2], il codice di avvio distruggerà l'header di Vinum, che non saprà più trovare i propri dischi. Benché nessun dato, di configurazione o contenuto, sia distrutto da questo processo, che risulta quindi recuperabile reinserendo la stessa configurazione di Vinum, la situazione è in realtà di difficile risoluzione: sarebbe necessario spostare l'intera partizione Vinum di almeno 4 KB, in modo da lasciare abbastanza spazio sia per il codice di avvio che per l'header Vinum.
+Similmente, se la situazione sopra descritta è stata risolta avviando da un disco di "Fixit", e il codice di avvio re-installato usando `disklabel -B` come descritto in crossref:boot[boot-boot1,"Stadio Uno, /boot/boot1, e Stadio Due, /boot/boot2"], il codice di avvio distruggerà l'header di Vinum, che non saprà più trovare i propri dischi. Benché nessun dato, di configurazione o contenuto, sia distrutto da questo processo, che risulta quindi recuperabile reinserendo la stessa configurazione di Vinum, la situazione è in realtà di difficile risoluzione: sarebbe necessario spostare l'intera partizione Vinum di almeno 4 KB, in modo da lasciare abbastanza spazio sia per il codice di avvio che per l'header Vinum.
 
 [[vinum-root-4x]]
 === Differenze per FreeBSD 4.X

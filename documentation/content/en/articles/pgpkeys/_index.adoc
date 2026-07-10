@@ -341,6 +341,9 @@ include::{include-path}olivier.key[]
 === `{dch}`
 include::{include-path}dch.key[]
 
+=== `{cracauer}`
+include::{include-path}cracauer.key[]
+
 === `{bcran}`
 include::{include-path}bcran.key[]
 

@@ -77,7 +77,10 @@ other = "Documentation"
 other = "Documentation portal"
 
 [h-freebsd-handbook]
-other = "FreeBSD Handbook"
+other = "Handbook"
+
+[h-documentation-faq]
+other = "FAQ"
 
 [h-porter-handbook]
 other = "Porter's Handbook"

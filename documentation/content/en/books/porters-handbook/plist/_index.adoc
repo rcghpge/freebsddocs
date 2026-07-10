@@ -503,7 +503,7 @@ For example, [.filename]#/var/db/${PORTNAME}# needs to have a `@dir` entry where
 ==== `@exec` _command_, `@unexec` _command_ (Deprecated)
 
 Execute _command_ as part of the installation or deinstallation process.
-Please use crossref:plist[plist-keywords-base-exec, `@preexec` _command_, `@postexec` _command_, `@preunexec` _command_, `@postunexec` _command_] instead.
+Please use crossref:plist[plist-keywords-base-exec,"`@preexec` _command_, `@postexec` _command_, `@preunexec` _command_, `@postunexec` _command_"] instead.
 
 [[plist-keywords-base-dirrm]]
 ==== `@dirrm` _directory_ (Deprecated)
@@ -615,7 +615,7 @@ actions: [file(1)]
 
 These keywords contains a man:sh[1] script to be executed before or after installation, deinstallation, or upgrade of the package.
 In addition to the usual `@exec %_foo_` placeholders described in
-crossref:plist[plist-keywords-base-exec, `@preexec` _command_, `@postexec` _command_, `@preunexec` _command_, `@postunexec` _command_], there is a new one, `%@`, which represents the argument of the keyword.
+crossref:plist[plist-keywords-base-exec,"`@preexec` _command_, `@postexec` _command_, `@preunexec` _command_, `@postunexec` _command_"], there is a new one, `%@`, which represents the argument of the keyword.
 
 [[plist-keywords-examples]]
 ==== Custom Keyword Examples

@@ -324,7 +324,7 @@ The short answer is: from the site that is closest to you in Internet terms, or 
 ==== I Just Want to Mirror from Somewhere!
 
 If you have no special intentions or requirements, the statement in
-crossref:hubs[mirror-where-where, Ok, but Where Should I get the Stuff Now?] applies.
+crossref:hubs[mirror-where-where,"Ok, but Where Should I get the Stuff Now?"] applies.
 This means:
 
 [.procedure]
