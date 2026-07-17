@@ -220,7 +220,7 @@ Alternately, compile the port with the following:
 
 [source,shell]
 ....
-# cd /usr/ports/emulator/wine-gecko
+# cd /usr/ports/emulators/wine-gecko
 # make install
 ....
 
@@ -240,7 +240,7 @@ To compile from the ports collection:
 
 [source,shell]
 ....
-# cd /usr/ports/emulator/wine-mono
+# cd /usr/ports/emulators/wine-mono
 # make install
 ....
 
@@ -258,7 +258,7 @@ Alternately compile the WINE sub-system from source with the following:
 
 [source,shell]
 ....
-# cd /usr/ports/emulator/wine
+# cd /usr/ports/emulators/wine
 # make install
 ....
 

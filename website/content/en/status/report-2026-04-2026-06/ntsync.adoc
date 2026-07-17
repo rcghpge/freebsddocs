@@ -1,0 +1,17 @@
+=== NTSYNC(9)
+
+Contact: Konstantin Belousov <kib@FreeBSD.org>
+
+Recently there was a stream of articles hyping the Linux driver ntsync which implemented a helper for Wine to accelerate Windows NT synchronization primitives.
+The substrates to implement semaphores, mutexes, and events from the Win32 land are provided by it.
+The driver represents each NT object as a file descriptor, which has the set of the ioctls defined that directly map into the Win32 operations.
+
+The project implemented the driver providing the compatible ntsync interface as specified in the Linux 7.0-rc3 document Documentation/userspace-api/ntsync.rst.
+Both native FreeBSD interface, and the Linux ABI compatibility layers, are written.
+
+To test the driver, a minimal version of the Linux kernel test harness was ported.
+FreeBSD driver follows the interface details as encoded by the tests, when a discrepancy between Linux documentation and tests was found.
+
+Both the driver and its man page man:ntsync(4) were written from scratch, without consulting the Linux source code.
+
+Sponsor: The FreeBSD Foundation

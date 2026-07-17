@@ -1,0 +1,43 @@
+=== KDE on FreeBSD
+
+Links: +
+link:https://freebsd.kde.org/[KDE/FreeBSD initiative] URL: link:https://freebsd.kde.org/[] +
+link:https://community.kde.org/FreeBSD[FreeBSD -- KDE Community Wiki] URL: link:https://community.kde.org/FreeBSD[]
+
+Contact: KDE on FreeBSD Mailing List <kde@FreeBSD.org>
+
+The KDE on FreeBSD project packages CMake, Qt, and software from the KDE Community, for the FreeBSD ports tree.
+The software includes a full desktop environment called KDE Plasma (for both X11 and Wayland) and hundreds of applications that can be used on any FreeBSD machine.
+The mailto:kde@FreeBSD.org[KDE team] is part of mailto:desktop@FreeBSD.org[desktop@], building the software stack to make FreeBSD beautiful and usable as a daily driver graphical desktop workstation.
+
+==== Infrastructure
+
+CMake was updated to 3.31.12.
+
+Qt6 and PySide6 were updated to 6.11.1.
+PyQt6 was updated to 6.11.0.
+
+Qt5 and PySide2 were updated to 5.15.19 KDE patch collection.
+Upstream standard support for Qt5 is officially over.
+This is the final update for Qt5.
+
+==== KDE Stack
+
+KDE Frameworks, Plasma, and Gear release happen very regularly.
+mailto:kde@FreeBSD.org[KDE team] lands these updates shortly after their upstream release.
+
+* KDE Frameworks ports were updated to 6.28.0.
+* KDE Plasma Desktop was updated to 6.6.6.
+* KDE Gear was updated to 26.04.3.
+
+==== Related Ports
+
+A number of new KDE ports have been added.
+Amarok, the classic KDE music player, has been reinstated and updated to 3.3.3.
+
+==== Sunsetting Qt5 ports
+
+Qt5 is still used by approximately 350 ports.
+Although Qt5 is deprecated there is no definite date for its removal from the ports tree yet.
+Still, the port for Qt5WebEngine which is based on very old Chromium with multiple vulnerabilities is scheduled for removal just before 2026Q4.
+KDE team encourages maintainers to migrate their ports to Qt6, remove Qt5 flavors, and remove abandoned Qt5 software.

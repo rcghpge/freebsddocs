@@ -1,0 +1,15 @@
+=== FreeBSD on EC2
+
+Contact: Colin Percival <cperciva@FreeBSD.org>
+
+FreeBSD is available on both amd64 (Intel and AMD) and arm64 (Graviton) EC2 instances.
+
+An issue causing the man:ena[4] driver to drop packets when receiving jumbograms has been fixed.
+The fix was present in 15.1-RELEASE (June) and will be present in 14.5-RELEASE (September).
+This fix improved single-TCP-stream network performance on some EC2 instances from 110 Mbps to 9.5 Gbps and also significantly improved multiple-TCP-stream throughput.
+
+An issue causing the man:ena[4] driver to launch taskqueues on the wrong CPU(s) on NUMA systems has been identified.
+The fix should be present in 14.5-RELEASE (September) and produces a 2x increase in multiple-TCP-stream throughput on c8gn.48xlarge instances.
+
+Sponsor: Amazon +
+Sponsor: https://www.patreon.com/cperciva

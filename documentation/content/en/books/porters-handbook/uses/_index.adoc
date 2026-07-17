@@ -1954,6 +1954,42 @@ specified then `run` and/or `build` must be specified too.
 The `env` argument sets the environment variables `NODEJS_VERSION` and `NODEJS_SUFFIX`.
 Currently `lts` is an alias for 24 and `current` is an alias for 26.
 
+[[uses-npm]]
+== `npm`
+
+Possible arguments: `<npm-name>`, `fetch`, `extract`, `build`, `run`, `test`
+
+`<npm-name>` can take the following values:
+
+`npm`::
+The port uses NPM as package manager.
+
+`yarn1`::
+The port uses Yarn (v1) as package manager.
+
+`yarn2`::
+The port uses Yarn (v2 or v3) as package manager.
+
+`yarn4`::
+The port uses Yarn (v4+) as package manager.
+
+`pnpm`::
+The port uses PNPM as package manager.
+
+The following variables can be set by the port:
+
+`NPM_VER`::
+A version of node package manager the port uses.
+
+`NPM_PREFETCH`::
+Downloads node modules the port uses according to the pre-stored
+[.filename]#package.json# (and [.filename]#package-lock.json#,
+[.filename]#yarn.lock#, or [.filename]#pnpm-lock.yaml# depending
+on the node package manager used) in `PKGJSONSDIR`. 
+
+`NPM_EXTRACT`::
+Installs the prefetched node modules into the port's working source directory.
+
 [[uses-objc]]
 == `objc`
 
