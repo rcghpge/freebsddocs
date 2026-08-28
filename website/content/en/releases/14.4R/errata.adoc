@@ -89,6 +89,12 @@ For a list of all FreeBSD CERT security advisories, see https://www.FreeBSD.org/
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:52.if_wg.asc[FreeBSD-SA-26:52.if_wg] |29 July 2026 |Missing MAC validation in wg(4) packet decryption
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:54.sysvsem.asc[FreeBSD-SA-26:54.sysvsem] |29 July 2026 |Heap out-of-bounds access in semctl(2)
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:55.elf.asc[FreeBSD-SA-26:55.elf] |29 July 2026 |Race condition in ELF core dump segment counting
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:56.hwpmc.asc[FreeBSD-SA-26:56.hwpmc] |25 August 2026 |hwpmc fails to detach PMCs during exec credential transitions
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:58.sound.asc[FreeBSD-SA-26:58.sound] |25 August 2026 |Kernel use-after-free via the SNDCTL_DSP_SYNCSTART ioctl
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:60.ppp.asc[FreeBSD-SA-26:60.ppp] |25 August 2026 |Multiple vulnerabilities in ppp(8)
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:61.openssl.asc[FreeBSD-SA-26:61.openssl] |25 August 2026 |Multiple vulnerabilities in OpenSSL
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:62.tty.asc[FreeBSD-SA-26:62.tty] |25 August 2026 |Kernel use-after-free via tty ioctls
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-SA-26:63.posixshm.asc[FreeBSD-SA-26:63.posixshm] |25 August 2026 |TOCTOU race in POSIX shared memory large page configuration
 |===
 
 [[errata]]
@@ -107,6 +113,8 @@ For a list of all FreeBSD CERT security advisories, see https://www.FreeBSD.org/
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:15.openssl.asc[FreeBSD-EN-26:15.openssl] |9 June 2026 |Update OpenSSL to 3.0.20 and 3.5.6
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:16.arm64.asc[FreeBSD-EN-26:16.arm64] |30 June 2026 |32-bit setcontext(2) and swapcontext(2) fail on arm64
 |link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:18.tzdata.asc[FreeBSD-EN-26:18.tzdata] |29 July 2026 |Timezone database information update
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:20.microcode.asc[FreeBSD-EN-26:20.microcode] |25 August 2026 |Early loading of Intel CPU microcode fails for some CPUs
+|link:https://www.FreeBSD.org/security/advisories/FreeBSD-EN-26:21.openssl.asc[FreeBSD-EN-26:21.openssl] |25 August 2026 |OpenSSL pkg-config files contain incorrect versions
 |===
 
 [[open-issues]]
@@ -118,7 +126,7 @@ For a list of all FreeBSD CERT security advisories, see https://www.FreeBSD.org/
 
 2. **man:loader_lua[8]** A regression in the boot loader scripts causes the wrong kernel to be selected if /boot/kernel is a symlink. +
 **Workaround**: Disable automatic kernel detection by adding kernels_autodetect="NO" to [.filename]#/boot/loader.conf#. +
-**State**: fixed in main - https://bugs.freebsd.org/293654 +
+**State**: Fixed in {releaseBranch} after 16 June 2026 - https://bugs.freebsd.org/293654 +
 
 [[late-news]]
 == Late-Breaking News
