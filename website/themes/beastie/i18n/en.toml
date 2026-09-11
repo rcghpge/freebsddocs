@@ -86,10 +86,13 @@ other = "FAQ"
 other = "Porter's Handbook"
 
 [h-documentation-handbook]
-other = "Documentation Project Handbook"
+other = "Documentation Project Primer"
 
 [h-manual-pages]
 other = "Manual pages"
+
+[h-ports]
+other = "Ported Applications"
 
 [h-presentation-and-papers]
 other = "Presentations and papers"
@@ -132,9 +135,6 @@ other = "Privacy Policy"
 
 [h-projects]
 other = "Projects"
-
-[h-ports]
-other = "Ports"
 
 [h-forums]
 other = "Forums"
@@ -295,6 +295,9 @@ other = "Get FreeBSD"
 [f-code-of-conduct]
 other = "Code of Conduct"
 
+[f-contact]
+other = "Contact"
+
 [f-security-advisories]
 other = "Security Advisories"
 
@@ -307,14 +310,11 @@ other = "Documentation portal"
 [f-manual-pages]
 other = "Manual pages"
 
+[f-ports]
+other = "Ported Applications"
+
 [f-presentation-and-papers]
 other = "Presentations and papers"
-
-[f-previous-versions]
-other = "Previous versions"
-
-[f-44bsd-documents]
-other = "4.4BSD Documents"
 
 [f-wiki]
 other = "Wiki"
@@ -348,9 +348,6 @@ other = "Licensing"
 
 [f-privacy-policy]
 other = "Privacy Policy"
-
-[f-legal-notices]
-other = "Legal notices"
 
 [f-all-rights-reserved]
 other = "The FreeBSD Project. All rights reserved"

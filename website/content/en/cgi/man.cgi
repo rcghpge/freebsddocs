@@ -49,7 +49,7 @@ use constant HAS_FREEBSD_CGI_STYLE => eval { require "./cgi-style.pl"; };
 package main;
 
 $debug        = 2;
-$www{'title'} = 'FreeBSD Manual Pages';
+$www{'title'} = 'Manual Pages Archive';
 $www{'home'}  = 'https://www.FreeBSD.org';
 $www{'home_man'}  = 'https://man.FreeBSD.org';
 $www{'cgi_man'}  = '/cgi/man.cgi';
@@ -386,6 +386,8 @@ $manPathDefault = 'FreeBSD 15.1-RELEASE and Ports.quarterly';
     'FreeBSD 15.0-RELEASE and Ports',
 "$manLocalDir/FreeBSD-15.0-RELEASE/man:$manLocalDir/FreeBSD-15.0-RELEASE/openssl/man:$manLocalDir/FreeBSD-ports-15.0-RELEASE/man:$manLocalDir/FreeBSD-ports-15.0-RELEASE/misc",
 
+    'FreeBSD 14.5-RELEASE and Ports',
+"$manLocalDir/FreeBSD-14.5-RELEASE/man:$manLocalDir/FreeBSD-14.5-RELEASE/openssl/man:$manLocalDir/FreeBSD-ports-14.5-RELEASE/man:$manLocalDir/FreeBSD-ports-14.5-RELEASE/misc",
     'FreeBSD 14.4-RELEASE and Ports',
 "$manLocalDir/FreeBSD-14.4-RELEASE/man:$manLocalDir/FreeBSD-14.4-RELEASE/openssl/man:$manLocalDir/FreeBSD-ports-14.4-RELEASE/man:$manLocalDir/FreeBSD-ports-14.4-RELEASE/misc",
     'FreeBSD 14.3-RELEASE and Ports',
@@ -477,6 +479,8 @@ $manPathDefault = 'FreeBSD 15.1-RELEASE and Ports.quarterly';
 
     'FreeBSD 14.5-STABLE',
 "$manLocalDir/FreeBSD-14.5-STABLE/man:$manLocalDir/FreeBSD-14.5-STABLE/openssl/man",
+    'FreeBSD 14.5-RELEASE',
+"$manLocalDir/FreeBSD-14.5-RELEASE/man:$manLocalDir/FreeBSD-14.5-RELEASE/openssl/man",
     'FreeBSD 14.4-RELEASE',
 "$manLocalDir/FreeBSD-14.4-RELEASE/man:$manLocalDir/FreeBSD-14.4-RELEASE/openssl/man",
     'FreeBSD 14.3-RELEASE',
@@ -621,6 +625,7 @@ $manPathDefault = 'FreeBSD 15.1-RELEASE and Ports.quarterly';
     'FreeBSD Ports 14.2', "$manLocalDir/FreeBSD-ports-14.2-RELEASE/man:$manLocalDir/FreeBSD-ports-14.2-RELEASE/misc",
     'FreeBSD Ports 14.3', "$manLocalDir/FreeBSD-ports-14.3-RELEASE/man:$manLocalDir/FreeBSD-ports-14.3-RELEASE/misc",
     'FreeBSD Ports 14.4', "$manLocalDir/FreeBSD-ports-14.4-RELEASE/man:$manLocalDir/FreeBSD-ports-14.4-RELEASE/misc",
+    'FreeBSD Ports 14.5', "$manLocalDir/FreeBSD-ports-14.5-RELEASE/man:$manLocalDir/FreeBSD-ports-14.5-RELEASE/misc",
     'FreeBSD Ports 15.0', "$manLocalDir/FreeBSD-ports-15.0-RELEASE/man:$manLocalDir/FreeBSD-ports-15.0-RELEASE/misc",
     'FreeBSD Ports 15.1', "$manLocalDir/FreeBSD-ports-15.1-RELEASE/man:$manLocalDir/FreeBSD-ports-15.1-RELEASE/misc",
     'FreeBSD Ports 15.1.quarterly', "$manLocalDir/FreeBSD-ports-15.quarterly-RELEASE/man:$manLocalDir/FreeBSD-ports-15.quarterly-RELEASE/misc",
@@ -848,6 +853,7 @@ $manPathDefault = 'FreeBSD 15.1-RELEASE and Ports.quarterly';
     'NetBSD 9.2',   "$manLocalDir/NetBSD-9.2",
     'NetBSD 9.3',   "$manLocalDir/NetBSD-9.3",
     'NetBSD 9.4',   "$manLocalDir/NetBSD-9.4",
+    'NetBSD 9.5',   "$manLocalDir/NetBSD-9.5",
     'NetBSD 10.0',  "$manLocalDir/NetBSD-10.0",
     'NetBSD 10.1',  "$manLocalDir/NetBSD-10.1",
     'NetBSD 11.0',  "$manLocalDir/NetBSD-11.0",
@@ -1211,6 +1217,7 @@ my %arch = (
 'NetBSD 9.2' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
 'NetBSD 9.3' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
 'NetBSD 9.4' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
+'NetBSD 9.5' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
 'NetBSD 10.0' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
 'NetBSD 10.1' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
 'NetBSD 11.0' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
@@ -1488,10 +1495,10 @@ a:hover { text-decoration:underline; }
   span.spaces { display: none; }
 
   /* larger search form */
-  form#man > input, button { font-size: 200%; }
-  form#man > button { font-size: 200%; }
-  form#man > input[name='query'] { width: 12em; }
-  form#man > select { font-size: 140%; }
+  form#man > input, button { font-size: 150%; }
+  form#man > button { font-size: 150%; }
+  form#man > input[name='query'] { width: 20em; }
+  form#man > select { font-size: 120%; }
 }
 </style>
 |;
@@ -1706,8 +1713,8 @@ sub apropos {
     }
 
     &http_header("text/html");
-    print &html_header("Apropos $title");
-    print "<br/>\n<h1>$www{'head'}</h1>\n\n";
+    print &html_header("Apropos $title - $manpath Manual Pages");
+    print "<br/>\n";
 
     $section = $sektion;
     &formquery;
@@ -1753,9 +1760,13 @@ sub apropos {
     close(APROPOS);
 
     if ( !$acounter ) {
-        print "Sorry, no data found for `$query'.\n";
-        print qq{You may look for other }
-          . qq{<a href="https://www.freebsd.org/search/">FreeBSD Search Services</a>.<br/><br/>\n};
+        if ($query eq '') {
+           print "<hr/>Empty input. Please type a manual page and search again.\n<hr/>\n";
+        } else {
+           print "Sorry, no data found for `$query'.\n";
+           print qq{You may look for other }
+          . qq{<a href="https://www.freebsd.org/search/">FreeBSD Search Services</a>.<br/><hr/>\n};
+        }
     }
     &html_footer;
 }
@@ -1826,8 +1837,9 @@ sub man {
 
     if ( $format eq "html" ) {
         &http_header("text/html");
-        print &html_header("$title");
-        print "<br/>\n<h1>$www{'head'}</h1>\n\n";
+        print &html_header("$title - $manpath Manual Pages");
+        print "<br/>\n";
+        print "<h1>$www{'head'}</h1>\n\n" if !$www{'head'};
         &formquery;
         print "<pre>\n";
     }
@@ -1966,7 +1978,7 @@ sub man {
         print
 qq{Please try a <a href="$BASE?apropos=1&amp;manpath=freebsd-release-ports&amp;query=$html_name">keyword search</a>.\n};
         print qq{<p>You may look for other }
-          . qq{<a href="https://www.freebsd.org/search/">FreeBSD Search Services</a>.</p>\n};
+          . qq{<a href="https://www.freebsd.org/search/">FreeBSD Search Services</a>.</p><hr/>\n};
         &html_footer;
         return;
     }
@@ -2619,8 +2631,8 @@ sections.
 
 sub faq_output {
     &http_header("text/html");
-    print &html_header( "FreeBSD manual page help", '/cgi/' );
-    print "<br/>\n<h1>$www{'head'}</h1>\n";
+    print &html_header( "$www{'head'} Help", '/cgi/' );
+    print "<br/>\n<h1>$www{'head'} Help</h1>\n";
     print &faq . "<br/>\n";
     &html_footer('no_help_link' => 1);
 }

@@ -3,7 +3,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{{ if .IsHome }} {{ .Site.Params.description }} {{ else }} {{ .Description }} {{ end }}">
   <meta name="keywords" content="{{ with .Params.tags -}}{{ delimit . ", " }}{{- end }}">
-  <meta name="copyright" content="1995-{{ now.Format "2006" }} The FreeBSD Foundation">
+  <meta name="copyright" content="1995-{{ now.Format "2006" }} The FreeBSD Project">
   <link rel="canonical" href="{{ .Permalink }}">
 
   <title>
@@ -20,10 +20,6 @@
   <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
   <link rel="stylesheet" href="{{ "css/font-awesome-min.css" | relURL }}">
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:domain" content="docs.FreeBSD.org">
-  <meta name="twitter:site" content="@freebsd">
-  <meta name="twitter:url" content="https://twitter.com/freebsd">
   <meta property="og:title" content="{{ if .IsHome }} {{ .Site.Params.Title }} {{ else }} {{ .Title }} {{ end }}" >
   <meta property="og:description" content="{{ if .IsHome }} {{ .Site.Params.description }} {{ else }} {{ .Description }} {{ end }}" >
   <meta property="og:type" content="website">

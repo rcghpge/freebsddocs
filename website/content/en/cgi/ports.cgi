@@ -787,6 +787,8 @@ sub footer_links {
 <span class="footer_links">
   <a href="$script_name">home</a>
   @{[ $stype eq "help" ? "" : qq, | <a href="$script_name?stype=help">help</a>, ]}
+  | <a href="https://cgit.freebsd.org/ports/tree/">git</a>
+  | <a href="https://download.freebsd.org/ports/">ftp</a>
 </span>
 EOF
 }
@@ -840,12 +842,18 @@ if ( $stype eq "help" ) {
     &exit(0);
 }
 
-print &html_header( "FreeBSD Ports Search", 1 );
 
 # allow `/ports.cgi?netscape' where 'netscape' is the query port to search
 # this make links to this script shorter
 if ( !$query && $query_string =~ /^([^=&]+)$/ ) {
     $query = $1;
+}
+
+if ($query) {
+    print &short_html_header( "FreeBSD Ports Search", 1 );
+    print "<br/>\n";
+} else {
+    print &html_header( "FreeBSD Ports Search", 1 );
 }
 
 # get all categories

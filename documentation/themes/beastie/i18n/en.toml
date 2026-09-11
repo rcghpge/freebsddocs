@@ -10,14 +10,14 @@ other = "The FreeBSD Project"
 [freebsd-foundation]
 other = "The FreeBSD Foundation"
 
-[freebsd-documentation]
-other = "FreeBSD Documentation"
+[documentation-portal]
+other = "Documentation Project Portal"
 
-[freebsd-documentation-main-desc]
+[documentation-portal-main-desc]
 other = "FreeBSD is an operating system used to power modern servers, desktops, and embedded platforms."
 
 [global-search-placeholder]
-other = "Search in the articles, books and guides."
+other = "Search the articles, books, and guides"
 
 [toc]
 other = "Table of Contents"
@@ -154,12 +154,6 @@ other = "Getting started"
 [learn-basics]
 other = "Learn about FreeBSD basics"
 
-[download]
-other = "Download"
-
-[download-freebsd]
-other = "Get FreeBSD"
-
 [handbook]
 other = "FreeBSD Handbook"
 
@@ -167,10 +161,10 @@ other = "FreeBSD Handbook"
 other = "A constantly evolving, comprehensive resource for FreeBSD users"
 
 [porters-handbook]
-other = "FreeBSD Porter's Handbook"
+other = "Porter's Handbook"
 
 [porters-handbook-desc]
-other = "A complete reference about the FreeBSD ports system"
+other = "A complete reference for the Ports Collection framework"
 
 [faq]
 other = "FreeBSD FAQ"
@@ -185,16 +179,22 @@ other = "Documentation Project Primer"
 other = "A complete guide about how to start contributing to the documentation"
 
 [books-list]
-other = "List of FreeBSD books"
+other = "Books produced by the documentation project"
 
 [articles-list]
-other = "List of FreeBSD articles"
+other = "Articles produced by the documentation project"
 
 [manual-pages]
 other = "Manual pages"
 
 [manual-pages-desc]
-other = "FreeBSD Manual Pages"
+other = "Largest known archive of manual pages in the world"
+
+[docs-archive]
+other = "Historical Archive"
+
+[docs-archive-desc]
+other = "Historical Documentation Archive"
 
 # ---------------------------------------------------
 # Footer
