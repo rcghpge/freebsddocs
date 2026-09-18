@@ -1057,8 +1057,9 @@ $manPathDefault = 'FreeBSD 15.1-RELEASE and Ports.quarterly';
     # alias SunOS 0.4, apparently released in April 1983 based on 4.2BSD beta
     'Sun UNIX 0.4', "$manLocalDir/Sun-UNIX-0.4",
 
-    'macOS 26.6.1',   "$manLocalDir/macOS-26.6.1/man:$manLocalDir/macOS-26.6.1/developer-man:$manLocalDir/macOS-26.6.1/developer-platform-sdk-man:$manLocalDir/macOS-26.6.1/xctoolchain-man",  
-    'macOS 15.7.5',   "$manLocalDir/macOS-15.7.5/man:$manLocalDir/macOS-15.7.5/developer-man:$manLocalDir/macOS-15.7.5/developer-platform-sdk-man:$manLocalDir/macOS-15.7.5/xctoolchain-man",  
+    'macOS 27.0',     "$manLocalDir/macOS-27.0/man:$manLocalDir/macOS-27.0/developer-man:$manLocalDir/macOS-27.0/developer-platform-sdk-man:$manLocalDir/macOS-27.0/xctoolchain-man",  
+    'macOS 26.7',   "$manLocalDir/macOS-26.7/man:$manLocalDir/macOS-26.7/developer-man:$manLocalDir/macOS-26.7/developer-platform-sdk-man:$manLocalDir/macOS-26.7/xctoolchain-man",  
+    'macOS 15.8',   "$manLocalDir/macOS-15.8/man:$manLocalDir/macOS-15.8/developer-man:$manLocalDir/macOS-15.8/developer-platform-sdk-man:$manLocalDir/macOS-15.8/xctoolchain-man",  
     'macOS 14.8.5',   "$manLocalDir/macOS-14.8.5/man:$manLocalDir/macOS-14.8.5/developer-man:$manLocalDir/macOS-14.8.5/developer-platform-man:$manLocalDir/macOS-14.8.5/developer-platform-sdk-man:$manLocalDir/macOS-14.8.5/xctoolchain-man",  
     'macOS 13.6.5', "$manLocalDir/macOS-13.6.5/man:$manLocalDir/macOS-13.6.5/developer-man:$manLocalDir/macOS-13.6.5/developer-platform-man:$manLocalDir/macOS-13.6.5/developer-platform-sdk-man:$manLocalDir/macOS-13.6.5/xctoolchain-man",  
     'macOS 12.7.3', "$manLocalDir/macOS-12.7.3/man:$manLocalDir/macOS-12.7.3/developer-man:$manLocalDir/macOS-12.7.3/developer-platform-man:$manLocalDir/macOS-12.7.3/developer-platform-sdk-man:$manLocalDir/macOS-12.7.3/xctoolchain-man",
@@ -1312,7 +1313,7 @@ while ( ( $key, $val ) = each %manPath ) {
     'sunos5',        'SunOS 5.10',
     'sunos4',        'SunOS 4.1.3',
     'sunos',         'SunOS 4.1.3',
-    'macos',         'macOS 26.6.1',
+    'macos',         'macOS 27.0',
     'plan9',         'Plan 9',
     'osf1',          'OSF1 V5.1/alpha',
     'true64',        'OSF1 V5.1/alpha',
@@ -1456,6 +1457,8 @@ sub html_footer {
     print qq[  <a href="$www{'cgi_man'}">home</a>\n] if !$args{'no_home_link'};
     print qq[| <a href="$www{'cgi_man'}/help.html">help</a>\n] if !$args{'no_help_link'};
     print qq[</span>\n\n];
+
+    print &input_autofocus_at_end;
 
     if (cgi_style::HAS_FREEBSD_CGI_STYLE) {
         print q{<hr noshade="noshade" />};
@@ -1763,8 +1766,11 @@ sub apropos {
         if ($query eq '') {
            print "<hr/>Empty input. Please type a manual page and search again.\n<hr/>\n";
         } else {
-           print "Sorry, no data found for `$query'.\n";
-           print qq{You may look for other }
+           my $apropos_query = $query . ($sektion ? "($sektion)" : "");
+           print "Sorry, no apropos results found for `$apropos_query'.\n";
+           print qq{Please try a <a href="$BASE?apropos=1&amp;manpath=$manpath&amp;query=$query">keyword search</a>.\n} if $sektion;
+           print "<br/><br/>\n";
+           print qq{You can start a <a href="$www{'cgi_man'}">new search</a> or look for other }
           . qq{<a href="https://www.freebsd.org/search/">FreeBSD Search Services</a>.<br/><hr/>\n};
         }
     }
@@ -1967,17 +1973,17 @@ sub man {
 
     if ( eof(MAN) ) {
         if ( $format eq "ascii" ) {
-            print "Sorry, no data found for '$html_name'\n";
+            print "Sorry, results found for '$html_name'\n";
 	    return;
         }
 
         # print "X $command{'man'} @manargs -- x $name x\n";
         print qq{</pre>\n};
-        print "Sorry, no data found for `<i>$html_name</i>"
+        print "Sorry, no results found for `<i>$html_name</i>"
           . ( $html_section ? "($html_section)" : '' ) . "'.\n";
         print
-qq{Please try a <a href="$BASE?apropos=1&amp;manpath=freebsd-release-ports&amp;query=$html_name">keyword search</a>.\n};
-        print qq{<p>You may look for other }
+qq{Please try a <a href="$BASE?apropos=1&amp;manpath=$manpath&amp;query=$html_name">keyword search</a>.\n};
+        print qq{<p>You can start a <a href="$www{'cgi_man'}">new search</a> or look for other }
           . qq{<a href="https://www.freebsd.org/search/">FreeBSD Search Services</a>.</p><hr/>\n};
         &html_footer;
         return;
@@ -2102,6 +2108,17 @@ qq{Please try a <a href="$BASE?apropos=1&amp;manpath=freebsd-release-ports&amp;q
 
     # Sleep 0.35 seconds to avoid DoS attacs
     select undef, undef, undef, 0.35;
+}
+
+sub input_autofocus_at_end {
+    return <<EOF;
+
+<script type="text/javascript">
+const input = document.querySelector('#query'); 
+input.focus();
+input.setSelectionRange(input.value.length, input.value.length);
+</script>
+EOF
 }
 
 #
@@ -2505,6 +2522,103 @@ sub faq {
     }
 
     return qq{\
+<p>
+<a href="https://man.freebsd.org/">man.FreeBSD.org</a>
+is the largest and oldest manual page archive on the internet.</p>
+
+<p>
+Online continuously since 1996, it hosts manual pages from FreeBSD
+since its first release, version 1.0, and dozens of other operating
+systems and Unix variants - spanning decades of computing history,
+from 1970s Unix Seventh Edition and 2.11 BSD through every FreeBSD
+release, NetBSD, OpenBSD, and current releases of Debian, Ubuntu,
+Rocky Linux, and macOS.
+</p>
+
+<p>
+Whether you're looking up a command on the system in front of you,
+comparing how a syscall's behavior changed across FreeBSD releases, or
+researching how Unix documentation evolved since the 1970s, this
+archive gives you direct, permanent links to the manual pages
+themselves.
+</p>
+
+<p>
+The archive currently contains more than 560 operating-system releases
+and approximately 15 million manual pages. The complete archive
+occupies about 50 GB - individual downloadable tarballs are typically
+much smaller.
+</p>
+
+<h2>Shortcuts for FreeBSD manual pages</h2>
+
+<p>You can use these short URLs to search for FreeBSD man pages:</p>
+<ul>
+<li>socket manpage: <a href="https://man.freebsd.org/socket">https://man.freebsd.org/socket</a></li>
+<li>socket(2) manpage: <a href="https://man.freebsd.org/socket/2">https://man.freebsd.org/socket/2</a></li>
+</ul>
+
+<p />
+
+<ul>
+<li>socket manpage: <a href="$full_url?socket">$full_url?socket</a></li>
+<li>socket(2) manpage: <a href="$full_url?socket(2)">$full_url?socket(2)</a></li>
+</ul>
+
+<h2>Updates</h2>
+<p>
+The FreeBSD stable/NN, current, and Ports manual pages are updated 
+every three months, usually around the time a new FreeBSD version is released.
+</p>
+<p>
+Other operating system manual pages are updated as needed.
+</p>
+
+
+<h2>FAQ</h2>
+
+<ul>
+<li>Get the <a href="https://cgit.freebsd.org/doc/tree/website/content/en/cgi/man.cgi">source</a> of the man.cgi script.</li>
+<li>Troff macros work only if defined in FreeBSD/groff. OS-specific
+macros like "appeared in NetBSD version 1.2" are not supported.</li>
+<li>Some OSs provide only formatted manual pages (catpages), e.g., 
+older NetBSD and OpenBSD releases. In this case it is not possible to create Postscript
+and troff output.</li>
+<li>The <a href="https://cgit.freebsd.org/src/tree/share/misc/bsd-family-tree">
+Unix family tree, BSD part</a>.</li>
+<li>The <a href="https://ports.freebsd.org/cgi/ports.cgi">
+FreeBSD Ports Search</a> script.</li>
+<li>other <a href="https://www.freebsd.org/search/">FreeBSD Search Services</a>.</li>
+<li><a href="https://www.freebsd.org/search/opensearch/">FreeBSD OpenSearch Plugins</a> for the manual pages and other services.</li>
+</ul>
+
+<h2>Release Permalinks and tarballs</h2>
+<p>
+Release and release-alias permalinks show how to link to this script for the right OS version.
+</p>
+
+<p>
+You may download the manual pages as a gzip'd tar archive for private or educational purposes.
+A tarball is normally 15-50 MB in size, but can be up to 350 MB for FreeBSD ports.
+</p>
+
+<ul>
+@list
+</ul>
+
+
+<h2>Release Alias Permalinks</h2>
+
+<p>
+Release aliases are for lazy people.
+They also have a longer lifetime, 
+e.g., "netbsd" always points to the latest NetBSD release.
+</p>
+
+<ul>
+@list2
+</ul>
+
 <h2>Copyright</h2>
 <pre>
 Copyright (c) 1996-2026 <a href="$mailtoURL">Wolfram Schneider</a>
@@ -2544,72 +2658,6 @@ Copyright (c) for manual pages by OS vendors:
 <a href="https://www.x.org">X11R6</a>,
 <a href="https://www.xfree86.org">XFree86</a>
 </p>
-
-<h2>Shortcuts for FreeBSD manual pages</h2>
-
-<ul>
-<li>which manpage: <a href="https://man.freebsd.org/which">https://man.freebsd.org/which</a></li>
-<li>socket(2) manpage: <a href="https://man.freebsd.org/socket/2">https://man.freebsd.org/socket/2</a></li>
-</ul>
-
-<p />
-
-<ul>
-<li>which manpage: <a href="$full_url?which">$full_url?which</a></li>
-<li>socket(2) manpage: <a href="$full_url?socket(2)">$full_url?socket(2)</a></li>
-</ul>
-
-<h2>Updates</h2>
-<p>
-The FreeBSD stable/NN, current, and ports manual pages are updated 
-every 3 months, usually around the time a new FreeBSD version is released.
-</p>
-<p>
-Other operating system manual pages are updated as needed.
-</p>
-
-<h2>Release Permalinks and tarballs</h2>
-
-<p>
-Releases and releases aliases permalinks are information how 
-to make a link to this script to the right OS version.
-</p>
-
-<p>
-You may download the manual pages as gzip'd tar archive for private or educational purposes.
-A tarball is normally 15-50 MB in size, but can be up to 350 MB for FreeBSD ports.
-</p>
-
-<ul>
-@list
-</ul>
-
-
-<h2>Releases Aliases Permalinks</h2>
-
-<p>
-Release aliases are for lazy people. Plus, they have a longer
-lifetime, eg. 'netbsd' points always to the latest NetBSD release.
-</p>
-
-<ul>
-@list2
-</ul>
-
-<h2>FAQ</h2>
-
-<ul>
-<li>Get the <a href="$BASE/source">source</a> of the man.cgi script</li>
-<li>Troff macros works only if defined in FreeBSD/groff. OS specific
-macros like `appeared in NetBSD version 1.2' are not supported.</li>
-<li>Some OSs provide only formatted manual pages (catpages), e.g., 
-older NetBSD and OpenBSD releases. In this case it is not possible to create Postscript
-and troff output.</li>
-<li>The <a href="https://cgit.freebsd.org/src/tree/share/misc/bsd-family-tree">
-Unix family tree, BSD part</a>.</li>
-<li>The <a href="https://ports.freebsd.org/cgi/ports.cgi">
-FreeBSD Ports Search</a> script.</li>
-</ul>
 };
 
 }

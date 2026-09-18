@@ -442,19 +442,19 @@ sub package_links {
             print qq[<h2>$perl->{"name"}: ], escapeHTML( $perl->{"comment"} ),
               qq[</h2>\n];
 
-            print qq[homepage: <a href="], $perl->{"www"},
+            my $maintainer = $perl->{"maintainer"};
+            $maintainer = &check_freebsd_mailing_list($maintainer)
+              if $enable_check_freebsd_mailing_list;
+            print qq[Maintainer: $maintainer<br/>\n];
+
+            print qq[Homepage <a href="], $perl->{"www"},
               qq[">] . $perl->{"www"} . "</a><br/>\n";
-            print qq[FreeBSD ports git: <a href="$remotePrefixRepo/tree/]
+
+            print qq[Git: <a href="$remotePrefixRepo/tree/]
               . $perl->{"origin"} . qq[">]
               . $perl->{"origin"}
               . qq[</a><br/>\n];
 
-            my $maintainer = $perl->{"maintainer"};
-            $maintainer = &check_freebsd_mailing_list($maintainer)
-              if $enable_check_freebsd_mailing_list;
-            print qq[maintainer: $maintainer<br/>\n];
-
-            print qq[<h3>Description</h3>\n];
             print "<pre>", escapeHTML( $perl->{"desc"} ), "</pre>\n";
             print qq[<h3>Download packages in *.pkg format</h3>\n];
 
@@ -602,11 +602,22 @@ sub search_ports {
     }
 }
 
+sub input_autofocus_at_end {
+    return <<EOF;
+
+<script type="text/javascript">
+const input = document.querySelector('#query'); 
+input.focus();
+input.setSelectionRange(input.value.length, input.value.length);
+</script>
+EOF
+}
+
 sub forms {
 
     print qq{
 <form id="ports" method="get" action="$script_name">
-<input name="query" value="$query" type="text" autocapitalize="none" autofocus />
+<input name="query" id="query" value="$query" type="text" autocapitalize="none" autofocus />
 <select name="stype">
 };
 
@@ -707,16 +718,55 @@ sub help {
 <p>
 The FreeBSD Ports and Packages Collection offers a simple way for
 users and administrators to install applications.
+Use the search types below to find a port.
 </p>
 
 <p>
-<b>Package Name</b> searches for the name of a port or distribution.
-<b>Description</b> searches case-insensitive in a short comment about the port.
-<b>All</b> searches case-insensitive for the package name and in the
-description about the port.
-<b>Maintainer</b> searches for the email address of the port maintainer.
-<b>Requires</b> searches for ports which depends on this port.
+@{[ &last_update_message ]} - refreshed automatically every two hours from 
+<a href="https://download.FreeBSD.org/ports/index/$ports_database.xz">$ports_database</a>.
+For other FreeBSD release indexes, see the full <a href="https://download.freebsd.org/ports/index/">index listing</a>.
+</p>
 
+<h2>Search Types</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>What it searches</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>All</strong></td>
+      <td>Package name and description (case-insensitive)</td>
+      <td><code>netcat</code></td>
+    </tr>
+    <tr>
+      <td><strong>Package Name</strong></td>
+      <td>The name of a port or distribution</td>
+      <td><code>neovim</code></td>
+    </tr>
+    <tr>
+      <td><strong>Description</strong></td>
+      <td>The short one-line comment about a port (case-insensitive)</td>
+      <td><code>vim</code></td>
+    </tr>
+    <tr>
+      <td><strong>Maintainer</strong></td>
+      <td>The maintainer's email address</td>
+      <td><code>emacs\@FreeBSD.org</code></td>
+    </tr>
+    <tr>
+      <td><strong>Requires</strong></td>
+      <td>Ports that <em>depend on</em> the given port (not the other way around)</td>
+      <td><code>vim-tiny</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+Note: search is substring-based; wildcards and regular expressions are not supported.
 </p>
 
 <h2>External Links</h2>
@@ -729,44 +779,13 @@ description about the port.
   <dd>Read the latest changes via the git repo</dd>
 
   <dt><b>Packages</b></dt>
-  <dd>List of available packages for all supported releases and branches</dd>
+  <dd>List of packages available for all releases, branches and architectures</dd>
 </dl>
 
-<h2>Documentation</h2>
-<p>
-Handbook: <a href="https://docs.freebsd.org/en/books/handbook/ports/#ports-using">Using the Ports Collection</a>
-</p>
-
-<p>
-You may also search the
-<a href="https://man.FreeBSD.org/cgi/man.cgi?manpath=freebsd-ports">ports manual pages</a>.
-</p>
-
-<h2>Updates</h2>
-
-<p>
-The script ports.cgi use the file
-<a href="https://download.FreeBSD.org/ports/index/$ports_database.xz">$ports_database</a>
-as database for its operations. $ports_database is updated automatically every
-two hours.
-
-For other FreeBSD Releases INDEX files, please look at
-<a href="https://download.freebsd.org/ports/index/">https://download.freebsd.org/ports/index/</a>
-</p>
-
-<p>
-@{[ &last_update_message ]}
-</p>
-
-
-<h2>Copyright</h2>
-<pre>
-Copyright (c) 1996-2026 <a href="https://wolfram.schneider.org">Wolfram Schneider</a> &lt;wosch\@FreeBSD.org&gt;
-</pre>
-<p/>
-
-<h2>Misc</h2>
+<h2>Further Reading</h2>
 <ul>
+<li>Handbook: <a href="https://docs.freebsd.org/en/books/handbook/ports/#ports-using">Using the Ports Collection</a></li>
+<li><a href="https://man.FreeBSD.org/cgi/man.cgi?manpath=freebsd-ports">Ports manual pages</a></li>
 <li><a href="https://forums.freebsd.org/categories/ports-and-packages.21/">FreeBSD Forums: Ports and Packages</a></li>
 <li><a href="https://www.freshports.org/">FreshPorts -- The Place For Ports - Most recent commits</a></li>
 </ul>
@@ -776,6 +795,13 @@ Copyright (c) 1996-2026 <a href="https://wolfram.schneider.org">Wolfram Schneide
 General questions about FreeBSD ports should be sent to 
 the <a href="https://lists.freebsd.org/subscription/freebsd-ports">$mailtoList</a> mailing list.
 </p>
+
+<h2>Copyright</h2>
+<pre>
+Copyright (c) 1996-2026 <a href="https://wolfram.schneider.org">Wolfram Schneider</a> &lt;wosch\@FreeBSD.org&gt;
+</pre>
+<p/>
+
 
 @{[ &footer_links ]}
 <hr noshade="noshade" />
@@ -927,5 +953,6 @@ if ($counter) {
     print &footer_links;
 }
 
+print &input_autofocus_at_end;
 print qq{<hr noshade="noshade" />\n};
 print &html_footer;
