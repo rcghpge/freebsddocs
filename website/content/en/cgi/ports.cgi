@@ -34,15 +34,18 @@ use JSON;
 use warnings;
 
 our $hsty_base;
-require "./cgi-style.pl";
+require "./cgi-style-responsive.pl";
 
-our $t_style = qq`
+our $t_style = <<'EOF';
 <style type="text/css">
-h3 { font-size: 1.20em; border-bottom: thin solid black; max-width: 42em; }
-
 form#ports > input[name='query'] { text-align: center; }
-form#ports > input[name='query'] { width: 20em; }
-form#ports > input, form#ports > button, form#ports > select { font-size: large; }
+form#ports > input[name='query'] { width: 14em; }
+
+form#ports > input, form#ports > button, form#ports > select { margin-left: 0.2em; }
+form#ports > input, form#ports > button                      { font-size: large; }
+form#ports > button { margin-top: .8em; }
+form#ports > select { margin-top: .8em; font-size: 100%; }
+form#ports { padding-bottom: .7em; margin-top: .5em; }
 
 span.footer_links { font-size: small; }
 span.space { font-size: xx-small; }
@@ -54,11 +57,48 @@ a:hover { text-decoration:underline; }
 table, th, td { border: 1px solid black; border-collapse: collapse; }
 th, td { padding-left: 0.5em; padding-right: 0.5em; }
 
-span#noscript { color: red; font-size: normal; font-weight: bold; }
+h3 { border-bottom: thin solid black; max-width: 42em; padding-top: .2em; }
+div#content { padding-top: 0.4em; }
+
+hr { margin-top: 0px; }
+
+.dependencies { margin-top: 0.5em; }
+
+@media screen and (orientation: portrait) and (max-width: 950px) {
+}
+
+@media screen and (orientation: landscape) and (max-width: 950px) {
+  header { display: none; }
+}
+
+@media screen and (max-width: 1300px) {
+    footer { margin-top: -2em; }
+    .logo-menu-bars-container {
+        padding: 0px;
+    }
+
+    pre { white-space: pre-wrap !important; word-wrap: break-word !important; }
+}
 </style>
 
 <link rel="search" type="application/opensearchdescription+xml" href="https://www.freebsd.org/opensearch/ports.xml" title="FreeBSD Ports" />
-`;
+
+<script>
+function input_autofocus_at_end () {
+  const input = document.querySelector('#query'); 
+  if (input) {
+    // XXX: don't auto-open keyboard on Android
+    input.setAttribute('readonly', 'readonly');
+    input.focus({ preventScroll: true });
+    setTimeout(function () {
+      input.removeAttribute('readonly');
+      input.setSelectionRange(input.value.length, input.value.length);
+    }, 50);
+  }
+}
+document.addEventListener('DOMContentLoaded', input_autofocus_at_end);
+</script>
+EOF
 
 my $no_javascript_warning = <<'EOF';
 <span id="noscript">
@@ -313,7 +353,7 @@ sub out {
         if ( !$out_sec || $1 ne $out_sec ) {
             print "</dl>\n" if $counter > 0;
             print qq{\n<h3>}
-              . qq{<a href="$remotePrefixRepo/tree/$1">Category $1</a>}
+              . qq{<a href="$remotePrefixRepo/tree/$1">Category: $1</a>}
               . "</h3>\n<dl>\n";
             $out_sec = $1;
         }
@@ -347,7 +387,7 @@ sub out {
 
     print qq[<a href="$descfile?revision=HEAD">Description</a>\n];
 
-    print qq[<b>:</b> <a href="$l">Changes</a>\n];
+    print qq[<b>:</b> <a href="$l">Commit Log</a>\n];
     print qq[<b>:</b> <a href="?stype=pkg&amp;query=], escapeHTML($port_path),
       qq[">Packages</a>\n]
       if $enable_packages_link;
@@ -374,7 +414,8 @@ sub out {
     if ( $bdepends || $rdepends ) {
         local ($flag) = 0;
         local ($last) = '';
-        print qq{<i>Requires:</i> };
+        print qq{<div class="dependencies">\n};
+        print qq{<i>Dependencies:</i> };
         foreach ( sort split( /\s+/, "$bdepends $rdepends" ) ) {
 
             # delete double entries
@@ -385,7 +426,7 @@ sub out {
             $flag++;
             print qq{<a href="$script_name?query=^$_&amp;stype=name">$_</a>};
         }
-        print "<br />\n";
+        print "</div>\n";
     }
 
     print qq[</dd>];
@@ -439,8 +480,8 @@ sub package_links {
         }
 
         if ( $. == 1 ) {
-            print qq[<h2>$perl->{"name"}: ], escapeHTML( $perl->{"comment"} ),
-              qq[</h2>\n];
+            print qq[<h3>$perl->{"name"}: ], escapeHTML( $perl->{"comment"} ),
+              qq[</h3>\n];
 
             my $maintainer = $perl->{"maintainer"};
             $maintainer = &check_freebsd_mailing_list($maintainer)
@@ -602,22 +643,12 @@ sub search_ports {
     }
 }
 
-sub input_autofocus_at_end {
-    return <<EOF;
-
-<script type="text/javascript">
-const input = document.querySelector('#query'); 
-input.focus();
-input.setSelectionRange(input.value.length, input.value.length);
-</script>
-EOF
-}
-
 sub forms {
 
     print qq{
 <form id="ports" method="get" action="$script_name">
-<input name="query" id="query" value="$query" type="text" autocapitalize="none" autofocus />
+<input name="query" id="query" value="$query" type="text" autocapitalize="none" />
+<input type="submit" value="Search" /><br/>
 <select name="stype">
 };
 
@@ -625,7 +656,7 @@ sub forms {
     %d = (
         'name',       'Package Name', 'all',  'All',
         'maintainer', 'Maintainer',   'text', 'Description',
-        'requires',   'Requires',
+        'requires',   'Dependencies',
     );
 
     foreach ( 'all', 'name', 'text', 'maintainer', 'requires' ) {
@@ -649,11 +680,10 @@ sub forms {
     }
 
     print qq{</select>
-<input type="submit" value="Submit" />
+
 </form>
-<br/>
 @{[ &footer_links ]}
-<hr noshade="noshade" />
+<hr/>
 };
 
 }
@@ -712,8 +742,7 @@ sub check_input {
 
 sub help {
     print <<EOF;
-<br/>
-<h1>FreeBSD Ports Search Help</h1>
+<h2>FreeBSD Ports Search Help</h2>
 
 <p>
 The FreeBSD Ports and Packages Collection offers a simple way for
@@ -758,7 +787,7 @@ For other FreeBSD release indexes, see the full <a href="https://download.freebs
       <td><code>emacs\@FreeBSD.org</code></td>
     </tr>
     <tr>
-      <td><strong>Requires</strong></td>
+      <td><strong>Dependencies</strong></td>
       <td>Ports that <em>depend on</em> the given port (not the other way around)</td>
       <td><code>vim-tiny</code></td>
     </tr>
@@ -771,12 +800,17 @@ Note: search is substring-based; wildcards and regular expressions are not suppo
 
 <h2>External Links</h2>
 
+<p>
+Each port listed in the search results includes three links to the
+FreeBSD ports Git repository and package builder, described below.
+</p>
+
 <dl>
   <dt><b>Description</b></dt>
-  <dd>A more detailed description (text) via the git repo</dd>
+  <dd>The port's full description text</dd>
 
-  <dt><b>Changes</b></dt>
-  <dd>Read the latest changes via the git repo</dd>
+  <dt><b>Commit Log</b></dt>
+  <dd>Read the latest Git logs</dd>
 
   <dt><b>Packages</b></dt>
   <dd>List of packages available for all releases, branches and architectures</dd>
@@ -797,14 +831,12 @@ the <a href="https://lists.freebsd.org/subscription/freebsd-ports">$mailtoList</
 </p>
 
 <h2>Copyright</h2>
-<pre>
+<p>
 Copyright (c) 1996-2026 <a href="https://wolfram.schneider.org">Wolfram Schneider</a> &lt;wosch\@FreeBSD.org&gt;
-</pre>
-<p/>
-
+</p>
 
 @{[ &footer_links ]}
-<hr noshade="noshade" />
+<hr/>
 EOF
 }
 
@@ -876,10 +908,10 @@ if ( !$query && $query_string =~ /^([^=&]+)$/ ) {
 }
 
 if ($query) {
-    print &short_html_header( "FreeBSD Ports Search", 1 );
-    print "<br/>\n";
+    print &short_html_header( "Ports Search", 1 );
+    #print "<br/>\n";
 } else {
-    print &html_header( "FreeBSD Ports Search", 1 );
+    print &html_header( "Ports Search", 1 );
 }
 
 # get all categories
@@ -935,24 +967,27 @@ if ( !$counter ) {
     print <<EOF;
 <p>
 Sorry, nothing found.
-You may look for other <a href="https://www.freebsd.org/search/">FreeBSD Search Services</a>
+<p>
+You can start a <a href="$script_name">new search</a> or look for other
+<a href="https://www.freebsd.org/search/">FreeBSD Search Services</a>.
 </p>
+<hr/>
 @{[ &footer_links ]}
 EOF
 }
 
 if ($counter) {
     print "</dl>\n" if $stype ne 'pkg';
-    my $counter_message = $counter;
+    my $counter_message = "$counter result";
+    $counter_message .= "s" if $counter > 1;
     if ( $counter >= $max ) {
         $counter_message .= " (max hit limit reached)";
         warn "$counter_message: query=$query stype=$stype section=$section\n"
           if $debug >= 1;
     }
-    print "<p>Number of results: $counter_message\n</p>\n";
+    print "<p>\n$counter_message\n</p>\n";
     print &footer_links;
 }
 
-print &input_autofocus_at_end;
-print qq{<hr noshade="noshade" />\n};
+print qq{<hr/>\n};
 print &html_footer;

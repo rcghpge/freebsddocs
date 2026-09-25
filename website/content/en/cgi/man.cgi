@@ -856,6 +856,7 @@ $manPathDefault = 'FreeBSD 15.1-RELEASE and Ports.quarterly';
     'NetBSD 9.5',   "$manLocalDir/NetBSD-9.5",
     'NetBSD 10.0',  "$manLocalDir/NetBSD-10.0",
     'NetBSD 10.1',  "$manLocalDir/NetBSD-10.1",
+    'NetBSD 10.2',  "$manLocalDir/NetBSD-10.2",
     'NetBSD 11.0',  "$manLocalDir/NetBSD-11.0",
 
     '2.8 BSD',      "$manLocalDir/2.8BSD",
@@ -868,7 +869,6 @@ $manPathDefault = 'FreeBSD 15.1-RELEASE and Ports.quarterly';
     '4.3BSD NET/2', "$manLocalDir/net2",
     '4.4BSD Lite2', "$manLocalDir/4.4BSD-Lite2",
 
-    'Linux Slackware 3.1',    "$manLocalDir/Slackware-3.1",
     'Red Hat 4.2', "$manLocalDir/RedHat-4.2",
     'Red Hat 5.0', "$manLocalDir/RedHat-5.0",
     'Red Hat 5.2', "$manLocalDir/RedHat-5.2-i386",
@@ -963,12 +963,8 @@ $manPathDefault = 'FreeBSD 15.1-RELEASE and Ports.quarterly';
     'SuSE 11.2', "$manLocalDir/SuSE-11.2",
     'SuSE 11.3', "$manLocalDir/SuSE-11.3",
 
-    'SuSE ES 10 SP1', "$manLocalDir/SLES-10-SP1-i386",
-
     'openSUSE 10.2', "$manLocalDir/openSUSE-10.2",
     'openSUSE 10.3', "$manLocalDir/openSUSE-10.3",
-    #'openSUSE 11.0', "$manLocalDir/openSUSE-11.0",
-    #'openSUSE 11.1', "$manLocalDir/openSUSE-11.1",
     'openSUSE 11.2', "$manLocalDir/openSUSE-11.2",
     'openSUSE 11.3', "$manLocalDir/openSUSE-11.3",
     'openSUSE 11.4', "$manLocalDir/openSUSE-11.4",
@@ -1000,8 +996,6 @@ $manPathDefault = 'FreeBSD 15.1-RELEASE and Ports.quarterly';
     'Debian 12.15.0', "$manLocalDir/Debian-12.15.0/man:$manLocalDir/Debian-12.15.0/misc",
     'Debian 13.6.0', "$manLocalDir/Debian-13.6.0/man:$manLocalDir/Debian-13.6.0/misc",
     'Debian 14.0 unstable', "$manLocalDir/Debian-unstable/man:$manLocalDir/Debian-unstable/misc",
-
-    'Ubuntu 23.10 mantic', "$manLocalDir/Ubuntu-mantic-23.10/man:$manLocalDir/Ubuntu-mantic-23.10/misc",
 
     'Ubuntu 26.04 resolute', "$manLocalDir/Ubuntu-resolute-26.04/man:$manLocalDir/Ubuntu-resolute-26.04/misc",
     'Ubuntu 24.04 noble', "$manLocalDir/Ubuntu-noble-24.04/man:$manLocalDir/Ubuntu-noble-24.04/misc",
@@ -1221,6 +1215,7 @@ my %arch = (
 'NetBSD 9.5' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
 'NetBSD 10.0' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
 'NetBSD 10.1' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
+'NetBSD 10.2' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
 'NetBSD 11.0' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
 'OpenBSD 4.7' => { 'arch' => [qw/alpha amd64 armish aviion hp300 hppa hppa64 i386 landisk loongson luna88k mac68k macppc mvme68k mvme88k mvmeppc palm sgi socppc sparc sparc64 vax zaurus/] }, 
 'OpenBSD 4.8' => { 'arch' => [qw/alpha amd64 armish aviion hp300 hppa hppa64 i386 landisk loongson luna88k mac68k macppc mvme68k mvme88k mvmeppc palm sgi socppc sparc sparc64 vax zaurus/] }, 
@@ -1286,7 +1281,6 @@ while ( ( $key, $val ) = each %manPath ) {
     'freebsd-release-ports', 'FreeBSD 15.1-RELEASE and Ports',
     'freebsd-ports', 'FreeBSD Ports 15.1.quarterly',
 
-    'slackware',  'Linux Slackware 3.1',
     'redhat',     'Red Hat 9.0',
     'suse',       'SuSE 11.3',
     'debian',     'Debian 13.6.0',
@@ -2565,6 +2559,18 @@ much smaller.
 <li>socket(2) manpage: <a href="$full_url?socket(2)">$full_url?socket(2)</a></li>
 </ul>
 
+<h2>Output formats</h2>
+<p>
+Manual pages can be rendered in three formats: HTML (the default), plain
+ASCII text, or PDF. Choose a format from the drop-down on the query page,
+or select it directly in a URL with the "format" parameter.
+</p>
+
+<p>
+Note that some operating systems only provide preformatted manual pages
+(catpages), e.g., older NetBSD and OpenBSD releases - for these, PDF output is not available.
+</p>
+
 <h2>Updates</h2>
 <p>
 The FreeBSD stable/NN, current, and Ports manual pages are updated 
@@ -2574,16 +2580,12 @@ every three months, usually around the time a new FreeBSD version is released.
 Other operating system manual pages are updated as needed.
 </p>
 
-
 <h2>FAQ</h2>
 
 <ul>
 <li>Get the <a href="https://cgit.freebsd.org/doc/tree/website/content/en/cgi/man.cgi">source</a> of the man.cgi script.</li>
 <li>Troff macros work only if defined in FreeBSD/groff. OS-specific
 macros like "appeared in NetBSD version 1.2" are not supported.</li>
-<li>Some OSs provide only formatted manual pages (catpages), e.g., 
-older NetBSD and OpenBSD releases. In this case it is not possible to create Postscript
-and troff output.</li>
 <li>The <a href="https://cgit.freebsd.org/src/tree/share/misc/bsd-family-tree">
 Unix family tree, BSD part</a>.</li>
 <li>The <a href="https://ports.freebsd.org/cgi/ports.cgi">
@@ -2620,14 +2622,14 @@ e.g., "netbsd" always points to the latest NetBSD release.
 </ul>
 
 <h2>Copyright</h2>
-<pre>
-Copyright (c) 1996-2026 <a href="$mailtoURL">Wolfram Schneider</a>
-Copyright (c) 1993-1995 Berkeley Software Design, Inc.
-</pre>
-<p/>
-
-Copyright (c) for manual pages by OS vendors:
 <p>
+Copyright (c) 1996-2026 <a href="$mailtoURL">Wolfram Schneider</a><br/>
+Copyright (c) 1993-1995 Berkeley Software Design, Inc.<br/>
+</p>
+
+<p>
+Copyright (c) for manual pages by OS vendors:
+<span id="os_vendoers">
 <a href="https://en.wikipedia.org/wiki/History_of_the_Berkeley_Software_Distribution">2.11 BSD</a>,
 <a href="https://www.apple.com">Apple</a>,
 <a href="https://www.centos.org">CentOS</a>,
@@ -2649,7 +2651,6 @@ Copyright (c) for manual pages by OS vendors:
 <a href="https://www.redhat.com">Red Hat</a>,
 <a href="https://en.wikipedia.org/wiki/Rhapsody_(operating_system)">Rhapsody</a>,
 <a href="https://rockylinux.org/">Rocky</a>,
-<a href="https://www.slackware.com">Slackware</a>,
 <a href="https://en.wikipedia.org/wiki/SunOS">SunOS</a>,
 <a href="https://www.suse.com">SuSE</a>,
 <a href="https://ubuntu.com">Ubuntu</a>,
@@ -2657,6 +2658,8 @@ Copyright (c) for manual pages by OS vendors:
 <a href="https://en.wikipedia.org/wiki/Version_7_Unix">Unix Seventh Edition</a>,
 <a href="https://www.x.org">X11R6</a>,
 <a href="https://www.xfree86.org">XFree86</a>
+<br/>
+</span>
 </p>
 };
 

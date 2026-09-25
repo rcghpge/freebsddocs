@@ -457,6 +457,7 @@
 * Daniel Hagan <mailto:dhagan@acm.vt.edu[dhagan@acm.vt.edu]>
 * Daniel Levai <mailto:leva@ecentrum.hu[leva@ecentrum.hu]>
 * Daniel J. O'Connor <mailto:darius@dons.net.au[darius@dons.net.au]>
+* Daniel Morante <mailto:daniel@morante.net[daniel@morante.net]>
 * Daniel O'Connor <mailto:doconnor@gsoft.com.au[doconnor@gsoft.com.au]>
 * Daniel Poirot <mailto:poirot@aio.jsc.nasa.gov[poirot@aio.jsc.nasa.gov]>
 * Daniel Rock <mailto:rock@cs.uni-sb.de[rock@cs.uni-sb.de]>
@@ -1879,6 +1880,7 @@
 * Robert D. Thrush <mailto:rd@phoenix.aii.com[rd@phoenix.aii.com]>
 * Robert Eckardt <mailto:roberte@MEP.Ruhr-Uni-Bochum.de[roberte@MEP.Ruhr-Uni-Bochum.de]>
 * Robert Felber <mailto:robtone@ek-muc.de[robtone@ek-muc.de]>
+* Robert Gogolok <mailto:gogolok@gmail.com[gogolok@gmail.com]>
 * Robert Kruus <mailto:rob.kruus@gmail.com[rob.kruus@gmail.com]>
 * Robert P Ricci <mailto:ricci@cs.utah.edu[ricci@cs.utah.edu]>
 * Robert Sanders <mailto:rsanders@mindspring.com[rsanders@mindspring.com]>
@@ -1899,6 +1901,7 @@
 * Rod Taylor <mailto:ports@rbt.ca[ports@rbt.ca]>
 * Rodrigo Graeff <mailto:delphus@gmail.com[delphus@gmail.com]>
 * Roger Hardiman <mailto:roger@cs.strath.ac.uk[roger@cs.strath.ac.uk]>
+* Roger Olofsson <mailto:raggen@raggens.net[raggen@raggens.net]>
 * Roger Leigh <mailto:rleigh@codelibre.net[rleigh@codelibre.net]>
 * Roland Jesse <mailto:jesse@cs.uni-magdeburg.de[jesse@cs.uni-magdeburg.de]>
 * Roland Smith <mailto:rsmith@xs4all.nl[rsmith@xs4all.nl]>
@@ -1979,6 +1982,7 @@
 * SeaD <mailto:sead@mail.ru[sead@mail.ru]>
 * Sean McLaughlin <mailto:sigma.zx@gmail.com[sigma.zx@gmail.com]>
 * Seamus Venasse <mailto:svenasse@polaris.ca[svenasse@polaris.ca]>
+* Sebastian Oswald <mailto:sko@rostwald.de[sko@rostwald.de]>
 * Sébastian Santoro <mailto:dereckson@gmail.com[dereckson@gmail.com]>
 * Sebastian Schwarz <mailto:seschwar@gmail.com[seschwar@gmail.com]>
 * Sebastian Strollo <mailto:seb@erix.ericsson.se[seb@erix.ericsson.se]>
