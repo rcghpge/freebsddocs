@@ -47,6 +47,9 @@ if ( !defined($hsty_charset) ) {
 $t_style = "";    # Don't allow script to override completely, just
                   # let the script's setting cascade with the master.
 
+# fix links after syncing from the main website:
+# perl  -npe 's,(src|href|content)="/,$1="\$hsty_base/,g' cgi-style-responsive.pl 
+
 $i_topbar = qq`
 <header>
   <div class="header-container">
@@ -62,8 +65,8 @@ $i_topbar = qq`
     <nav>
       <ul class="menu">
         <li class="menu-item">
-          <input id="about" type="checkbox">
-          <label class="menu-item-description" for="about">
+          <input id="header-about-title" type="checkbox">
+          <label class="menu-item-description" for="header-about-title">
             About
             <i class="fa fa-angle-down fa-lg" aria-hidden="true"></i>
           </label>
@@ -86,8 +89,8 @@ $i_topbar = qq`
           </ul>
         </li>
         <li class="menu-item">
-          <input id="download" type="checkbox">
-          <label class="menu-item-description" for="download">
+          <input id="header-download-title" type="checkbox">
+          <label class="menu-item-description" for="header-download-title">
             Get FreeBSD
             <i class="fa fa-angle-down fa-lg" aria-hidden="true"></i>
           </label>
@@ -107,8 +110,8 @@ $i_topbar = qq`
           </ul>
         </li>
         <li class="menu-item">
-          <input id="documentation" type="checkbox">
-          <label class="menu-item-description" for="documentation">
+          <input id="header-documentation-title" type="checkbox">
+          <label class="menu-item-description" for="header-documentation-title">
             Documentation
             <i class="fa fa-angle-down fa-lg" aria-hidden="true"></i>
           </label>
@@ -143,8 +146,8 @@ $i_topbar = qq`
           </ul>
         </li>
         <li class="menu-item">
-          <input id="community" type="checkbox">
-          <label class="menu-item-description" for="community">
+          <input id="header-community-title" type="checkbox">
+          <label class="menu-item-description" for="header-community-title">
             Community
             <i class="fa fa-angle-down fa-lg" aria-hidden="true"></i>
           </label>
@@ -170,8 +173,8 @@ $i_topbar = qq`
           </ul>
         </li>
         <li class="menu-item">
-          <input id="developers" type="checkbox">
-          <label class="menu-item-description" for="developers">
+          <input id="header-developers-title" type="checkbox">
+          <label class="menu-item-description" for="header-developers-title">
             Developers
             <i class="fa fa-angle-down fa-lg" aria-hidden="true"></i>
           </label>
@@ -200,8 +203,8 @@ $i_topbar = qq`
           </ul>
         </li>
         <li class="menu-item">
-          <input id="support" type="checkbox">
-          <label class="menu-item-description" for="support">
+          <input id="header-support-title" type="checkbox">
+          <label class="menu-item-description" for="header-support-title">
             Support
             <i class="fa fa-angle-down fa-lg" aria-hidden="true"></i>
           </label>
@@ -269,21 +272,20 @@ $i_topbar = qq`
             </li>
           
             <li>
-              <a href="$hsty_base/zh-tw/" lang="zh-tw">繁體中文</a>
+              <a href="$hsty_base/zh-tw/" lang="zh-tw">&#x7E41;&#x9AD4;&#x4E2D;&#x6587;</a>
             </li>
           
         </ul>
       </details>
       <div class="donate">
-        <a href="https://freebsdfoundation.org/donate/">
-          <span class="heart">❤️</span>
+	<a href="$hsty_base/donations" class="column-element">
+          <span class="heart">&#x2764;&#xFE0F;</span>
           Donate
         </a>
       </div>
     </div>
   </div>
 </header>
-
 
 <main>
 <div id="content">
@@ -295,7 +297,6 @@ $i_topbar = qq`
   -->
 
   <div id="contentwrap">
-
 `;
 
 sub html_header {
@@ -331,7 +332,7 @@ tr, td {
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  <meta charset="utf-8">
+  <meta charset="$hsty_charset">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="  ">
   <meta name="keywords" content="">
@@ -350,15 +351,15 @@ tr, td {
   <meta property="og:title" content="  " >
   <meta property="og:description" content="  " >
   <meta property="og:type" content="website">
-  <meta property="og:image" content="/favicon.ico">
+  <meta property="og:image" content="$hsty_base/favicon.ico">
   <meta property="og:image:alt" content="FreeBSD Logo">
   <meta property="og:locale" content="en" >
   <meta property="og:url" content="https://www.freebsd.org/">
   <meta property="og:site_name" content="The FreeBSD Project">
   <script type="application/ld+json">
     {
-      "@context": "http://schema.org",
-      "@type": "Article",
+      "\@context": "http://schema.org",
+      "\@type": "Article",
       "url": "https:\/\/www.freebsd.org\/",
       "name": "The FreeBSD Project",
       "headline": "The FreeBSD Project",
@@ -391,14 +392,14 @@ sub html_footer {
       <img src="$hsty_base/images/beastie-right.svg" width="160" height="250" alt="FreeBSD logo" />
       <div class="theme-container">
         <label for="theme-switch" class="theme-switch-label">
-          <span class="theme-switch-label">Switch color theme</span>
+          <span class="visually-hidden">Switch color theme</span>
           <i class="fa fa-moon-o theme-icon theme-icon-dark" aria-hidden="true"></i>
           <i class="fa fa-sun-o theme-icon theme-icon-light" aria-hidden="true"></i>
         </label>
       </div>
       </section>
-      <section class="about-column">
-        <h3 class="column-title">About</h3>
+      <section class="about-column" aria-labelledby="footer-about-title">
+        <p class="column-title" id="footer-about-title">About</p>
         <ul class="column-elements-container">
           <li>
             <a href="$hsty_base/about" class="column-element">FreeBSD</a>
@@ -420,8 +421,8 @@ sub html_footer {
           </li>
         </ul>
       </section>
-      <section class="documentation-column">
-        <h3 class="column-title">Documentation</h3>
+      <section class="documentation-column" aria-labelledby="footer-documentation-title">
+        <p class="column-title" id="footer-documentation-title">Documentation</p>
         <ul class="column-elements-container">
           <li>
             <a href="https://docs.freebsd.org" class="column-element">Documentation portal</a>
@@ -440,8 +441,8 @@ sub html_footer {
           </li>
         </ul>
       </section>
-      <section class="community-column">
-        <h3 class="column-title">Community</h3>
+      <section class="community-column" aria-labelledby="footer-community-title">
+        <p class="column-title" id="footer-community-title">Community</p>
         <ul class="column-elements-container">
           <li>
             <a href="https://docs.FreeBSD.org/en/articles/contributing" class="column-element">Get involved</a>
@@ -460,14 +461,14 @@ sub html_footer {
           </li>
         </ul>
       </section>
-      <section class="legal-column">
-        <h3 class="column-title">Legal</h3>
+      <section class="legal-column" aria-labelledby="footer-legal-title">
+        <p class="column-title" id="footer-legal-title">Legal</p>
         <ul class="column-elements-container">
           <li>
             <a href="$hsty_base/contact" class="column-element">Contact</a>
           </li>
           <li>
-            <a href="https://freebsdfoundation.org/donate/" target="_blank" class="column-element">Donations</a>
+            <a href="$hsty_base/donations" class="column-element">Donations</a>
           </li>
           <li>
             <a href="$hsty_base/copyright" class="column-element">Licensing</a>
@@ -479,7 +480,7 @@ sub html_footer {
       </section>
       <section class="copyright-column">
         <p>&copy; 1994-2026 The FreeBSD Project. All rights reserved</p>
-        <span>Made with <span class="heart">❤️</span> by the FreeBSD Community</span>
+        <span>Made with <span class="heart">&#x2764;&#xFE0F;</span> by the FreeBSD Community</span>
       </section>
   </div>
 </footer>

@@ -51,7 +51,7 @@ span.footer_links { font-size: small; }
 span.space { font-size: xx-small; }
 
 p#section_links, div#footer { max-width: 50em; }
-hr { margin-left: 0em; max-width: 50em; }
+hr { margin-left: 0em; margin-top: .4em; max-width: 50em; }
 a:link  { text-decoration:none; }
 a:hover { text-decoration:underline; }
 table, th, td { border: 1px solid black; border-collapse: collapse; }
@@ -59,8 +59,6 @@ th, td { padding-left: 0.5em; padding-right: 0.5em; }
 
 h3 { border-bottom: thin solid black; max-width: 42em; padding-top: .2em; }
 div#content { padding-top: 0.4em; }
-
-hr { margin-top: 0px; }
 
 .dependencies { margin-top: 0.5em; }
 
@@ -81,7 +79,7 @@ hr { margin-top: 0px; }
 }
 </style>
 
-<link rel="search" type="application/opensearchdescription+xml" href="https://www.freebsd.org/opensearch/ports.xml" title="FreeBSD Ports" />
+<link rel="search" type="application/opensearchdescription+xml" href="https://www.FreeBSD.org/opensearch/ports.xml" title="FreeBSD Ports" />
 
 <script>
 function input_autofocus_at_end () {
@@ -382,7 +380,7 @@ sub out {
     $descfile =~ s%^$remotePrefixFtp%$remotePrefixRepo/plain%o;
 
     print
-      qq{<dt><b><a name="$version"></a><a href="$t">$version</a></b></dt>\n};
+      qq{<dt><b><a name="$version" href="$t">$version</a></b></dt>\n};
     print qq{<dd>}, &escapeHTML($comment), qq{<br />\n};
 
     print qq[<a href="$descfile?revision=HEAD">Description</a>\n];
@@ -424,7 +422,7 @@ sub out {
 
             print ", " if $flag;
             $flag++;
-            print qq{<a href="$script_name?query=^$_&amp;stype=name">$_</a>};
+            print qq{<a href="$script_name?query=%5E$_&amp;stype=name">$_</a>};
         }
         print "</div>\n";
     }
@@ -552,7 +550,7 @@ qq{ <th onclick="sort_table(2)" title="click to sort asc/desc by build time">Bui
           : "";
 
         print "<tr>\n";
-        print "<td>", qq[<a href="https://pkg.freebsd.org/], escapeHTML($path),
+        print "<td>", qq[<a href="https://pkg.FreeBSD.org/], escapeHTML($path),
           "/", escapeHTML($repopath), qq[">$release</a></td>\n];
         print "<td>",                       $version, "</td>\n";
         print qq[<td><span title="$info">], $time,    "</span></td>\n";
@@ -753,7 +751,7 @@ Use the search types below to find a port.
 <p>
 @{[ &last_update_message ]} - refreshed automatically every two hours from 
 <a href="https://download.FreeBSD.org/ports/index/$ports_database.xz">$ports_database</a>.
-For other FreeBSD release indexes, see the full <a href="https://download.freebsd.org/ports/index/">index listing</a>.
+For other FreeBSD release indexes, see the full <a href="https://download.FreeBSD.org/ports/index/">index listing</a>.
 </p>
 
 <h2>Search Types</h2>
@@ -818,16 +816,16 @@ FreeBSD ports Git repository and package builder, described below.
 
 <h2>Further Reading</h2>
 <ul>
-<li>Handbook: <a href="https://docs.freebsd.org/en/books/handbook/ports/#ports-using">Using the Ports Collection</a></li>
+<li>Handbook: <a href="https://docs.FreeBSD.org/en/books/handbook/ports/#ports-using">Using the Ports Collection</a></li>
 <li><a href="https://man.FreeBSD.org/cgi/man.cgi?manpath=freebsd-ports">Ports manual pages</a></li>
-<li><a href="https://forums.freebsd.org/categories/ports-and-packages.21/">FreeBSD Forums: Ports and Packages</a></li>
+<li><a href="https://forums.FreeBSD.org/categories/ports-and-packages.21/">FreeBSD Forums: Ports and Packages</a></li>
 <li><a href="https://www.freshports.org/">FreshPorts -- The Place For Ports - Most recent commits</a></li>
 </ul>
 
 <h2>Questions</h2>
 <p>
 General questions about FreeBSD ports should be sent to 
-the <a href="https://lists.freebsd.org/subscription/freebsd-ports">$mailtoList</a> mailing list.
+the <a href="https://lists.FreeBSD.org/subscription/freebsd-ports">$mailtoList</a> mailing list.
 </p>
 
 <h2>Copyright</h2>
@@ -845,8 +843,8 @@ sub footer_links {
 <span class="footer_links">
   <a href="$script_name">home</a>
   @{[ $stype eq "help" ? "" : qq, | <a href="$script_name?stype=help">help</a>, ]}
-  | <a href="https://cgit.freebsd.org/ports/tree/">git</a>
-  | <a href="https://download.freebsd.org/ports/">ftp</a>
+  | <a href="https://cgit.FreeBSD.org/ports/tree/">git</a>
+  | <a href="https://download.FreeBSD.org/ports/">ftp</a>
 </span>
 EOF
 }
@@ -969,7 +967,7 @@ if ( !$counter ) {
 Sorry, nothing found.
 <p>
 You can start a <a href="$script_name">new search</a> or look for other
-<a href="https://www.freebsd.org/search/">FreeBSD Search Services</a>.
+<a href="https://www.FreeBSD.org/search/">FreeBSD Search Services</a>.
 </p>
 <hr/>
 @{[ &footer_links ]}

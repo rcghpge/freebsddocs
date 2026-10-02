@@ -44,7 +44,7 @@
 # Use standard FreeBSD CGI Style if available.
 # Otherwise print simple HTML design.
 package cgi_style;
-use constant HAS_FREEBSD_CGI_STYLE => eval { require "./cgi-style.pl"; };
+use constant HAS_FREEBSD_CGI_STYLE => eval { require "./cgi-style-responsive.pl"; };
 
 package main;
 
@@ -697,7 +697,7 @@ $manPathDefault = 'FreeBSD 15.1-RELEASE and Ports.quarterly';
     'FreeBSD 5.3-RELEASE',
 "$manLocalDir/FreeBSD-5.3-RELEASE/man:$manLocalDir/FreeBSD-5.3-RELEASE/openssl/man",
     'FreeBSD 5.2.1-RELEASE',
-"$manLocalDir/FreeBSD-5.2-RELEASE/man:$manLocalDir/FreeBSD-5.2-RELEASE/openssl/man",
+"$manLocalDir/FreeBSD-5.2.1-RELEASE/man:$manLocalDir/FreeBSD-5.2.1-RELEASE/openssl/man",
     'FreeBSD 5.2-RELEASE',
 "$manLocalDir/FreeBSD-5.2-RELEASE/man:$manLocalDir/FreeBSD-5.2-RELEASE/openssl/man",
     'FreeBSD 5.1-RELEASE',
@@ -1098,7 +1098,7 @@ $manPathDefault = 'FreeBSD 15.1-RELEASE and Ports.quarterly';
     'Minix 3.1.5',                 "$manLocalDir/Minix-3.1.5",
     'Minix 3.1.6',                 "$manLocalDir/Minix-3.1.6",
     'Minix 3.1.7',                 "$manLocalDir/Minix-3.1.7",
-    'Minix 3.1.7',                 "$manLocalDir/Minix-3.1.8",
+    'Minix 3.1.8',                 "$manLocalDir/Minix-3.1.8",
     'Minix 3.2.0',                 "$manLocalDir/Minix-3.2.0",
     'Minix 3.2.1',                 "$manLocalDir/Minix-3.2.1",
     'Minix 3.3.0',                 "$manLocalDir/Minix-3.3.0",
@@ -1297,7 +1297,6 @@ while ( ( $key, $val ) = each %manPath ) {
     'opensuse',      'openSUSE 16.0',
     'openindiana',   'OpenIndiana 2025.10',
     'v7',            'Unix Seventh Edition',
-    'v7man',         'Unix Seventh Edition',
     'x11',           'X11R7.4',
     'xfree86',       'XFree86 4.8.0',
     'ultrix',        'ULTRIX 4.2',
@@ -1310,7 +1309,7 @@ while ( ( $key, $val ) = each %manPath ) {
     'macos',         'macOS 27.0',
     'plan9',         'Plan 9',
     'osf1',          'OSF1 V5.1/alpha',
-    'true64',        'OSF1 V5.1/alpha',
+    'tru64',         'OSF1 V5.1/alpha',
     'minix',         'Minix 3.3.0',
 );
 
@@ -1338,6 +1337,48 @@ sub sort_manpath {
     } 
 
     return sort { &sort_versions } keys %$manpath;
+}
+
+sub grouping_os {
+    my $os = shift;
+
+    # Plan 9
+    if ($os =~ /^([A-Za-z]+)\s+\d$/) {
+        return $os;
+    } 
+
+    # FreeBSD 13.5-RELEASE and Ports: "FreeBSD"
+    elsif ($os =~ /^([A-Za-z0-9\-]+)\s+\d/) {
+        return $1;
+    } 
+
+    # Red Hat 9.0: "Red Hat"
+    elsif ($os =~ /^([A-Za-z]+\s+[A-Za-z]+)\s+\d/) {
+        return $1;
+    }
+
+    # Dell UNIX SVR4 2.2: "Dell UNIX"
+    elsif ($os =~ /^([A-Za-z]+\s+[A-Za-z]+)\s.*\d/) {
+        return $1;
+    }
+
+    # 2.11 BSD: "BSD"
+    elsif ($os =~ /^[\d\.]+\s*([A-Za-z]+)/) {
+        return $1;
+    }
+
+    # X11R7.4: "X11R7"
+    elsif ($os =~ /^([A-Z0-9]+)\.[\d\.]+$/) {
+        return $1;
+    }
+
+    # first word
+    elsif ($os =~ /^(\w+)/) {
+        return $1;
+    }
+
+    # XXX
+    return $os;
 }
 
 #
@@ -1431,7 +1472,7 @@ $sections = join( "|", @sections );    # sections regexp
 $mailto                    = 'wosch@FreeBSD.org';
 $mailtoURL                 = 'https://wolfram.schneider.org';
 $mailtoURL                 = "mailto:$mailto" if !$mailtoURL;
-$full_url                  = 'https://man.freebsd.org/cgi/man.cgi';
+$full_url                  = 'https://man.FreeBSD.org/cgi/man.cgi';
 $want_to_link_to_this_page = 1;
 
 &secure_env;
@@ -1452,10 +1493,8 @@ sub html_footer {
     print qq[| <a href="$www{'cgi_man'}/help.html">help</a>\n] if !$args{'no_help_link'};
     print qq[</span>\n\n];
 
-    print &input_autofocus_at_end;
-
     if (cgi_style::HAS_FREEBSD_CGI_STYLE) {
-        print q{<hr noshade="noshade" />};
+        print q{<hr noshade="noshade">};
         print &cgi_style::html_footer;
     }
     else {
@@ -1466,39 +1505,100 @@ sub html_footer {
 sub html_header {
     my ( $title, $base ) = @_;
 
-    my $html_meta = q|
-<meta name="robots" content="nofollow" />
-<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type" />
-<link rel="search" type="application/opensearchdescription+xml" href="https://www.freebsd.org/opensearch/man.xml" title="FreeBSD Man" />
-<link rel="search" type="application/opensearchdescription+xml" href="https://www.freebsd.org/opensearch/man-freebsd-release-ports.xml" title="FreeBSD Man+P" />
+    my $html_meta = <<'EOF';
+<meta name="robots" content="nofollow">
+<link rel="search" type="application/opensearchdescription+xml" href="https://www.FreeBSD.org/opensearch/man.xml" title="FreeBSD Man">
+<link rel="search" type="application/opensearchdescription+xml" href="https://www.FreeBSD.org/opensearch/man-freebsd-release-ports.xml" title="FreeBSD Man+P">
 
-<style type="text/css">
-span.footer_links { font-size: small; }
-span.space { font-size: xx-small; }
-form#man > input, form#man > button { font-size: large; }
-form#man > input[name='query'] { text-align: center; }
-p#section_links, div#footer { max-width: 50em; }
-hr { margin-left: 0em; max-width: 50em; }
+<style>
+span.footer_links { font-size: .9em; margin-left: .5em; }
+
+div#section_links, div#permalink, div#footer { margin-left: 1em; }
+hr { margin-left: 0em; max-width: 50em; margin-top: .4em; }
+
 a:link  { text-decoration:none; }
 a:hover { text-decoration:underline; }
 
-@media only screen and (max-height: 640px), (max-width: 760px) {
-  /* hide logo color top */
-  body { background: #fff !important; } 
+form#man > input[name='query'] { text-align: center; }
+form#man > input[name='query'] { width: 18em; }
+form#man > input, form#man > button, form#man > select { margin-left: 0.2em; }
+form#man > input, form#man > button                    { font-size: large; }
+form#man > button { margin-top: .8em; }
+form#man > select { margin-top: .8em; font-size: 100%; }
+form#man { padding-bottom: 0.9em; margin-top: .2em; }
+form#man + span.footer_links { margin-left: .2em; }
 
-  /* hide menu top */
-  div#header, div#menu { display: none !important; }
-  // div#content { padding-top: 4.9em; }
-  span.spaces { display: none; }
+div#content { padding-top: 0.4em; }
 
-  /* larger search form */
-  form#man > input, button { font-size: 150%; }
-  form#man > button { font-size: 150%; }
-  form#man > input[name='query'] { width: 20em; }
-  form#man > select { font-size: 120%; }
+/* mobile device - portrait mode */
+@media screen and (orientation: portrait) and (max-width: 950px) {
+  #content pre {
+    font-size: clamp(11px, 2.9vw, 13px) !important;
+    line-height: 1.35 !important;
+
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+
+    -webkit-text-size-adjust: 100% !important;
+    text-size-adjust: 100% !important;
+  }
 }
+
+/* mobile device - landscape mode */
+@media screen and (orientation: landscape) and (max-width: 950px) {
+  #content pre {
+    /* scales with viewport width; tweak the 2.0vw multiplier if 84 cols still doesn't fit */
+    font-size: clamp(9px, 2.0vw, 14px) !important;
+    line-height: 1.35 !important;
+
+    /* keep the original column alignment intact — do NOT let it wrap */
+    white-space: pre !important;
+    word-wrap: normal !important;
+
+    /* fallback: if a line is still too wide, scroll it instead of breaking layout */
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+
+    /* stop iOS from auto-boosting the font size on top of your setting */
+    -webkit-text-size-adjust: 100% !important;
+    text-size-adjust: 100% !important;
+  }
+  header { display: none; }
+}
+
+/* small devices or laptops */
+@media screen and (max-width: 1300px) {
+  .logo-menu-bars-container { padding: 0px; }
+
+  footer { margin-top: -1.2em; }
+  h3 { padding-top: .2em; }
+} 
+
+details { margin: .3em 0 .3em 1em; }
+details > summary { cursor: pointer; font-weight: bold; padding: .2em 0; }
+details > ul { margin-top: .2em; }
+
 </style>
-|;
+
+<script>
+function input_autofocus_at_end () {
+  const input = document.querySelector('#query'); 
+  if (input) {
+    // XXX: don't open keyboard on Android
+    input.setAttribute('readonly', 'readonly');
+    input.focus({ preventScroll: true });
+    setTimeout(function () {
+      input.removeAttribute('readonly');
+      input.setSelectionRange(input.value.length, input.value.length);
+    }, 50);
+  }
+}
+document.addEventListener('DOMContentLoaded', input_autofocus_at_end);
+</script>
+EOF
 
     return &html_header2( $title, $html_meta )
       if !cgi_style::HAS_FREEBSD_CGI_STYLE;
@@ -1507,7 +1607,7 @@ a:hover { text-decoration:underline; }
       s,</head>,$html_meta\n</head>,s;
 
     $header =~ s,^Content-type:\s+\S+\s+,,s;
-    $header =~ s,<head>,<head>\n<base href="$base" />,s if $base;
+    $header =~ s,<head>,<head>\n<base href="$base">,s if $base;
     return $header;
 }
 
@@ -1588,10 +1688,10 @@ sub do_man {
     $format = 'html' if $no_pdf_output{$manpath} && $format =~ /^(ps|pdf)$/;
 
     local ($fform) = &dec($form);
-    if ( $fform =~ m%^([a-zA-Z_\-\.:]+)$% ) {
+    if ( $fform =~ m%^([0-9a-zA-Z_\-\.:]+)$% ) {
         return &man( $1, '' );
     }
-    elsif ( $fform =~ m%^([a-zA-Z_\-\.:]+)\(([0-9a-zA-Z]+)\)$% ) {
+    elsif ( $fform =~ m%^([0-9a-zA-Z_\-\.:]+)\(([0-9a-zA-Z]+)\)$% ) {
         return &man( $1, $2 );
     }
 
@@ -1648,7 +1748,7 @@ sub download {
 
     $| = 1;
     my $filename = $manpath;
-    $filename =~ s/\s+/_/;
+    $filename =~ s/\s+/_/g;
     $filename = &encode_url($filename);
     $filename .= '.tgz';
 
@@ -1711,7 +1811,6 @@ sub apropos {
 
     &http_header("text/html");
     print &html_header("Apropos $title - $manpath Manual Pages");
-    print "<br/>\n";
 
     $section = $sektion;
     &formquery;
@@ -1758,14 +1857,14 @@ sub apropos {
 
     if ( !$acounter ) {
         if ($query eq '') {
-           print "<hr/>Empty input. Please type a manual page and search again.\n<hr/>\n";
+           print "<hr>Empty input. Please type a manual page and search again.\n<hr>\n";
         } else {
            my $apropos_query = $query . ($sektion ? "($sektion)" : "");
            print "Sorry, no apropos results found for `$apropos_query'.\n";
            print qq{Please try a <a href="$BASE?apropos=1&amp;manpath=$manpath&amp;query=$query">keyword search</a>.\n} if $sektion;
-           print "<br/><br/>\n";
+           print "<br><br>\n";
            print qq{You can start a <a href="$www{'cgi_man'}">new search</a> or look for other }
-          . qq{<a href="https://www.freebsd.org/search/">FreeBSD Search Services</a>.<br/><hr/>\n};
+          . qq{<a href="https://www.FreeBSD.org/search/">FreeBSD Search Services</a>.<br><hr>\n};
         }
     }
     &html_footer;
@@ -1838,8 +1937,7 @@ sub man {
     if ( $format eq "html" ) {
         &http_header("text/html");
         print &html_header("$title - $manpath Manual Pages");
-        print "<br/>\n";
-        print "<h1>$www{'head'}</h1>\n\n" if !$www{'head'};
+        print "<h3>$www{'head'}</h3>\n\n" if !$www{'head'};
         &formquery;
         print "<pre>\n";
     }
@@ -1878,9 +1976,9 @@ sub man {
     $html_section = &encode_data($section);
 
     if ( $name =~ /^\s*$/ ) {
-	print "</pre><hr/>";
+	print "</pre><hr>";
         print "Empty input. Please type a manual page and search again.\n";
-	print "<hr/>\n";
+	print "<hr>\n";
         &html_footer;
         return;
     }
@@ -1967,8 +2065,8 @@ sub man {
 
     if ( eof(MAN) ) {
         if ( $format eq "ascii" ) {
-            print "Sorry, results found for '$html_name'\n";
-	    return;
+            print "Sorry, no results found for '$html_name'\n";
+            return;
         }
 
         # print "X $command{'man'} @manargs -- x $name x\n";
@@ -1978,7 +2076,7 @@ sub man {
         print
 qq{Please try a <a href="$BASE?apropos=1&amp;manpath=$manpath&amp;query=$html_name">keyword search</a>.\n};
         print qq{<p>You can start a <a href="$www{'cgi_man'}">new search</a> or look for other }
-          . qq{<a href="https://www.freebsd.org/search/">FreeBSD Search Services</a>.</p><hr/>\n};
+          . qq{<a href="https://www.FreeBSD.org/search/">FreeBSD Search Services</a>.</p><hr>\n};
         &html_footer;
         return;
     }
@@ -2070,15 +2168,15 @@ qq{Please try a <a href="$BASE?apropos=1&amp;manpath=$manpath&amp;query=$html_na
             $i = $_;
             $j = &encode_url($i);
             $j =~ s/\+/_/g;
-            $_ = qq{<a name="$j" href="#end"><b>$i</b></a>\n};
+            $_ = qq{<a id="$j" href="#end"><b>$i</b></a>\n};
             push( @sect, $i );
         }
         print;
     }
     close(MAN);
-    print qq{</pre>\n<a name="end" />\n<hr />\n};
+    print qq{</pre>\n<span id="end"></span>\n<hr>\n};
 
-    print qq{\n<p id="section_links">\n};
+    print qq{\n<div id="section_links">\n<p>\n};
     for ( $i = 0 ; $i <= $#sect ; $i++ ) {
         $j = &encode_url( $sect[$i] );
         $j =~ s/\+/_/g;
@@ -2087,32 +2185,21 @@ qq{Please try a <a href="$BASE?apropos=1&amp;manpath=$manpath&amp;query=$html_na
           . qq{">$sect[$i]</a>}
           . ( $i < $#sect ? " |\n" : "\n" );
     }
-    print qq{</p>\n\n};
+    print qq{</p>\n</div>\n};
 
     if ($want_to_link_to_this_page) {
         my $url = qq{$full_url?query=$html_name};
-        $url .= qq{&amp;sektion=$html_section} if $html_section != 0;
+        $url .= qq{&amp;sektion=$html_section} if $html_section ne "0";
         $url .= qq{&amp;manpath=} . &encode_url($manpath);
 
-        print qq{<p align="left">Want to link to this manual page? };
-        print qq{Use this URL:<br/>&lt;<a href="$url">$url</a>&gt;</p>\n};
+        print qq{<div id="permalink">\n<p>\nWant to link to this manual page? };
+        print qq{Use this URL:<br>&lt;<a href="$url">$url</a>&gt;</p>\n</div>\n};
     }
 
     &html_footer;
 
     # Sleep 0.35 seconds to avoid DoS attacs
     select undef, undef, undef, 0.35;
-}
-
-sub input_autofocus_at_end {
-    return <<EOF;
-
-<script type="text/javascript">
-const input = document.querySelector('#query'); 
-input.focus();
-input.setSelectionRange(input.value.length, input.value.length);
-</script>
-EOF
 }
 
 #
@@ -2381,7 +2468,7 @@ sub encode_data {
 sub indexpage {
     &http_header("text/html");
     print &html_header("$www{'title'}");
-    print "<br/>\n<h1>$www{'head'}</h1>\n\n"; 
+    print "<h3>$www{'head'}</h3>\n\n"; 
 
     # print &intro;
     &formquery;
@@ -2401,19 +2488,13 @@ sub formquery {
         $bstring = q{ checked="checked"};
     }
 
-    # set focus if the input field is empty 
-    my $autofocus = $query ? "" : "autofocus";
-
     print <<ETX;
 <form id="man" method="get" action="$BASE">
 <!-- Manual Page or Keyword Search: -->
-<span class="spaces">&nbsp;&nbsp;</span>
-<input type="text" id="query" value="$query" name="query" size="36" autocapitalize="none" $autofocus />
+<input type="text" id="query" value="$query" name="query" size="36" autocapitalize="none">
 <button type="submit" name="apropos" value="0">man</button>
 <button type="submit" name="apropos" value="1">apropos</button>
-<br/>
-<span class="space">&nbsp;</span><br/>
-<span class="spaces">&nbsp;&nbsp;</span>
+<br>
 ETX
 
     print qq{<select name="sektion">\n};
@@ -2426,12 +2507,27 @@ ETX
     print qq{</select>\n<select name="manpath">\n};
 
     local ($l) = ( $manpath ? $manpath : $manPathDefault );
+
+    my $os = "";
+    my $os_group = "";
     foreach ( &freebsd_first( &sort_manpath(\%manPath)) ) {
         $key = $_;
-        print "<option"
+        $os = &grouping_os($key);
+
+        if ($os ne $os_group && $os_group ne "") {
+           print join "", &optgroup_html($os_group, @l);
+           undef @l;
+        }
+
+        push @l,  "<option"
           . ( ( $key eq $l ) ? ' selected="selected" ' : ' ' )
           . qq{value="$key">$key</option>\n};
+
+        $os_group = $os;
     }
+
+    # last entry
+    print join "", &optgroup_html($os_group, @l);
 
     print qq{</select>\n};
 
@@ -2482,26 +2578,79 @@ ETX
 </select>
 </form>
 
-<br/>
 <span class="footer_links">
   <a href="$www{'cgi_man'}">home</a> |
   <a href="$www{'cgi_man'}/help.html">help</a>
 </span>
 ETX
     if ($query) {
-	print "<hr/>\n";
+	print "<hr>\n";
     }
+}
+
+sub details_id {
+    my $name = shift;
+
+    $name =~ s/\s+/_/g;
+
+    return lc($name);
+}
+
+sub detail_html {
+   my ($os_group, $os_group_lc, @l) = @_;
+
+   my @list;
+   my $text = scalar(@l) . " release";
+   # release <-> releases
+   $text .= "s" if scalar(@l) > 1;
+
+   push @list, qq[<details id="$os_group_lc">\n];
+   push @list, qq|<summary>$os_group ($text)</summary>\n|;
+   push @list, "<ul>\n", @l, "</ul>\n</details>\n";
+
+   return @list;
+}
+
+sub optgroup_html {
+   my ($label, @l) = @_;
+
+   my @list;
+
+   push @list, qq[<optgroup label="$label">\n];
+   push @list, @l;
+   push @list, qq[</optgroup>\n];
+
+   return @list;
 }
 
 sub faq {
 
     local ( @list, @list2 );
     local ($url);
+
+    my $os = "";
+    my $os_lc = "";
+    my $os_group = "";
+    my $os_group_lc = "";
+    my @l;
     foreach ( &freebsd_first (&sort_manpath(\%manPath) )) {
+        $os = &grouping_os($_);
+        $os_lc = &details_id($os);
+
         $url = &encode_url($_);
         my $download_link = $enable_download ? qq[<a href="/cgi/man.cgi?apropos=2&amp;manpath=$url">tarball</a>] : '';
-        push( @list, qq{<li>$_: <a href="$BASE?manpath=$url">permalink</a> | $download_link</li>\n} );
+
+        if ($os_lc ne $os_group_lc && $os_group_lc ne "") {
+           push @list, &detail_html($os_group, $os_group_lc, @l);
+           undef @l;
+        } 
+        push( @l, qq{<li>$_: <a href="$BASE?manpath=$url">permalink</a> | $download_link</li>\n} );
+        $os_group = $os;
+        $os_group_lc = $os_lc;
     }
+
+    # last entry
+    push @list, &detail_html($os_group, $os_group_lc, @l);
 
     foreach ( &freebsd_first (&sort_manpath(\%manPathAliases) )) {
         if (!$manPathAliases{$_}) {
@@ -2517,7 +2666,7 @@ sub faq {
 
     return qq{\
 <p>
-<a href="https://man.freebsd.org/">man.FreeBSD.org</a>
+<a href="https://man.FreeBSD.org/">man.FreeBSD.org</a>
 is the largest and oldest manual page archive on the internet.</p>
 
 <p>
@@ -2548,15 +2697,8 @@ much smaller.
 
 <p>You can use these short URLs to search for FreeBSD man pages:</p>
 <ul>
-<li>socket manpage: <a href="https://man.freebsd.org/socket">https://man.freebsd.org/socket</a></li>
-<li>socket(2) manpage: <a href="https://man.freebsd.org/socket/2">https://man.freebsd.org/socket/2</a></li>
-</ul>
-
-<p />
-
-<ul>
-<li>socket manpage: <a href="$full_url?socket">$full_url?socket</a></li>
-<li>socket(2) manpage: <a href="$full_url?socket(2)">$full_url?socket(2)</a></li>
+<li>socket manpage: <a href="https://man.FreeBSD.org/socket">https://man.FreeBSD.org/socket</a></li>
+<li>socket(2) manpage: <a href="https://man.FreeBSD.org/socket/2">https://man.FreeBSD.org/socket/2</a></li>
 </ul>
 
 <h2>Output formats</h2>
@@ -2580,21 +2722,24 @@ every three months, usually around the time a new FreeBSD version is released.
 Other operating system manual pages are updated as needed.
 </p>
 
-<h2>FAQ</h2>
+<h2>Notes</h2>
 
+<p>On small mobile devices, manual pages often look better in landscape mode than in portrait mode.</p>
+
+<p>Troff macros work only if they are defined in FreeBSD's groff.
+OS-specific macros, such as "appeared in NetBSD version 1.2", are not supported.
+</p>
+
+<h2>See also</h2>
 <ul>
-<li>Get the <a href="https://cgit.freebsd.org/doc/tree/website/content/en/cgi/man.cgi">source</a> of the man.cgi script.</li>
-<li>Troff macros work only if defined in FreeBSD/groff. OS-specific
-macros like "appeared in NetBSD version 1.2" are not supported.</li>
-<li>The <a href="https://cgit.freebsd.org/src/tree/share/misc/bsd-family-tree">
-Unix family tree, BSD part</a>.</li>
-<li>The <a href="https://ports.freebsd.org/cgi/ports.cgi">
-FreeBSD Ports Search</a> script.</li>
-<li>other <a href="https://www.freebsd.org/search/">FreeBSD Search Services</a>.</li>
-<li><a href="https://www.freebsd.org/search/opensearch/">FreeBSD OpenSearch Plugins</a> for the manual pages and other services.</li>
+<li><a href="https://www.FreeBSD.org/search/opensearch/">FreeBSD OpenSearch plugins</a> for the manual pages and other services</li>
+<li><a href="https://ports.FreeBSD.org/cgi/ports.cgi">FreeBSD Ports search</a></li>
+<li>Other <a href="https://www.FreeBSD.org/search/">FreeBSD search services</a></li>
+<li><a href="https://cgit.FreeBSD.org/src/tree/share/misc/bsd-family-tree">Unix family tree (BSD part)</a></li>
+<li><a href="https://cgit.FreeBSD.org/doc/tree/website/content/en/cgi/man.cgi">Source code</a> of the man.cgi script</li>
 </ul>
 
-<h2>Release Permalinks and tarballs</h2>
+<h2>Release permalinks and tarballs</h2>
 <p>
 Release and release-alias permalinks show how to link to this script for the right OS version.
 </p>
@@ -2604,17 +2749,17 @@ You may download the manual pages as a gzip'd tar archive for private or educati
 A tarball is normally 15-50 MB in size, but can be up to 350 MB for FreeBSD ports.
 </p>
 
-<ul>
+<div id="release-permalinks-tarballs">
 @list
-</ul>
+</div>
 
-
-<h2>Release Alias Permalinks</h2>
+<h2>Release alias permalinks</h2>
 
 <p>
-Release aliases are for lazy people.
-They also have a longer lifetime, 
-e.g., "netbsd" always points to the latest NetBSD release.
+Release aliases are short names that always point to the latest
+release of an operating system, e.g., "netbsd" links to the newest
+NetBSD release. Links using an alias stay valid when a new release
+comes out.
 </p>
 
 <ul>
@@ -2623,8 +2768,8 @@ e.g., "netbsd" always points to the latest NetBSD release.
 
 <h2>Copyright</h2>
 <p>
-Copyright (c) 1996-2026 <a href="$mailtoURL">Wolfram Schneider</a><br/>
-Copyright (c) 1993-1995 Berkeley Software Design, Inc.<br/>
+Copyright (c) 1996-2026 <a href="$mailtoURL">Wolfram Schneider</a><br>
+Copyright (c) 1993-1995 Berkeley Software Design, Inc.
 </p>
 
 <p>
@@ -2636,7 +2781,7 @@ Copyright (c) for manual pages by OS vendors:
 <a href="https://www.debian.org">Debian</a>,
 <a href="https://www.dell.com">Dell</a>,
 <a href="https://www.dragonflybsd.org">DragonFly BSD</a>,
-<a href="https://www.freebsd.org">FreeBSD</a>,
+<a href="https://www.FreeBSD.org">FreeBSD</a>,
 <a href="https://www.hp.com">HP</a>,
 <a href="https://en.wikipedia.org/wiki/IRIX">IRIX</a>,
 <a href="https://www.minix3.org">Minix</a>,
@@ -2656,9 +2801,9 @@ Copyright (c) for manual pages by OS vendors:
 <a href="https://ubuntu.com">Ubuntu</a>,
 <a href="https://en.wikipedia.org/wiki/Ultrix">ULTRIX</a>,
 <a href="https://en.wikipedia.org/wiki/Version_7_Unix">Unix Seventh Edition</a>,
-<a href="https://www.x.org">X11R6</a>,
+<a href="https://www.x.org">X.Org</a>,
 <a href="https://www.xfree86.org">XFree86</a>
-<br/>
+<br>
 </span>
 </p>
 };
@@ -2667,7 +2812,7 @@ Copyright (c) for manual pages by OS vendors:
 
 sub intro {
     return qq{\
-<p />
+<p/>
 <i>Man Page Lookup</i> searches for man pages name and section as
 given in the selection menu and the query dialog.  <i>Apropos
 Keyword Search</i> searches the database for the string given in
@@ -2676,15 +2821,15 @@ as short-cuts to various queries:  <i>Section Indexes</i> is apropos
 listings of all man pages by section.  <i>Explanations of Man
 Sections</i> contains pointers to the intro pages for various man
 sections.
-<p />
+<p/>
 };
 }
 
 sub faq_output {
     &http_header("text/html");
     print &html_header( "$www{'head'} Help", '/cgi/' );
-    print "<br/>\n<h1>$www{'head'} Help</h1>\n";
-    print &faq . "<br/>\n";
+    print "<br>\n<h1>$www{'head'} Help</h1>\n";
+    print &faq . "<br>\n";
     &html_footer('no_help_link' => 1);
 }
 
