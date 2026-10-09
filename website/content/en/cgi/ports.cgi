@@ -39,13 +39,13 @@ require "./cgi-style-responsive.pl";
 our $t_style = <<'EOF';
 <style type="text/css">
 form#ports > input[name='query'] { text-align: center; }
-form#ports > input[name='query'] { width: 14em; }
+form#ports > input[name='query'] { width: 19em; }
 
 form#ports > input, form#ports > button, form#ports > select { margin-left: 0.2em; }
-form#ports > input, form#ports > button                      { font-size: large; }
+form#ports > input, form#ports > button                      { font-size: large; margin-top: 0.8em; }
 form#ports > button { margin-top: .8em; }
 form#ports > select { margin-top: .8em; font-size: 100%; }
-form#ports { padding-bottom: .7em; margin-top: .5em; }
+form#ports { padding-bottom: .7em; }
 
 span.footer_links { font-size: small; }
 span.space { font-size: xx-small; }
@@ -256,7 +256,7 @@ sub encode_url {
     local ($_) = @_;
 s/([\000-\032\;\/\?\:\@\&\=\%\'\"\`\<\>\177-\377 ])/sprintf('%%%02x',ord($1))/eg;
 
-    # s/%20/+/g;
+    s/\+/%20/g;
     $_;
 }
 
@@ -275,7 +275,7 @@ sub readindex {
 
     while (<C>) {
         next if $query && !/$query/oi;
-        chop;
+        chomp;
 
         @tmp            = split(/\|/);
         $var{"$tmp[0]"} = $_;
@@ -296,7 +296,7 @@ sub readcoll {
 
     if ( -r $file && open( C, $file ) ) {
         while (<C>) {
-            chop;
+            chomp;
 
             if (/^\s*([^,]+),\s*"([^"]+)",\s*([A-Z]+)/) {
                 @b = split( /\s+/, $1 );
@@ -317,7 +317,7 @@ sub readcoll {
         }
 
         while (<C>) {
-            chop;
+            chomp;
 
             @a = split('\|');
             @b = split( /\s+/, $a[6] );
@@ -359,15 +359,11 @@ sub out {
 
     $rdepends //= "";
     $counter++;
-    $pathB = $path;
     my $port_path = $path;
     $port_path =~ s,/usr/ports/,,;
 
-    $pathB =~ s/^$localPrefix/ports/o;
-
     $path     =~ s/^$localPrefix/$remotePrefixFtp/o;
     $descfile =~ s/^$localPrefix/$remotePrefixFtp/o;
-    $version = &encode_url($version);
     $email   = &check_freebsd_mailing_list($email)
       if $enable_check_freebsd_mailing_list;
 
@@ -380,13 +376,13 @@ sub out {
     $descfile =~ s%^$remotePrefixFtp%$remotePrefixRepo/plain%o;
 
     print
-      qq{<dt><b><a name="$version" href="$t">$version</a></b></dt>\n};
+      qq{<dt><b><a name="@{[ &encode_url($version) ]}" href="$t">}, &escapeHTML($version), qq{</a></b></dt>\n};
     print qq{<dd>}, &escapeHTML($comment), qq{<br />\n};
 
-    print qq[<a href="$descfile?revision=HEAD">Description</a>\n];
+    print qq[<a href="$descfile">Description</a>\n];
 
     print qq[<b>:</b> <a href="$l">Commit Log</a>\n];
-    print qq[<b>:</b> <a href="?stype=pkg&amp;query=], escapeHTML($port_path),
+    print qq[<b>:</b> <a href="?stype=pkg&amp;query=], &encode_url($port_path),
       qq[">Packages</a>\n]
       if $enable_packages_link;
 
@@ -844,7 +840,7 @@ sub footer_links {
   <a href="$script_name">home</a>
   @{[ $stype eq "help" ? "" : qq, | <a href="$script_name?stype=help">help</a>, ]}
   | <a href="https://cgit.FreeBSD.org/ports/tree/">git</a>
-  | <a href="https://download.FreeBSD.org/ports/">ftp</a>
+  | <a href="https://download.FreeBSD.org/ports/" title="Ports tree snapshots and INDEX files">download</a>
 </span>
 EOF
 }

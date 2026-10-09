@@ -109,7 +109,6 @@
 * {gallatin}
 * {avg}
 * {tiga}
-* {beat}
 * {sjg}
 * {gibbs}
 * {girgen}
@@ -207,6 +206,7 @@
 * {johalun}
 * {otis}
 * {eri}
+* {lytboris}
 * {rmacklem}
 * {vmaffione}
 * {bmah}
