@@ -18,10 +18,10 @@
           {{- if ge (dateFormat "20060102" .endDate) (dateFormat "20060102" now) -}}
             <p>
               <span class="txtdate">{{- dateFormat "2006-01-02" .startDate -}} - {{- dateFormat "2006-01-02" .endDate -}}</span>
-              <br />
+              <br>
               <a href="{{- if (fileExists $eventsPath) -}}{{- .Site.BaseURL | relLangURL -}}{{- else -}}{{- $.Site.BaseURL -}}{{- end -}}events/#{{- .id -}}">
                 {{- .name -}}
-                <br />
+                <br>
                 {{- if or (.city) (.country) -}}({{- end -}}{{- if .city -}}{{- .city -}},{{- end -}} {{- if .country -}}{{- .country -}}{{- end -}}{{- if or (.city) (.country) -}}){{- end -}}
               </a>
             </p>
@@ -34,6 +34,6 @@
 <div class="feed-source">
   <a href="{{- "events" | relLangURL -}}">{{- i18n "more" -}}</a> |
   <a href="{{- "events/feed.xml" | relURL -}}" title={{- i18n "rss" -}}>
-    <img class="rssimage" src="{{ "images/rss_icon.png" | relURL }}" alt={{ i18n "rss" }} width="27" height="12" />
+    <img class="rssimage" src="{{ "images/rss_icon.png" | relURL }}" alt={{ i18n "rss" }} width="27" height="12">
   </a>
 </div>
